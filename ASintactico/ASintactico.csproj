@@ -47,18 +47,55 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActParsAST.cs" />
     <Compile Include="AST.cs" />
+    <Compile Include="BoolFactorAST.cs" />
+    <Compile Include="CharConstFactorAST.cs" />
+    <Compile Include="CondFactAST.cs" />
+    <Compile Include="ConditionsAST.cs" />
+    <Compile Include="CondTermAST.cs" />
     <Compile Include="DeclarationAST.cs" />
     <Compile Include="ClassDeclAST.cs" />
     <Compile Include="DeclarationsAST.cs" />
+    <Compile Include="DesigAddonAST.cs" />
+    <Compile Include="DesigAddonsAST.cs" />
+    <Compile Include="DesigBasicAST.cs" />
+    <Compile Include="DesigBasicFactorAST.cs" />
+    <Compile Include="DesigComplexAST.cs" />
+    <Compile Include="DesignatorAST.cs" />
+    <Compile Include="DesigPAFactorAST.cs" />
+    <Compile Include="DesigPFactorAST.cs" />
+    <Compile Include="ExprAddonAST.cs" />
+    <Compile Include="ExprAST.cs" />
+    <Compile Include="ExprFactorAST.cs" />
+    <Compile Include="FactorAST.cs" />
+    <Compile Include="IDAddonAST.cs" />
+    <Compile Include="MulCondFactAST.cs" />
+    <Compile Include="MulCondTermAST.cs" />
     <Compile Include="MulDeclAST.cs" />
+    <Compile Include="MulDesigAddonAST.cs" />
+    <Compile Include="MulExprAST.cs" />
+    <Compile Include="MulFactorAST.cs" />
+    <Compile Include="MulTermExprAST.cs" />
+    <Compile Include="MulTermMExprAST.cs" />
+    <Compile Include="NewBasicFactorAST.cs" />
+    <Compile Include="NewEFactorAST.cs" />
+    <Compile Include="NumFactorAST.cs" />
     <Compile Include="parser.cs" />
     <Compile Include="ProgramAST.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Prueba.cs" />
     <Compile Include="sym.cs" />
+    <Compile Include="TermAST.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="UnCondFactAST.cs" />
+    <Compile Include="UnCondTermAST.cs" />
     <Compile Include="UnDeclAST.cs" />
+    <Compile Include="UnDesigAddonAST.cs" />
+    <Compile Include="UnExprAST.cs" />
+    <Compile Include="UnFactorAST.cs" />
+    <Compile Include="UnTermExprAST.cs" />
+    <Compile Include="UnTermMExprAST.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
