@@ -2,7 +2,7 @@
  * Created by SharpDevelop.
  * User: rlibardobj
  * Date: 23/09/2012
- * Time: 08:44 p.m.
+ * Time: 09:54 p.m.
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,14 +11,12 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of UnDeclAST.
+	/// Description of VarDeclarationAST.
 	/// </summary>
-	public class UnDeclAST : DeclarationsAST
+	public class VarDeclarationAST : DeclarationAST
 	{
-		DeclarationAST declaracion;
-		
-		public UnDeclAST(DeclarationAST decl){
-			declaracion=decl;
+		public VarDeclarationAST()
+		{
 		}
 	}
 }

@@ -13,10 +13,15 @@ namespace ASintactico
 	/// <summary>
 	/// Description of MulDeclAST.
 	/// </summary>
-	public class MulDeclAST
+	public class MulDeclAST : DeclarationsAST
 	{
-		public MulDeclAST()
+		DeclarationsAST declaracion;
+		DeclarationsAST declaraciones;
+		
+		public MulDeclAST(DeclarationsAST decl,DeclarationsAST decls)
 		{
+			declaracion=decl;
+			declaraciones=decls;
 		}
 	}
 }
