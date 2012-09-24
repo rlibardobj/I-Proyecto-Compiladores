@@ -19,6 +19,8 @@ public class parser
 	public parser(Scanner s)
 	{
         scanner = s;
+		if (scanner == null)
+			return;
 	}
 
    //Acepta el token
@@ -80,7 +82,26 @@ public class parser
     }
 
     public void parseDecls(){
-    	if (currentToken.sym
+    	if (currentToken.sym==CONST){
+    		parseConstDecl();
+    	}
+    	else if (currentToken.sym==ID){
+    		parseVarDecl();
+    	}
+    	else if (currentToken.sym==CLASS){
+    		parseClassDecl();
+    	}
+    	while ((currentToken.sym==CONST)|(currentToken.sym==ID)|(currentToken.sym==CLASS)){
+    		if (currentToken.sym==CONST){
+    			parseConstDecl();
+    		}
+    		else if (currentToken.sym==ID){
+    			parseVarDecl();
+    		}
+    		else if (currentToken.sym==CLASS){
+    			parseClassDecl();
+    		}
+    	}
     }
 
     public void parseConstDecl()
