@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of ActParsAST.
 	/// </summary>
-	public abstract class ActParsAST
+	public abstract class ActParsAST:AST
 	{
 		public ActParsAST()
 		{

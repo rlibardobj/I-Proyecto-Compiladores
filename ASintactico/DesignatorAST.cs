@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of DesignatorAST.
 	/// </summary>
-	public abstract class DesignatorAST
+	public abstract class DesignatorAST:AST
 	{
 		public DesignatorAST()
 		{

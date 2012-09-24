@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of TermAST.
 	/// </summary>
-	public abstract class TermAST
+	public abstract class TermAST:AST
 	{
 		public TermAST()
 		{

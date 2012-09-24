@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of FactorAST.
 	/// </summary>
-	public abstract class FactorAST
+	public abstract class FactorAST:AST
 	{
 		public FactorAST()
 		{

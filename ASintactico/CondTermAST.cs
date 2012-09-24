@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of CondTerm.
 	/// </summary>
-	public abstract class CondTermAST
+	public abstract class CondTermAST:AST
 	{
 		public CondTermAST()
 		{

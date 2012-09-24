@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of DeclarationAST.
 	/// </summary>
-	public class DeclarationAST
+	public abstract class DeclarationAST:AST
 	{
 		public DeclarationAST()
 		{
