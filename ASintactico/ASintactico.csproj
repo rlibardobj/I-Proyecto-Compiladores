@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="AST.cs" />
     <Compile Include="DeclarationAST.cs" />
+    <Compile Include="ClassDeclAST.cs" />
     <Compile Include="DeclarationsAST.cs" />
     <Compile Include="MulDeclAST.cs" />
     <Compile Include="parser.cs" />
