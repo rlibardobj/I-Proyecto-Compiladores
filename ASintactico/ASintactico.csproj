@@ -53,6 +53,7 @@
     <Compile Include="Prueba.cs" />
     <Compile Include="sym.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="UnDeclAST.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
