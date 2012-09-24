@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AST.cs" />
     <Compile Include="DeclarationsAST.cs" />
+    <Compile Include="MulDeclAST.cs" />
     <Compile Include="parser.cs" />
     <Compile Include="ProgramAST.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
