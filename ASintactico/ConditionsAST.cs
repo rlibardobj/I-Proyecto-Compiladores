@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of Conditions.
 	/// </summary>
-	public class ConditionsAST
+	public abstract class ConditionsAST
 	{
 		public ConditionsAST()
 		{

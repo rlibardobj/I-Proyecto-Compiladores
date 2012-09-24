@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of ExprAST.
 	/// </summary>
-	public class ExprAST
+	public abstract class ExprAST
 	{
 		public ExprAST()
 		{

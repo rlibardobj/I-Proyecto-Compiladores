@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of DesigAddonAST.
 	/// </summary>
-	public class DesigAddonAST
+	public abstract class DesigAddonAST
 	{
 		public DesigAddonAST()
 		{

@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of CondFactAST.
 	/// </summary>
-	public class CondFactAST
+	public abstract class CondFactAST
 	{
 		public CondFactAST()
 		{
