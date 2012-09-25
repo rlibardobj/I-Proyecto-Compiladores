@@ -19,8 +19,6 @@ public class parser
 	public parser(Scanner s)
 	{
         scanner = s;
-		if (scanner == null)
-			return;
 	}
 
    //Acepta el token
@@ -57,8 +55,9 @@ public class parser
            printf("ERROR: Basura al final del archivo");
     }
 
-    public void parseProgram()
+    public ProgramAST parseProgram()
     { 
+    	DeclarationsAST declaraciones;
       //palabra class
       if(currentToken.sym == sym.CLASS)
       {
@@ -67,45 +66,59 @@ public class parser
           if ((currentToken.sym == sym.CONST) | (currentToken.sym == sym.ID) |
               (currentToken.sym == sym.CLASS))
           { 
-          	parseDecls();
+          	declaraciones=parseDecls();
           }
           //Corchete
           accept(sym.CORCHi);
-          while((currentToken.sym == sym.VOID) | (currentToken.sym == sym.ID))// | (currentToken.sym == sym.LLAVEd))
+          /*while((currentToken.sym == sym.VOID) | (currentToken.sym == sym.ID))// | (currentToken.sym == sym.LLAVEd))
           { 
             parseMethodDecl(); //Método Decl
-          }         
+          }*/
           accept(sym.CORCHd);
              
       }
 
     }
 
-    public void parseDecls(){
+    public DeclarationsAST parseDecls(){
+    	DeclarationsAST resultado,temp;
+    	DeclarationAST decl1,decl2;
     	if (currentToken.sym==CONST){
-    		parseConstDecl();
+    		decl1= parseConstDecl();
+    		resultado=new UnDeclAST(decl1);
     	}
     	else if (currentToken.sym==ID){
-    		parseVarDecl();
+    		decl1=parseVarDecl();
+    		resultado=new UnDeclAST(decl1);
     	}
     	else if (currentToken.sym==CLASS){
-    		parseClassDecl();
+    		decl1=parseClassDecl();
+    		resultado=new UnDeclAST(decl1);
     	}
     	while ((currentToken.sym==CONST)|(currentToken.sym==ID)|(currentToken.sym==CLASS)){
     		if (currentToken.sym==CONST){
-    			parseConstDecl();
+    			decl2=parseConstDecl();
+    			temp=new UnDeclAST(decl2);
+    			resultado=new MulDeclAST(resultado,decl2);
     		}
     		else if (currentToken.sym==ID){
-    			parseVarDecl();
+    			decl2=parseVarDecl();
+    			temp=new UnDeclAST(decl2);
+    			resultado=new MulDeclAST(resultado,decl2);
     		}
     		else if (currentToken.sym==CLASS){
-    			parseClassDecl();
+    			decl2=parseClassDecl();
+    			temp=new UnDeclAST(decl2);
+    			resultado=new MulDeclAST(resultado,decl2);
     		}
     	}
+    	return resultado;
     }
 
-    public void parseConstDecl()
+    public DeclarationAST parseConstDecl()
     {
+    	return new ConstDeclAST("constante");
+    	/*
         accept(sym.CONST);
         parseType();
         accept(sym.ID);
@@ -118,11 +131,13 @@ public class parser
         {
            accepit();
         }
+        */
     
     }
 
-    public void parseVarDecl()
+    public DeclarationAST parseVarDecl()
     {
+    	return new VarDeclAST("variable");/*
         parseType();
         accept(sym.ID);//ident
         while (currentToken.sym == sym.COMA)
@@ -131,12 +146,13 @@ public class parser
             accept(sym.ID);//acepta ident
             accept(sym.PyCOMA);//acepta punto y coma
         
-        }
+        }*/
     
     }
 
-    public void parseClassDecl()
+    public DeclarationAST parseClassDecl()
     {
+    	return new ClassDeclAST("clase");/*
         accept(sym.CLASS);
         accept(sym.ID);
         accept(sym.CORCHi);
@@ -144,7 +160,7 @@ public class parser
         {
             parseVarDecl();
         }
-        accept(sym.CORCHd);
+        accept(sym.CORCHd);*/
     }
 
     public void parseMethodDecl()

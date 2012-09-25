@@ -14,7 +14,9 @@ namespace ASintactico
 	/// Description of ProgramDMAST.
 	/// </summary>
 	public class ProgramDMAST : ProgramAST
-	{
+	{ 
+		DeclarationsAST declaraciones;
+		DeclarationsAST metodos;
 		public ProgramDMAST()
 		{
 		}

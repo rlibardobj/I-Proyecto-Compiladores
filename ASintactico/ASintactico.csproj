@@ -66,7 +66,6 @@
     <Compile Include="ClassDeclVAST.cs" />
     <Compile Include="ConstDeclarationAST.cs" />
     <Compile Include="ConstDeclAST.cs" />
-    <Compile Include="DeclarationAST.cs" />
     <Compile Include="DeclarationsAST.cs" />
     <Compile Include="DesigAddonAST.cs" />
     <Compile Include="DesigAddonsAST.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="MethodDeclFAST.cs" />
     <Compile Include="MethodDeclFMAST.cs" />
     <Compile Include="MethodDeclMAST.cs" />
-    <Compile Include="MulDeclAST.cs" />
     <Compile Include="MulFormParsAST.cs" />
     <Compile Include="MulIDVarDeclAST.cs" />
     <Compile Include="MulStatementAST.cs" />
@@ -125,6 +123,7 @@
     <Compile Include="ReadStatAST.cs" />
     <Compile Include="ReturnBasicStatAST.cs" />
     <Compile Include="ReturnEStatAST.cs" />
+    <Compile Include="Scanner.cs" />
     <Compile Include="StatementAST.cs" />
     <Compile Include="StatementsAST.cs" />
     <Compile Include="sym.cs" />
@@ -132,7 +131,6 @@
     <Compile Include="Token.cs" />
     <Compile Include="UnCondFactAST.cs" />
     <Compile Include="UnCondTermAST.cs" />
-    <Compile Include="UnDeclAST.cs" />
     <Compile Include="UnDesigAddonAST.cs" />
     <Compile Include="UnExprAST.cs" />
     <Compile Include="UnFactorAST.cs" />

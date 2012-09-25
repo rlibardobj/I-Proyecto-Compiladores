@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ConstDeclAST : AST
 	{
-		public ConstDeclAST()
+		string value;
+		public ConstDeclAST(string valor)
 		{
+			value=valor;
 		}
 	}
 }

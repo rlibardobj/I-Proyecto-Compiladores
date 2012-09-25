@@ -13,9 +13,9 @@ namespace ASintactico
 	/// <summary>
 	/// Description of Desig__StatAST.
 	/// </summary>
-	public class Desig__StatAST : StatementAST
+	public class DesigplusStatAST : StatementAST
 	{
-		public Desig__StatAST()
+		public DesigplusStatAST()
 		{
 		}
 	}
