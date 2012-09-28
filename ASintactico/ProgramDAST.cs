@@ -15,7 +15,7 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramDAST : ProgramAST
 	{
-		DeclarationsAST declaraciones;
+		public DeclarationsAST declaraciones;
 		public ProgramDAST(DeclarationsAST decls)
 		{
 			declaraciones=decls;

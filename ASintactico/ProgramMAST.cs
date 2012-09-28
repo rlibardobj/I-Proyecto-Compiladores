@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramMAST : ProgramAST
 	{
-		public ProgramMAST()
+		DeclarationsAST metodos;
+		public ProgramMAST(DeclarationsAST meths)
 		{
+			metodos=meths;
 		}
 	}
 }

@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclFMAST : MethodDeclAST
 	{
-		public MethodDeclFMAST()
+		FormParsAST parametros;
+		DeclarationsAST declaraciones;
+		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls)
 		{
+			parametros=par;
+			declaraciones=decls;
 		}
 	}
 }

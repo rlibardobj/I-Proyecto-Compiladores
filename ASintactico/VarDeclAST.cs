@@ -15,10 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public abstract class VarDeclAST : AST
 	{
-		string value;
-		public VarDeclAST(string valor)
+		public VarDeclAST()
 		{
-			value=valor;
 		}
 	}
 }

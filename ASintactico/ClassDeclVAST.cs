@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ClassDeclVAST : ClassDeclAST
 	{
-		public ClassDeclVAST()
+		DeclarationsAST declaraciones;
+		public ClassDeclVAST(DeclarationsAST decls)
 		{
+			declaraciones=decls;
 		}
 	}
 }

@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class UnIDVarDeclAST : VarDeclAST
 	{
-		public UnIDVarDeclAST()
+		TerminalesAST identificador;
+		public UnIDVarDeclAST(TerminalesAST id)
 		{
+			identificador=id;
 		}
 	}
 }

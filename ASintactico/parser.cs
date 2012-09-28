@@ -16,7 +16,7 @@ public class parser
     private Scanner scanner;
 
     //Constructor 
-	public parser(Scanner s)
+	public parser (Scanner s)
 	{
         scanner = s;
 	}
@@ -27,9 +27,11 @@ public class parser
         try
         {
             if (currentToken.sym == expectedKind)
-                currentToken = scanner.next_token();
-            else
-                printf("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym);
+                currentToken = scanner.nextToken();
+            else{
+            	
+            }
+                //printf("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym);
         }
         catch (Exception e)
         { }
@@ -40,7 +42,7 @@ public class parser
     {
         try
         {
-            currentToken = scanner.next_token();
+            currentToken = scanner.nextToken();
         }
         catch (Exception e)
         { }
@@ -51,8 +53,10 @@ public class parser
     {
         acceptit(); //obtiene el primer token
         parseProgram();
-        if (currentToken.sym != sym.EOF)
-           printf("ERROR: Basura al final del archivo");
+        if (currentToken.sym != sym.EOF){
+        	
+        }
+           //printf("ERROR: Basura al final del archivo");
     }
 
     public ProgramAST parseProgram()
@@ -77,39 +81,40 @@ public class parser
           accept(sym.CORCHd);
              
       }
-
+      declaraciones=parseDecls();
+      return new ProgramDAST(declaraciones);
     }
 
     public DeclarationsAST parseDecls(){
-    	DeclarationsAST resultado,temp;
+    	DeclarationsAST resultado=null,temp;
     	DeclarationAST decl1,decl2;
-    	if (currentToken.sym==CONST){
+    	if (currentToken.sym==sym.CONST){
     		decl1= parseConstDecl();
     		resultado=new UnDeclAST(decl1);
     	}
-    	else if (currentToken.sym==ID){
+    	else if (currentToken.sym==sym.ID){
     		decl1=parseVarDecl();
     		resultado=new UnDeclAST(decl1);
     	}
-    	else if (currentToken.sym==CLASS){
+    	else if (currentToken.sym==sym.CLASS){
     		decl1=parseClassDecl();
     		resultado=new UnDeclAST(decl1);
     	}
-    	while ((currentToken.sym==CONST)|(currentToken.sym==ID)|(currentToken.sym==CLASS)){
-    		if (currentToken.sym==CONST){
+    	while ((currentToken.sym==sym.CONST)|(currentToken.sym==sym.ID)|(currentToken.sym==sym.CLASS)){
+    		if (currentToken.sym==sym.CONST){
     			decl2=parseConstDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,decl2);
+    			resultado=new MulDeclAST(resultado,temp);
     		}
-    		else if (currentToken.sym==ID){
+    		else if (currentToken.sym==sym.ID){
     			decl2=parseVarDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,decl2);
+    			resultado=new MulDeclAST(resultado,temp);
     		}
-    		else if (currentToken.sym==CLASS){
+    		else if (currentToken.sym==sym.CLASS){
     			decl2=parseClassDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,decl2);
+    			resultado=new MulDeclAST(resultado,temp);
     		}
     	}
     	return resultado;
@@ -117,7 +122,7 @@ public class parser
 
     public DeclarationAST parseConstDecl()
     {
-    	return new ConstDeclAST("constante");
+    	return new ConstDeclarationAST(new ConstDeclAST("constante"));
     	/*
         accept(sym.CONST);
         parseType();
@@ -137,7 +142,7 @@ public class parser
 
     public DeclarationAST parseVarDecl()
     {
-    	return new VarDeclAST("variable");/*
+    	return new VarDeclarationAST(new UnIDVarDeclAST("variable"));/*
         parseType();
         accept(sym.ID);//ident
         while (currentToken.sym == sym.COMA)
@@ -152,7 +157,7 @@ public class parser
 
     public DeclarationAST parseClassDecl()
     {
-    	return new ClassDeclAST("clase");/*
+    	return new ClassDeclarationAST(new ClassDeclBasicAST("clase"));/*
         accept(sym.CLASS);
         accept(sym.ID);
         accept(sym.CORCHi);
@@ -163,7 +168,7 @@ public class parser
         accept(sym.CORCHd);*/
     }
 
-    public void parseMethodDecl()
+    /*public void parseMethodDecl()
     {
 
         if ((currentToken.sym == sym.ID) )//| (currentToken.sym == sym.LLAVEd))
@@ -206,7 +211,7 @@ public class parser
     public void parseFormPars()
     {
         parseType();
-        accep(sym.ID);
+        accept(sym.ID);
         while (currentToken.sym == sym.COMA)
         {
             acceptit();
@@ -227,7 +232,7 @@ public class parser
     }
 
     //Revizar
-    public void parseStatement()
+    /*public void parseStatement()
     { 
       if(currentToken.sym == sym.ID) //Revizar
       {
@@ -341,18 +346,18 @@ public class parser
       }
     
     }
-
+    
     public void parseBlock()
     {
         accept(sym.CORCHi); //Revizar cond while
-        while ((currentToken.sym == sym.ID) | (currentToken.sym == sym.IF) | (currentToken.sym == sym.FOR) | (currentToken.sym == sym.WHILE) | (currentToken.sym == sym.BREAK) | (currentToken.sym == sym.RETURN) | (currentToken.sym == sym.READ) | (currentToken.sym == sym.WRITE) | (currentToken.sym == sym.CORCi) | (currentToken.sym == sym.PyCOMA))
+        while ((currentToken.sym == sym.ID) | (currentToken.sym == sym.IF) | (currentToken.sym == sym.FOR) | (currentToken.sym == sym.WHILE) | (currentToken.sym == sym.BREAK) | (currentToken.sym == sym.RETURN) | (currentToken.sym == sym.READ) | (currentToken.sym == sym.WRITE) | (currentToken.sym == sym.CORCHi) | (currentToken.sym == sym.PyCOMA))
         {
             parseStatement();
         }
         accept(sym.CORCHd);
-    }
+    }*/
 
-    public void parseActPars()
+    /*public void parseActPars()
     {
         parseExpr();
         while (currentToken.sym == sym.COMA)
@@ -497,6 +502,6 @@ public class parser
         else if (currentToken.sym == sym.DIV) { acceptit(); }
         else if (currentToken.sym == sym.MOD
             ) { accepit(); }
-    }
+    }*/
 }
 }

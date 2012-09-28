@@ -18,12 +18,11 @@ namespace ASintactico
 	{
     	public static void Main(string[] argv)
     	{
-    	Scanner yy = new Scanner(new StreamReader(Console.ReadLine()));
-		Token t;
-		do {
-			t=yy.nextToken();
-			System.Console.WriteLine(t.value);
-		} while (t.type != 43);
+    	parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
+    	ProgramDAST arbol = parsing.parseProgram();
+    	while (arbol.declaraciones!=null){
+    		Console.WriteLine(arbol.declaraciones);
+    	}
 		Console.ReadLine();
 	}
 }

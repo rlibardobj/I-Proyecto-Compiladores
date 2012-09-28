@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class VarDeclarationAST : DeclarationAST
 	{
-		public VarDeclarationAST()
+		VarDeclAST vardeclarationID;
+		public VarDeclarationAST(VarDeclAST declaracion)
 		{
+			vardeclarationID = declaracion;
 		}
 	}
 }

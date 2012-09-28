@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclFAST : MethodDeclAST
 	{
-		public MethodDeclFAST()
+		FormParsAST parametros;
+		public MethodDeclFAST(FormParsAST par)
 		{
+			parametros=par;
 		}
 	}
 }

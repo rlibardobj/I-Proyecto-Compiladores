@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ConstDeclarationAST : DeclarationAST
 	{
-		public ConstDeclarationAST()
+		ConstDeclAST constdeclaration;
+		public ConstDeclarationAST(ConstDeclAST constante)
 		{
+			constdeclaration=constante;
 		}
 	}
 }

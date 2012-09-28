@@ -15,7 +15,7 @@ namespace ASintactico
 	/// </summary>
 	public class UnDeclAST : DeclarationsAST
 	{
-		DeclarationAST declaracion;
+		public DeclarationAST declaracion;
 		
 		public UnDeclAST(DeclarationAST decl){
 			declaracion=decl;

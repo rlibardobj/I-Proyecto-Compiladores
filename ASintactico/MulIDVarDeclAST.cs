@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class MulIDVarDeclAST : VarDeclAST
 	{
-		public MulIDVarDeclAST()
+		VarDeclAST identificador;
+		VarDeclAST identificadores;
+		public MulIDVarDeclAST(VarDeclAST ids,VarDeclAST id)
 		{
+			identificador=id;
+			identificadores=ids;
 		}
 	}
 }

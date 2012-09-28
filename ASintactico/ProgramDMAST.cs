@@ -17,8 +17,10 @@ namespace ASintactico
 	{ 
 		DeclarationsAST declaraciones;
 		DeclarationsAST metodos;
-		public ProgramDMAST()
+		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths)
 		{
+			declaraciones=decls;
+			metodos=meths;
 		}
 	}
 }

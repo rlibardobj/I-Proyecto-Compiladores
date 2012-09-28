@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class MulDeclAST : DeclarationsAST
 	{
-		DeclarationsAST declaracion;
-		DeclarationsAST declaraciones;
+		public DeclarationsAST declaracion;
+		public DeclarationsAST declaraciones;
 		
 		public MulDeclAST(DeclarationsAST decl,DeclarationsAST decls)
 		{

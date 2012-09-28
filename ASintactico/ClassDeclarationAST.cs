@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ClassDeclarationAST : DeclarationAST
 	{
-		public ClassDeclarationAST()
+		ClassDeclAST classdeclaration;
+		public ClassDeclarationAST(ClassDeclAST declaracion)
 		{
+			classdeclaration=declaracion;
 		}
 	}
 }

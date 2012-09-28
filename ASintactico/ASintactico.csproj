@@ -128,6 +128,7 @@
     <Compile Include="StatementsAST.cs" />
     <Compile Include="sym.cs" />
     <Compile Include="TermAST.cs" />
+    <Compile Include="TerminalesAST.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="UnCondFactAST.cs" />
     <Compile Include="UnCondTermAST.cs" />
