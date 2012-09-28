@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class DesigplusStatAST : StatementAST
 	{
-		public DesigplusStatAST()
+		DesignatorAST designator;
+		public DesigplusStatAST(DesignatorAST desig)
 		{
+			designator=desig;
 		}
 	}
 }

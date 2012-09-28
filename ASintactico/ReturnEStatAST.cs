@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ReturnEStatAST : StatementAST
 	{
-		public ReturnEStatAST()
+		ExprAST expresion;
+		public ReturnEStatAST(ExprAST expr)
 		{
+			expresion=expr;
 		}
 	}
 }

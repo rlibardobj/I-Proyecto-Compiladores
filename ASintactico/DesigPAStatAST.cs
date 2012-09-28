@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class DesigPAStatAST : StatementAST
 	{
-		public DesigPAStatAST()
+		DesignatorAST designator;
+		ActParsAST expresion;
+		public DesigPAStatAST(DesignatorAST desig, ActParsAST expr)
 		{
+			designator=desig;
+			expresion=expr;
 		}
 	}
 }

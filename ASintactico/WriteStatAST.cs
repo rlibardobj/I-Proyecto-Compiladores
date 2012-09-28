@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class WriteStatAST : StatementAST
 	{
-		public WriteStatAST()
+		ExprAST expresion;
+		public WriteStatAST(ExprAST expr)
 		{
+			expresion=expr;
 		}
 	}
 }

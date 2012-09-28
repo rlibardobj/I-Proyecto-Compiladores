@@ -15,8 +15,13 @@ namespace ASintactico
 	/// </summary>
 	public class ForEStatAST : StatementAST
 	{
-		public ForEStatAST()
+		ExprAST expresion,expresion1;
+		StatementAST statement;
+		public ForEStatAST(ExprAST expr, ExprAST expr1, StatementAST sta)
 		{
+			statement=sta;
+			expresion=expr;
+			expresion1=expr1;
 		}
 	}
 }

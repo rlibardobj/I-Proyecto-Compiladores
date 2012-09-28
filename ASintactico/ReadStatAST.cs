@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ReadStatAST : StatementAST
 	{
-		public ReadStatAST()
+		DesignatorAST designator;
+		public ReadStatAST(DesignatorAST desig)
 		{
+			designator=desig;
 		}
 	}
 }

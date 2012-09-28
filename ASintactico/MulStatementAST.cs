@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class MulStatementAST : StatementsAST
 	{
-		public MulStatementAST()
+		StatementsAST statement;
+		StatementsAST statements;
+		public MulStatementAST(StatementsAST sta, StatementsAST stas)
 		{
+			statement=sta;
+			statements=stas;
 		}
 	}
 }

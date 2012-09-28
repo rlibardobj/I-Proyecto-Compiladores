@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class MulFormParsAST : FormParsAST
 	{
-		public MulFormParsAST()
+		FormParsAST parametro;
+		FormParsAST parametros;
+		public MulFormParsAST(FormParsAST par,FormParsAST pars)
 		{
+			parametro=par;
+			parametros=pars;
 		}
 	}
 }

@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class WhileStatAST : StatementAST
 	{
-		public WhileStatAST()
+		ConditionsAST condicion;
+		StatementAST statement;
+		public WhileStatAST(ConditionsAST cond, StatementAST sta)
 		{
+			condicion=cond;
+			statement=sta;
 		}
 	}
 }

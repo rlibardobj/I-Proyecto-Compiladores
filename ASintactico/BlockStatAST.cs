@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class BlockStatAST : StatementAST
 	{
-		public BlockStatAST()
+		BlockAST bloque;
+		public BlockStatAST(BlockAST blq)
 		{
+			bloque=blq;
 		}
 	}
 }
