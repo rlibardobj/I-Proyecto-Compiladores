@@ -18,5 +18,9 @@ namespace ASintactico
 		public ProgramAST()
 		{
 		}
+		
+		public object visit(visitor v, object arg){
+			
+		}
 	}
 }

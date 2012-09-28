@@ -146,6 +146,7 @@
     <Compile Include="UnStatementAST.cs" />
     <Compile Include="VarDeclarationAST.cs" />
     <Compile Include="VarDeclAST.cs" />
+    <Compile Include="Visitor.cs" />
     <Compile Include="WhileStatAST.cs" />
     <Compile Include="WriteNStatAST.cs" />
     <Compile Include="WriteStatAST.cs" />
