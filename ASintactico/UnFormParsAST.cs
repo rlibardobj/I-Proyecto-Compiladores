@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class UnFormParsAST : FormParsAST
 	{
-		public UnFormParsAST()
+		TypeAST tipo;
+		TerminalesAST ident;
+		public UnFormParsAST(TerminalesAST id,TypeAST tip)
 		{
+			tipo=tip;
+			ident=id;
 		}
 	}
 }

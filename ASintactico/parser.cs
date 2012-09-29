@@ -122,101 +122,140 @@ public class parser
 
     public DeclarationAST parseConstDecl()
     {
-    	return new ConstDeclarationAST(new ConstDeclAST("constante"));
-    	/*
+    	TypeAST tipo;
         accept(sym.CONST);
-        parseType();
+        tipo=parseType();
         accept(sym.ID);
         accept(sym.ASIGN);
         if (currentToken.sym == sym.NUM)
         { 
-           accepit();
+        	return new ConstDeclAST(tipo,currentToken.value);
         }
         else if(currentToken.sym == sym.CHAR)
         {
-           accepit();
+        	return new ConstDeclAST(tipo,currentToken.value);
         }
-        */
     
     }
 
     public DeclarationAST parseVarDecl()
     {
-    	return new VarDeclarationAST(new UnIDVarDeclAST("variable"));/*
-        parseType();
-        accept(sym.ID);//ident
+    	DeclarationsAST resultado=null, temp=null;
+    	TypeAST tipo;
+       	tipo= parseType();
+       	if (currentToken.sym.sym==sym.ID){
+       		resultado=new VarDeclUnIDAST(new IDAST(currentToken.value),tipo);
+       	}
+       	acceptit();
         while (currentToken.sym == sym.COMA)
         {
             acceptit(); //acepta coma
-            accept(sym.ID);//acepta ident
-            accept(sym.PyCOMA);//acepta punto y coma
-        
-        }*/
-    
+            if (currentToken.sym==sym.ID){
+            	temp=new VarDeclUnIDAST(new IDAST(currentToken.value),tipo);
+            }
+            resultado=new VarDeclMulIDAST(resultado,temp);
+            acceptit();//acepta ident        
+        }
+        accept(sym.PyCOMA);
+		return resultado;        
     }
 
     public DeclarationAST parseClassDecl()
     {
-    	return new ClassDeclarationAST(new ClassDeclBasicAST("clase"));/*
+    	TerminalesAST ident;
+    	DeclarationsAST declaraciones=null,temp=null;
         accept(sym.CLASS);
-        accept(sym.ID);
+        if (currentToken.sym.sym==sym.ID){
+        	ident=new IDAST(currentToken.value);
+       	}
+        acceptit();
         accept(sym.CORCHi);
+        if (currentToken.sym.sym==sym.ID){
+        	delcaraciones=new UnDeclAST(parseVarDecl());
+       	}
         while ((currentToken.sym == sym.ID) )//| (currentToken.sym == sym.LLAVEd))
         {
-            parseVarDecl();
+        	declaraciones=new MulDeclAST (new UnDeclAST(parseVarDecl()),declaraciones);
         }
-        accept(sym.CORCHd);*/
+        accept(sym.CORCHd);
+        if (declaraciones==null){
+        	return new ClassDeclBasicAST(ident);
+        }
+        else
+        	return new ClassDeclVAST(declaraciones,ident);
     }
 
-    /*public void parseMethodDecl()
+    public DeclarationAST parseMethodDecl()
     {
-
-        if ((currentToken.sym == sym.ID) )//| (currentToken.sym == sym.LLAVEd))
+    	BlockAST bloque;
+    	FormParsAST parametros;
+    	DeclarationsAST declaraciones;
+    	TerminalesAST ident;
+    	TypeAST tipo;
+        if ((currentToken.sym == sym.ID))
         {
-            acceptit();
-            accept(sym.ID);
-            while(currentToken.sym == sym.PARENi)
-            {
-                acceptit();
-                parseFormPars();
-                accept(sym.PARENd);
-            }
-            while(currentToken.sym == sym.ID)
-            {
-             parseVarDecl();
-            }
-            parseBlock();
-
+        	tipo=parseType();
         }
-        else if (currentToken.sym == sym.VOID)
-        {
+        else if(currentToken.sym==sym.VOID){
+        	tipo=new TypeBasicAST();
+        	acceptit();
+        }
+            if (currentToken.sym.sym==sym.ID){
+            	ident=new IDAST(currentToken.value);
+       		}
             acceptit();
-            accept(sym.ID);
-            while (currentToken.sym == sym.PARENi)
+            accept(sym.PARENi);
+            if (currentToken.sym==sym.ID){
+            	parametros=parseFormPars;
+            }
+            accept(sym.PARENd);
+            if(currentToken.sym == sym.ID)
             {
-                acceptit();
-                parseFormPars();
-                accept(sym.PARENd);
+            	declaraciones=new UnDeclAST(parseVarDecl());
             }
             while (currentToken.sym == sym.ID)
             {
-                parseVarDecl();
+            	declaraciones=new MulDeclAST(parseVarDecl(),declaraciones);
             }
-            parseBlock();
-        
-        }
-    
-    }
+            bloque=parseBlock();
+            if (parametros!=null){
+            	if (declaraciones!=null){
+            		return new MethodDeclFMAST(parametros,declaraciones,tipo,ident);
+            	}
+            	else{
+            		return new MethodDeclFAST(parametros,tipo,ident);
+            	}
+            }
+            else{
+            	if (declaraciones!=null){
+            		return new MethodDeclMAST(declaraciones,tipo,ident);
+            	}
+            	else{
+            		return new MethodDeclBasicAST(tipo,ident);
+            	}
+            } 
+}
 
-    public void parseFormPars()
+    public FormParsAST parseFormPars()
     {
-        parseType();
-        accept(sym.ID);
+    	FormParsAST parametros=null, temp;
+    	TypeAST tipo;
+    	IDAST ident;
+        tipo=parseType();
+        if (currentToken.sym==sym.ID){
+        	ident=new IDAST(currentToken.value);
+        	accept(sym.ID);
+        	parametros=new UnFormParsAST(ident,tipo);
+        }
         while (currentToken.sym == sym.COMA)
         {
             acceptit();
-            parseType();
-            accept(sym.ID);
+            tipo=parseType();
+            if (currentToken.sym==sym.ID){
+            	ident=new IDAST(currentToken.value);
+        		accept(sym.ID);
+            }
+            parametros=new MulFormParsAST(new UnFormParsAST(ident,tipo),parametros);
         }
     }
 

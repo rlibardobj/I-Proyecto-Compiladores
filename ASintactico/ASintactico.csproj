@@ -50,6 +50,7 @@
     <Compile Include="ActParsAST.cs" />
     <Compile Include="AST.cs" />
     <Compile Include="BoolFactorAST.cs" />
+    <Compile Include="CHARAST.cs" />
     <Compile Include="CharConstFactorAST.cs" />
     <Compile Include="CondFactAST.cs" />
     <Compile Include="ConditionsAST.cs" />
@@ -60,10 +61,8 @@
     <Compile Include="BlockSAST.cs" />
     <Compile Include="BlockStatAST.cs" />
     <Compile Include="BreakStatAST.cs" />
-    <Compile Include="ClassDeclarationAST.cs" />
     <Compile Include="ClassDeclBasicAST.cs" />
     <Compile Include="ClassDeclVAST.cs" />
-    <Compile Include="ConstDeclarationAST.cs" />
     <Compile Include="ConstDeclAST.cs" />
     <Compile Include="DeclarationsAST.cs" />
     <Compile Include="DesigAddonAST.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="ExprFactorAST.cs" />
     <Compile Include="FactorAST.cs" />
     <Compile Include="IDAddonAST.cs" />
+    <Compile Include="IDAST.cs" />
     <Compile Include="MulCondFactAST.cs" />
     <Compile Include="MulCondTermAST.cs" />
     <Compile Include="MulDeclAST.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="MulTermMExprAST.cs" />
     <Compile Include="NewBasicFactorAST.cs" />
     <Compile Include="NewEFactorAST.cs" />
+    <Compile Include="NUMAST.cs" />
     <Compile Include="NumFactorAST.cs" />
     <Compile Include="Desig++StatAST.cs" />
     <Compile Include="Desig--StatAST.cs" />
@@ -101,7 +102,6 @@
     <Compile Include="FormParsAST.cs" />
     <Compile Include="IfElseStatAST.cs" />
     <Compile Include="IfStatAST.cs" />
-    <Compile Include="MethodDeclarationAST.cs" />
     <Compile Include="MethodDeclBasicAST.cs" />
     <Compile Include="MethodDeclFAST.cs" />
     <Compile Include="MethodDeclFMAST.cs" />

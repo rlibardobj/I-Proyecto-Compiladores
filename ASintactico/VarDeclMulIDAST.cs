@@ -13,11 +13,11 @@ namespace ASintactico
 	/// <summary>
 	/// Description of MulIDVarDeclAST.
 	/// </summary>
-	public class MulIDVarDeclAST : DeclarationAST
+	public class VarDeclMulIDAST : DeclarationAST
 	{
 		DeclarationAST identificador;
 		DeclarationAST identificadores;
-		public MulIDVarDeclAST(DeclarationAST ids,DeclarationAST id)
+		public VarDeclMulIDAST(DeclarationAST ids,DeclarationAST id)
 		{
 			identificador=id;
 			identificadores=ids;

@@ -1,8 +1,8 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: rlibardobj
- * Date: 23/09/2012
- * Time: 09:57 p.m.
+ * Date: 29/09/2012
+ * Time: 04:49 p.m.
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,16 +11,14 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of ConstDeclAST.
+	/// Description of IDAST.
 	/// </summary>
-	public class ConstDeclAST : AST
+	public class IDAST : TerminalesAST
 	{
-		string value;
-		TypeAST tipo;
-		public ConstDeclAST(TypeAST tip, string valor)
+		string ident;
+		public IDAST(string id)
 		{
-			value=valor;
-			tipo=tip;
+			ident=id;
 		}
 	}
 }

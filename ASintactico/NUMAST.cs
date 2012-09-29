@@ -1,8 +1,8 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: rlibardobj
- * Date: 23/09/2012
- * Time: 09:56 p.m.
+ * Date: 29/09/2012
+ * Time: 04:52 p.m.
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,12 +11,14 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of MethodDeclarationAST.
+	/// Description of NUMAST.
 	/// </summary>
-	public class MethodDeclarationAST : DeclarationAST
+	public class NUMAST : TerminalesAST
 	{
-		public MethodDeclarationAST()
+		string num;
+		public NUMAST(string n)
 		{
+			num=n;
 		}
 	}
 }
