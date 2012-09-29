@@ -15,8 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class NewEFactorAST:FactorAST
 	{
-		public NewEFactorAST()
+		TerminalesAST ident;
+		ExprAST expresion;
+		public NewEFactorAST(ExprAST expr, TerminalesAST id)
 		{
+			expresion=expr;
+			ident=id;
 		}
 	}
 }

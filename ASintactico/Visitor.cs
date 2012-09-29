@@ -16,10 +16,10 @@ namespace ASintactico
 	/// </summary>
 	public interface Visitor
 	{
-		public object VisitProgramBasic(ProgramBasic v,object arg);
-		public object VisitProgramD(ProgramDAST v,object arg);
-		public object VisitProgramDM(ProgramDMAST v,object arg);
-		public object VisitProgramM(ProgramMAST v,object arg);
-		public object VisitUnDeclAST(UnDeclAST v,object arg);
+		object VisitProgramBasic(ProgramBasic v,object arg);
+		object VisitProgramD(ProgramDAST v,object arg);
+		object VisitProgramDM(ProgramDMAST v,object arg);
+		object VisitProgramM(ProgramMAST v,object arg);
+		object VisitUnDeclAST(UnDeclAST v,object arg);
 	}
 }

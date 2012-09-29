@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of ClassDeclVAST.
 	/// </summary>
-	public class ClassDeclVAST : ClassDeclAST
+	public class ClassDeclVAST : DeclarationAST
 	{
 		DeclarationsAST declaraciones;
 		public ClassDeclVAST(DeclarationsAST decls)

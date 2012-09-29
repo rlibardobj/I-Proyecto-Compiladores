@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of MethodDeclFAST.
 	/// </summary>
-	public class MethodDeclFAST : MethodDeclAST
+	public class MethodDeclFAST : DeclarationAST
 	{
 		FormParsAST parametros;
 		public MethodDeclFAST(FormParsAST par)

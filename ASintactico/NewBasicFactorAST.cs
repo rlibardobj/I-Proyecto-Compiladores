@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class NewBasicFactorAST:FactorAST
 	{
-		public NewBasicFactorAST()
+		TerminalesAST ident;
+		public NewBasicFactorAST(TerminalesAST id)
 		{
+			ident=id;
 		}
 	}
 }

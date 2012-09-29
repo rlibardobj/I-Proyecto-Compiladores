@@ -18,5 +18,9 @@ namespace ASintactico
 		public ProgramBasic()
 		{
 		}
-	}
+		
+		public override object visit(Visitor v,object arg){
+			
+		}
+	} 
 }

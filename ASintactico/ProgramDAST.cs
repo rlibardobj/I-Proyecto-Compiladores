@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			declaraciones=decls;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			
+		}
 	}
 }

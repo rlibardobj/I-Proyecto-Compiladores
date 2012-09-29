@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of ClassDeclBasicAST.
 	/// </summary>
-	public class ClassDeclBasicAST : ClassDeclAST
+	public class ClassDeclBasicAST : DeclarationAST
 	{
 		public ClassDeclBasicAST()
 		{

@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			metodos=meths;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			
+		}
 	}
 }

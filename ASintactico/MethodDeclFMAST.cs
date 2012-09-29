@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of MethodDeclFMAST.
 	/// </summary>
-	public class MethodDeclFMAST : MethodDeclAST
+	public class MethodDeclFMAST : DeclarationAST
 	{
 		FormParsAST parametros;
 		DeclarationsAST declaraciones;

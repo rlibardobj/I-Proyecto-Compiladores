@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of MethodDeclMAST.
 	/// </summary>
-	public class MethodDeclMAST : MethodDeclAST
+	public class MethodDeclMAST : DeclarationAST
 	{
 		DeclarationsAST declaraciones;
 		public MethodDeclMAST(DeclarationsAST decls)

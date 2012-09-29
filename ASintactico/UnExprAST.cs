@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class UnExprAST:ActParsAST
 	{
-		public UnExprAST()
+		ExprAST expresion;
+		public UnExprAST(ExprAST expr)
 		{
+			expresion=expr;
 		}
 	}
 }

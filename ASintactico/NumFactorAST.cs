@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class NumFactorAST:FactorAST
 	{
-		public NumFactorAST()
+		TerminalesAST num;
+		public NumFactorAST(TerminalesAST n)
 		{
+			num=n;
 		}
 	}
 }

@@ -61,7 +61,6 @@
     <Compile Include="BlockStatAST.cs" />
     <Compile Include="BreakStatAST.cs" />
     <Compile Include="ClassDeclarationAST.cs" />
-    <Compile Include="ClassDeclAST.cs" />
     <Compile Include="ClassDeclBasicAST.cs" />
     <Compile Include="ClassDeclVAST.cs" />
     <Compile Include="ConstDeclarationAST.cs" />
@@ -103,13 +102,12 @@
     <Compile Include="IfElseStatAST.cs" />
     <Compile Include="IfStatAST.cs" />
     <Compile Include="MethodDeclarationAST.cs" />
-    <Compile Include="MethodDeclAST.cs" />
     <Compile Include="MethodDeclBasicAST.cs" />
     <Compile Include="MethodDeclFAST.cs" />
     <Compile Include="MethodDeclFMAST.cs" />
     <Compile Include="MethodDeclMAST.cs" />
     <Compile Include="MulFormParsAST.cs" />
-    <Compile Include="MulIDVarDeclAST.cs" />
+    <Compile Include="VarDeclMulIDAST.cs" />
     <Compile Include="MulStatementAST.cs" />
     <Compile Include="parser.cs" />
     <Compile Include="ProgramAST.cs" />
@@ -142,10 +140,8 @@
     <Compile Include="TypeCAST.cs" />
     <Compile Include="UnDeclAST.cs" />
     <Compile Include="UnFormParsAST.cs" />
-    <Compile Include="UnIDVarDeclAST.cs" />
+    <Compile Include="VarDeclUnIDAST.cs" />
     <Compile Include="UnStatementAST.cs" />
-    <Compile Include="VarDeclarationAST.cs" />
-    <Compile Include="VarDeclAST.cs" />
     <Compile Include="Visitor.cs" />
     <Compile Include="WhileStatAST.cs" />
     <Compile Include="WriteNStatAST.cs" />

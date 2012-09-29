@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class UnDesigAddonAST:DesigAddonsAST
 	{
-		public UnDesigAddonAST()
+		DesigAddonAST addon;
+		public UnDesigAddonAST(DesigAddonAST addo)
 		{
+			addon=addo;
 		}
 	}
 }

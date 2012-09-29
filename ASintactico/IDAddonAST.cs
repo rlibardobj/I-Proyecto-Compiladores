@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class IDAddonAST:DesigAddonAST
 	{
-		public IDAddonAST()
+		TerminalesAST ident;
+		public IDAddonAST(TerminalesAST id)
 		{
+			ident=id;
 		}
 	}
 }

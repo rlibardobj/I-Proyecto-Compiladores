@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class DesigBasicFactorAST:FactorAST
 	{
-		public DesigBasicFactorAST()
+		DesignatorAST desig;
+		public DesigBasicFactorAST(DesignatorAST des)
 		{
+			desig=des;
 		}
 	}
 }
