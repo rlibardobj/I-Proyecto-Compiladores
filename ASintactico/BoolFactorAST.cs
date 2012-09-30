@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class BoolFactorAST:FactorAST
 	{
-		TerminalesAST boolf;
-		public BoolFactorAST(TerminalesAST bol)
+		BOOLAST boolf;
+		public BoolFactorAST(BOOLAST bol)
 		{
 			boolf=bol;
 		}

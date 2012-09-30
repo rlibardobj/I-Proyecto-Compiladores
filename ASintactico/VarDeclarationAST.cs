@@ -1,6 +1,6 @@
 ﻿/*
  * Created by SharpDevelop.
- * User: HMSS
+ * User: rlibardobj
  * Date: 23/09/2012
  * Time: 09:54 p.m.
  * 
@@ -11,18 +11,14 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of IDAddonAST.
+	/// Description of VarDeclarationAST.
 	/// </summary>
-	public class IDAddonAST:DesigAddonAST
+	public class VarDeclarationAST : DeclarationAST
 	{
-		IDAST ident;
-		public IDAddonAST(IDAST id)
+		VarDeclAST vardeclarationID;
+		public VarDeclarationAST(VarDeclAST declaracion)
 		{
-			ident=id;
-		}
-		
-		public override object visit(Visitor v,object arg){
-			return v.VisitIDAddon(this,arg);
+			vardeclarationID = declaracion;
 		}
 	}
 }

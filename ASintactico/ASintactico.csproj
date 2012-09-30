@@ -50,6 +50,7 @@
     <Compile Include="ActParsAST.cs" />
     <Compile Include="ADDOPAST.cs" />
     <Compile Include="AST.cs" />
+    <Compile Include="BOOLAST.cs" />
     <Compile Include="BoolFactorAST.cs" />
     <Compile Include="CHARAST.cs" />
     <Compile Include="CharConstFactorAST.cs" />
@@ -111,8 +112,10 @@
     <Compile Include="MethodDeclFMAST.cs" />
     <Compile Include="MethodDeclMAST.cs" />
     <Compile Include="MulFormParsAST.cs" />
+    <Compile Include="PyCOMAAST.cs" />
     <Compile Include="RELOPAST.cs" />
     <Compile Include="PrettyPrintAST.cs" />
+    <Compile Include="UnDesigAddonAST.cs" />
     <Compile Include="VarDeclMulIDAST.cs" />
     <Compile Include="MulStatementAST.cs" />
     <Compile Include="parser.cs" />
@@ -136,7 +139,6 @@
     <Compile Include="Token.cs" />
     <Compile Include="UnCondFactAST.cs" />
     <Compile Include="UnCondTermAST.cs" />
-    <Compile Include="UnDesigAddonAST.cs" />
     <Compile Include="UnExprAST.cs" />
     <Compile Include="UnFactorAST.cs" />
     <Compile Include="UnTermExprAST.cs" />

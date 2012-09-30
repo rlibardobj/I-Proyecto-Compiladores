@@ -16,8 +16,9 @@ namespace ASintactico
 	public class DesigminusStatAST : StatementAST
 	{
 		DesignatorAST designator;
-		public DesigminusStatAST()
+		public DesigminusStatAST(DesignatorAST des)
 		{
+			designator=des;
 		}
 		
 		public override object visit(Visitor v,object arg){
