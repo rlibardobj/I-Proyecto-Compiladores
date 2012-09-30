@@ -33,7 +33,13 @@ namespace ASintactico
 	    object VisitMethodDeclFMAST(MethodDeclFMAST v,object arg);
 	    object VisitMethodDeclMAST(MethodDeclMAST v,object arg);
 	    object VisitMethodDeclBasicAST(MethodDeclBasicAST v,object arg);
-	    // no veo MulIdentV y UnIdentV
+	    //Terminales
+	    object VisitIDAST(IDAST v,object arg);
+	    object VisitRELOPAST(RELOPAST v,object arg);
+	    object VisitNUMAST(NUMAST v,object arg);
+	    object VisitMULOPAST(MULOPAST v,object arg);
+	    object VisitCHARAST(CHARAST v,object arg);
+	    object VisitADDOPAST(ADDOPAST v,object arg);
 	    //FormPars
 	    object VisitUnFormParsAST(UnFormParsAST v,object arg);
 	    object VisitMulFormParsAST(MulFormParsAST v,object arg);
@@ -69,6 +75,8 @@ namespace ASintactico
 	    //CondTerm
 	    object VisitUnCondFactAST(UnCondFactAST v,object arg);
 	    object VisitMulCondFactAST(MulCondFactAST v,object arg);
+	    //CondFact
+	    object VisitConditionAST(ConditionAST v,object arg);
 	    //Conditions
 	    object VisitUnCondTermAST(UnCondTermAST v,object arg);
 	    object VisitMulCondTermAST(MulCondTermAST v,object arg);
@@ -102,7 +110,7 @@ namespace ASintactico
 	    //DesigAddon
 	    object VisitExprAddonAST(ExprAddonAST v,object arg);
 	    object VisitIDAddon(IDAddonAST v,object arg);
-	
+	  
 	
 	}
 }

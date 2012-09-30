@@ -30,8 +30,8 @@ namespace ASintactico
 		public void printtab(int n)
         {
           for(int num=n; num != 0; num--)
-          {  System.out.print("+++");
-             System.out.print(">");
+          {  Console.WriteLine("+++");
+             Console.WriteLine(">");
           }
         }
 		

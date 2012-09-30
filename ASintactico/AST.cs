@@ -18,5 +18,6 @@ namespace ASintactico
 		public AST()
 		{
 		}
+	    public abstract object visit(Visitor v, object arg);
 	}
 }
