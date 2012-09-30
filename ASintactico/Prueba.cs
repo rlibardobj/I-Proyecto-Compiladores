@@ -20,10 +20,7 @@ namespace ASintactico
     	{
     	parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
     	ProgramAST arbol;
-    	while (true){
-    		Console.WriteLine("");
-    	}
-		Console.ReadLine();
+    	arbol=parsing.parseProgram();
 	}
 }
 }
