@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			value=valor;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return null;
+		}
 	}
 }
