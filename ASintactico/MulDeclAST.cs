@@ -23,5 +23,9 @@ namespace ASintactico
 			declaracion=decl;
 			declaraciones=decls;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitMulDeclAST(this,arg);
+		}
 	}
 }

@@ -19,5 +19,9 @@ namespace ASintactico
 		public DesigminusStatAST()
 		{
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDesigminusStatAST(this,arg);
+		}
 	}
 }

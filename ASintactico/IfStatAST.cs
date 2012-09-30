@@ -22,5 +22,9 @@ namespace ASintactico
 			statement=sta;
 			condicion=cond;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitIfStatAST(this,arg);
+		}
 	}
 }

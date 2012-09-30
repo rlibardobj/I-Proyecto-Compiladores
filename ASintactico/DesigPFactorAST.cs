@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			desig=des;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDesigPFactorAST(this,arg);
+		}
 	}
 }

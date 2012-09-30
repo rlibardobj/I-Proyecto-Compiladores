@@ -22,5 +22,9 @@ namespace ASintactico
 			identificador=id;
 			identificadores=ids;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDeclMulIDAST(this,arg);
+		}
 	}
 }

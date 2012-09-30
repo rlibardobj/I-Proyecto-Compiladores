@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			expresion=expr;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitUnExprAST(this,arg);
+		}
 	}
 }

@@ -21,5 +21,9 @@ namespace ASintactico
 			fac=fa;
 			facs=fas;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitMulFactorAST(this,arg);
+		}
 	}
 }

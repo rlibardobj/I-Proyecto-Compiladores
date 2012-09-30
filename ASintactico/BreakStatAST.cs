@@ -18,5 +18,9 @@ namespace ASintactico
 		public BreakStatAST()
 		{
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitBreakStatAST(this,arg);
+		}
 	}
 }

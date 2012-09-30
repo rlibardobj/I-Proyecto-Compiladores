@@ -22,5 +22,9 @@ namespace ASintactico
 			parametro=par;
 			parametros=pars;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitMulFormParsAST(this,arg);
+		}
 	}
 }

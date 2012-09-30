@@ -22,5 +22,9 @@ namespace ASintactico
 			pars=par;
 			desig=des;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDesigPAFactorAST(this,arg);
+		}
 	}
 }

@@ -112,6 +112,7 @@
     <Compile Include="MethodDeclMAST.cs" />
     <Compile Include="MulFormParsAST.cs" />
     <Compile Include="RELOPAST.cs" />
+    <Compile Include="PrettyPrintAST.cs" />
     <Compile Include="VarDeclMulIDAST.cs" />
     <Compile Include="MulStatementAST.cs" />
     <Compile Include="parser.cs" />

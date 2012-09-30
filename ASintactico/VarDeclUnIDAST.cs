@@ -22,5 +22,9 @@ namespace ASintactico
 			identificador=id;
 			tipo=tip;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDeclUnIDAST(this,arg);
+		}
 	}
 }

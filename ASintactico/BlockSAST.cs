@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			statement = sta;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitBlockSAST(this,arg);
+		}
 	}
 }

@@ -22,5 +22,9 @@ namespace ASintactico
 			condterm=cond;
 			condterms=conds;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitMulCondTermAST(this,arg);
+		}
 	}
 }

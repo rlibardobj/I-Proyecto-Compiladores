@@ -22,5 +22,9 @@ namespace ASintactico
 			ident=id;
 			addon=addo;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDesigComplexAST(this,arg);
+		}
 	}
 }

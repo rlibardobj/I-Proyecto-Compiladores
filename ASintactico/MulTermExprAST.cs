@@ -21,5 +21,9 @@ namespace ASintactico
 			term=ter;
 			terms=ters;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitMulTermExprAST(this,arg);
+		}
 	}
 }

@@ -22,5 +22,9 @@ namespace ASintactico
 			ident=id;
 			tipo=tip;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitMethodDeclBasicAST(this,arg);
+		}
 	}
 }

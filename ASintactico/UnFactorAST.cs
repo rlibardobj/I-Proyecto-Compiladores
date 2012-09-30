@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			factor=fac;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitUnFactorAST(this,arg);
+		}
 	}
 }

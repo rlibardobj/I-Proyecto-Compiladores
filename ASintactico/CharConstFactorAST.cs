@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			charconst=charc;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitCharConstFactorAST(this,arg);
+		}
 	}
 }

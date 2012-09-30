@@ -23,5 +23,9 @@ namespace ASintactico
 			expresion=expr;
 			expresion1=expr1;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitForEStatAST(this,arg);
+		}
 	}
 }

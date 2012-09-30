@@ -24,5 +24,9 @@ namespace ASintactico
 			ifstatement=ifs;
 			elsestatement=elses;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitIfElseStatAST(this,arg);
+		}
 	}
 }
