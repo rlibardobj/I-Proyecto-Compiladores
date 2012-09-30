@@ -50,6 +50,7 @@
     <Compile Include="ActParsAST.cs" />
     <Compile Include="ADDOPAST.cs" />
     <Compile Include="AST.cs" />
+    <Compile Include="BOOLAST.cs" />
     <Compile Include="BoolFactorAST.cs" />
     <Compile Include="CHARAST.cs" />
     <Compile Include="CharConstFactorAST.cs" />
