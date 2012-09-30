@@ -1,8 +1,8 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: rlibardobj
- * Date: 23/09/2012
- * Time: 10:26 p.m.
+ * Date: 30/09/2012
+ * Time: 03:05 p.m.
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,18 +11,18 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of ClassDeclBasicAST.
+	/// Description of BOOLAST.
 	/// </summary>
-	public class ClassDeclBasicAST : DeclarationAST
+	public class BOOLAST:TerminalesAST
 	{
-		TerminalesAST ident;
-		public ClassDeclBasicAST(TerminalesAST id)
+		string value;
+		public BOOLAST(string valor)
 		{
-			ident=id;
+			value=valor;
 		}
 		
 		public override object visit(Visitor v,object arg){
-			return v.VisitClassDeclBasicAST(this,arg);
+			return null;
 		}
 	}
 }

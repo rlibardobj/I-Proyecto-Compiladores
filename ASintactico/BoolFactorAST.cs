@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			boolf=bol;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitBoolFactorAST(this,arg);
+		}
 	}
 }

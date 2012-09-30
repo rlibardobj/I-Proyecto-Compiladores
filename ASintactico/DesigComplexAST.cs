@@ -15,12 +15,16 @@ namespace ASintactico
 	/// </summary>
 	public class DesigComplexAST:DesignatorAST
 	{
-		TerminalesAST ident;
+		IDAST ident;
 		DesigAddonsAST addon;
-		public DesigComplexAST(DesigAddonsAST addo, TerminalesAST id)
+		public DesigComplexAST(DesigAddonsAST addo, IDAST id)
 		{
 			ident=id;
 			addon=addo;
+		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDesigComplexAST(this,arg);
 		}
 	}
 }

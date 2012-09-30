@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			addon=addo;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitUnDesigAddonAST(this,arg);
+		}
 	}
 }

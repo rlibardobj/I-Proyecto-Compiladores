@@ -22,5 +22,9 @@ namespace ASintactico
 			expresion=expr;
 			statement=sta;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitForBasicStatAST(this,arg);
+		}
 	}
 }

@@ -18,5 +18,6 @@ namespace ASintactico
 		public ConditionsAST()
 		{
 		}
+	
 	}
 }

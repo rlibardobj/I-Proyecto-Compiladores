@@ -22,5 +22,9 @@ namespace ASintactico
 			value=valor;
 			tipo=tip;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitConstDeclAST(this,arg);
+		}
 	}
 }

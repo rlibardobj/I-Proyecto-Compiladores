@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			num=n;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitNumFactorAST(this,arg);
+		}
 	}
 }

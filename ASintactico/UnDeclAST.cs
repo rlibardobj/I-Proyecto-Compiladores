@@ -19,6 +19,12 @@ namespace ASintactico
 		
 		public UnDeclAST(DeclarationAST decl){
 			declaracion=decl;
-		}
+	}
+		
+		
+	public override object visit(Visitor v,object arg){
+			return v.VisitUnDeclAST(this,arg);
+		}	
+		
 	}
 }

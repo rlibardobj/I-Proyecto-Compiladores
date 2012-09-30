@@ -18,5 +18,7 @@ namespace ASintactico
 		public DesignatorAST()
 		{
 		}
+		
+		
 	}
 }

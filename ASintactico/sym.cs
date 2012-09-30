@@ -61,6 +61,8 @@ namespace ASintactico
   		public static int EOF = 43;
 		public static int FOR = 44;
 		public static int MOD = 45;
+		public static int TRUE = 46;
+		public static int FALSE = 47;
 
 		public sym()
 		{

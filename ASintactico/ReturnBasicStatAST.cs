@@ -18,5 +18,9 @@ namespace ASintactico
 		public ReturnBasicStatAST()
 		{
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitReturnBasicStatAST(this,arg);
+		}
 	}
 }

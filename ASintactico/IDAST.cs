@@ -20,5 +20,8 @@ namespace ASintactico
 		{
 			ident=id;
 		}
+		public override object visit(Visitor v,object arg){
+			return v.VisitIDAST(this,arg);
+		}
 	}
 }

@@ -22,5 +22,9 @@ namespace ASintactico
 			declaraciones=decls;
 			ident=id;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitClassDeclVAST(this,arg);
+		}
 	}
 }

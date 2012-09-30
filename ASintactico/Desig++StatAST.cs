@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			designator=desig;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitDesigplusStatAST(this,arg);
+		}
 	}
 }

@@ -18,5 +18,9 @@ namespace ASintactico
 		public BlockBasicAST()
 		{
 		}
+		
+	public override object visit(Visitor v,object arg){
+		return v.VisitBlockBasicAST(this,arg);
+		}
 	}
 }

@@ -20,5 +20,10 @@ namespace ASintactico
 		{
 			pycoma=py;
 		}
+		
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitPyComaStatAST(this,arg);
+		}
 	}
 }

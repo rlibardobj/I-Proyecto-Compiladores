@@ -23,5 +23,8 @@ namespace ASintactico
 			expr=exp;
 			expr1=exp1;
 		}
+		public override object visit(Visitor v,object arg){
+			return v.VisitConditionAST(this,arg);
+		}
 	}
 }

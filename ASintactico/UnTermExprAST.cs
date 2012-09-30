@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			term = ter;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitUnTermExprAST(this,arg);
+		}
 	}
 }

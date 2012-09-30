@@ -337,7 +337,7 @@ public class parser
       else if(currentToken.sym == sym.IF)
       {
       	ConditionsAST cond=null;
-      	StatementAST ifsta,elsesta;
+      	StatementAST ifsta=null,elsesta=null;
         acceptit();
         accept(sym.PARENi);
         cond=parseConditions();
@@ -357,7 +357,7 @@ public class parser
       }
       else if(currentToken.sym == sym.FOR) 
       {
-      	ExprAST expr,expr1,expr2;
+      	ExprAST expr=null,expr1=null,expr2=null;
       	ConditionsAST cond;
       	StatementAST sta;
          acceptit();
@@ -404,7 +404,7 @@ public class parser
       }
       else if(currentToken.sym == sym.RETURN) 
       {
-      	ExprAST expr;
+      	ExprAST expr=null;
           acceptit();
           if ((currentToken.sym == sym.SUB)||(currentToken.sym==sym.NEW)||(currentToken.sym==sym.PARENi)||(currentToken.sym==sym.CHAR)||
               (currentToken.sym==sym.NUM)||(currentToken.sym==sym.ID)||(currentToken.sym==sym.TRUE)||(currentToken.sym==sym.FALSE))
@@ -432,7 +432,7 @@ public class parser
       else if(currentToken.sym == sym.WRITE) 
       {
       	ExprAST expresion;
-      	NUMAST numero;
+      	NUMAST numero=null;
           acceptit();
           accept(sym.PARENi);
           expresion=parseExpr();
@@ -464,7 +464,7 @@ public class parser
           acceptit();
           return new PyComaStatAST(new PyCOMAAST(currentToken.value));
       }
-    
+    return null;
     }
     
     public BlockAST parseBlock()
@@ -627,7 +627,7 @@ public class parser
         }
         else if(currentToken.sym == sym.NEW)
         {
-        	ExprAST expresion;
+        	ExprAST expresion=null;
         	IDAST id;
             acceptit();
             id=new IDAST(currentToken.value);
@@ -652,24 +652,22 @@ public class parser
             accept(sym.PARENd);
             return new ExprFactorAST(expresion);
         }
+        return null;
     }
 
     public DesignatorAST parseDesignator()
     {
-    	DesignatorAST resultado=null;
-    	DesigAddonsAST addons;
-    	DesigAddonAST ident;
-    	IDAST id=new IDAST(currentToken.value);
+    	DesigAddonsAST addons=null;
+    	IDAST id=new IDAST(currentToken.value),ids;
         accept(sym.ID);
-        ident=new IDAddonAST(id);
         while (currentToken.sym == sym.PUNTO)
         { 
            acceptit();
            if (currentToken.sym == sym.ID)
            {
-           	id=new IDAST(currentToken.value);
+           	ids=new IDAST(currentToken.value);
            	acceptit();
-           	addons=new MulDesigAddonAST(new UnDesigAddonAST(new IDAddonAST(id)),addons);
+           	addons=new MulDesigAddonAST(new UnDesigAddonAST(new IDAddonAST(ids)),addons);
            }
            else if (currentToken.sym == sym.LLAVEi)
            {
@@ -681,29 +679,89 @@ public class parser
            }
         }
         if (addons!=null){
-        	return new DesigComplexAST(addons,ident);
+        	return new DesigComplexAST(addons,id);
         }
         else
-        	return new DesigBasicAST(ident);
+        	return new DesigBasicAST(id);
     }
 
-
-    public RELOPAST parseRelop()
-    {
-    	accept(sym.RELOP);
-        return new RELOPAST(currentToken.value);;
-    }
 
     public ADDOPAST parseAddop()
     {
-    	accept(sym.ADDOP);
-        return new ADDOPAST(currentToken.value);
+    	 if (currentToken.sym == sym.SUM) {
+    		acceptit();
+    		return new ADDOPAST(currentToken.value);
+    	}
+         else if (currentToken.sym == sym.SUB) { 
+    		acceptit();
+    		return new ADDOPAST(currentToken.value);
+    	}
+         return null;
+
+    }
+
+    public RELOPAST parseRelop()
+    {
+    	 if (currentToken.sym == sym.IGUAL) { 
+    		acceptit();
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.DIST) { 
+    		acceptit();
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MAYOR) { 
+    		acceptit();
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MAYORi) { 
+    		acceptit(); 
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MENOR) { 
+    		acceptit(); 
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MENORi) { 
+    		acceptit(); 
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MAYOR) { 
+    		acceptit(); 
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MAYORi) { 
+    		acceptit(); 
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MENOR) { 
+    		acceptit(); 
+    		return new RELOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MENORi) { 
+    		acceptit();
+			return new RELOPAST(currentToken.value);    		
+    	}
+        return null;
+
     }
 
     public MULOPAST parseMulop()
     {
-    	aaccept(sym.MULOP);
-    	return new MULOPAST(currentToken.value);
+    	 if (currentToken.sym == sym.MULT) { 
+    		acceptit();
+    		return new MULOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.DIV) {
+    		acceptit(); 
+    		return new MULOPAST(currentToken.value);
+    	}
+        else if (currentToken.sym == sym.MOD) {
+    		acceptit(); 
+    		return new MULOPAST(currentToken.value);
+    	} 
+    	return null;
+
     }
 }
 }

@@ -20,5 +20,9 @@ namespace ASintactico
 		{
 			bloque=blq;
 		}
+		
+		public override object visit(Visitor v,object arg){
+			return v.VisitBlockStatAST(this,arg);
+		}
 	}
 }
