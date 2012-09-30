@@ -1,8 +1,8 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: rlibardobj
- * Date: 23/09/2012
- * Time: 10:49 p.m.
+ * Date: 29/09/2012
+ * Time: 08:29 p.m.
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,14 +11,12 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of Desig__StatAST.
+	/// Description of ADDOP.
 	/// </summary>
-	public class DesigminusStatAST : StatementAST
+	public class ADDOP
 	{
-		DesignatorAST designator;
-		public DesigminusStatAST(DesignatorAST des)
+		public ADDOP()
 		{
-			designator=des;
 		}
 	}
 }

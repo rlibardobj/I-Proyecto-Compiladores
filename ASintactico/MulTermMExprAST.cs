@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class MulTermMExprAST:ExprAST
 	{
-		TermAST term,terms;
-		public MulTermMExprAST(TermAST ter, TermAST ters)
+		ExprAST term,terms;
+		public MulTermMExprAST(ExprAST ter, ExprAST ters)
 		{
 			term=ter;
 			terms=ters;

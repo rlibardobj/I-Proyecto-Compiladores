@@ -15,10 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class WriteNStatAST : StatementAST
 	{
+		NUMAST numero;
 		ExprAST expresion;
-		public WriteNStatAST(ExprAST expr)
+		public WriteNStatAST(ExprAST expr, NUMAST n)
 		{
 			expresion=expr;
+			numero=n;
 		}
 	}
 }

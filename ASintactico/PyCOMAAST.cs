@@ -1,8 +1,8 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: rlibardobj
- * Date: 23/09/2012
- * Time: 10:49 p.m.
+ * Date: 30/09/2012
+ * Time: 11:36 a.m.
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,14 +11,14 @@ using System;
 namespace ASintactico
 {
 	/// <summary>
-	/// Description of Desig__StatAST.
+	/// Description of PyCOMAAST.
 	/// </summary>
-	public class DesigminusStatAST : StatementAST
+	public class PyCOMAAST : TerminalesAST
 	{
-		DesignatorAST designator;
-		public DesigminusStatAST(DesignatorAST des)
+		string value;
+		public PyCOMAAST(string valor)
 		{
-			designator=des;
+			value=valor;
 		}
 	}
 }
