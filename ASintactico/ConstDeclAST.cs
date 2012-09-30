@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of ConstDeclAST.
 	/// </summary>
-	public class ConstDeclAST : AST
+	public class ConstDeclAST : DeclarationAST
 	{
 		string value;
 		TypeAST tipo;

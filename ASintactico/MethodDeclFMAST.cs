@@ -15,12 +15,16 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclFMAST : DeclarationAST
 	{
+		TypeAST tipo;
+		IDAST ident;
 		FormParsAST parametros;
 		DeclarationsAST declaraciones;
-		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls)
+		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls, TypeAST tip, IDAST id)
 		{
 			parametros=par;
 			declaraciones=decls;
+			ident=id;
+			tipo=tip;
 		}
 	}
 }

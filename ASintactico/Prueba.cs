@@ -19,9 +19,9 @@ namespace ASintactico
     	public static void Main(string[] argv)
     	{
     	parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
-    	ProgramDAST arbol = parsing.parseProgram();
-    	while (arbol.declaraciones!=null){
-    		Console.WriteLine(arbol.declaraciones);
+    	ProgramAST arbol;
+    	while (true){
+    		Console.WriteLine("");
     	}
 		Console.ReadLine();
 	}
