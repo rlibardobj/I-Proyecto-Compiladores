@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class TypeBasicAST : TypeAST
 	{
-		public TypeBasicAST()
+		TerminalesAST ident;
+		public TypeBasicAST(TerminalesAST id)
 		{
+			ident=id;
 		}
 	}
 }

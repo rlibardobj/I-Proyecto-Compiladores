@@ -14,6 +14,7 @@ public class parser
 
     private Token currentToken;
     private Scanner scanner;
+    public Errores error;
 
     //Constructor 
 	public parser (Scanner s)
@@ -257,20 +258,26 @@ public class parser
             }
             parametros=new MulFormParsAST(new UnFormParsAST(ident,tipo),parametros);
         }
+        return parametros;
     }
 
-    public void parseType()
+    public TypeAST parseType()
     {
-        accept(sym.ID);
-        while (currentToken.sym == sym.LLAVEi)
-        {
+    	TerminalesAST ident;
+    	if (currentToken.sym==sym.ID){
+    		ident=new IDAST(currentToken.value);
+    	}    	
+    	if (currentToken.sym == sym.LLAVEi){
             acceptit();
             accept(sym.LLAVEd);
-        }
-
+            return new TypeCAST(ident);
+    	}
+    	else{
+    		return new TypeBasicAST(ident);
+      	}
     }
-
-    //Revizar
+    
+    
     /*public void parseStatement()
     { 
       if(currentToken.sym == sym.ID) //Revizar

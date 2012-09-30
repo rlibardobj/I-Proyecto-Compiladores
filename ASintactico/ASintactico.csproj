@@ -73,6 +73,7 @@
     <Compile Include="DesignatorAST.cs" />
     <Compile Include="DesigPAFactorAST.cs" />
     <Compile Include="DesigPFactorAST.cs" />
+    <Compile Include="Errores.cs" />
     <Compile Include="ExprAddonAST.cs" />
     <Compile Include="ExprAST.cs" />
     <Compile Include="ExprFactorAST.cs" />
