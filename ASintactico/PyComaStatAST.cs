@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class PyComaStatAST : StatementAST
 	{
-		PyCOMAAST pycoma;
+		public PyCOMAAST pycoma;
+		
 		public PyComaStatAST(PyCOMAAST py)
 		{
 			pycoma=py;

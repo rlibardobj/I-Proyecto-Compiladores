@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class MulCondFactAST:CondTermAST
 	{
-		CondTermAST condfact;
-		CondTermAST condfacts;
+		public CondTermAST condfact;
+		public CondTermAST condfacts;
 		public MulCondFactAST(CondTermAST cond, CondTermAST conds)
 		{
 			condfact=cond;

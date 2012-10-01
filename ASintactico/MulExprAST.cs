@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class MulExprAST:ActParsAST
 	{
-		ActParsAST expresion;
-		ActParsAST expresiones;
+		public ActParsAST expresion;
+		public ActParsAST expresiones;
+		
 		public MulExprAST(ActParsAST expr, ActParsAST exprs)
 		{
 			expresion=expr;

@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class WriteNStatAST : StatementAST
 	{
-		NUMAST numero;
-		ExprAST expresion;
+		public NUMAST numero;
+		public ExprAST expresion;
+		
 		public WriteNStatAST(ExprAST expr, NUMAST n)
 		{
 			expresion=expr;

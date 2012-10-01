@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class MulCondTermAST:ConditionsAST
 	{
-		ConditionsAST condterm;
-		ConditionsAST condterms;
+		public ConditionsAST condterm;
+		public ConditionsAST condterms;
+		
 		public MulCondTermAST(ConditionsAST cond, ConditionsAST conds)
 		{
 			condterm=cond;

@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class ConditionAST:CondFactAST
 	{
-		ExprAST expr,expr1;
-		RELOPAST relop;
+		public ExprAST expr,expr1;
+		public RELOPAST relop;
+		
 		public ConditionAST(ExprAST exp, ExprAST exp1, RELOPAST rel)
 		{
 			relop=rel;

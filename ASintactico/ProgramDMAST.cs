@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramDMAST : ProgramAST
 	{ 
-		DeclarationsAST declaraciones;
-		DeclarationsAST metodos;
+		public DeclarationsAST declaraciones;
+		public DeclarationsAST metodos;
+		
 		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths)
 		{
 			declaraciones=decls;
@@ -24,7 +25,7 @@ namespace ASintactico
 		}
 		
 		public override object visit(Visitor v,object arg){
-			return v.VisitProgramDM(this,arg);
+			return v.VisitProgramDMAST(this,arg);
 
 		}
 	}

@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class NUMAST : TerminalesAST
 	{
-		string num;
+		public string num;
+		
 		public NUMAST(string n)
 		{
 			num=n;

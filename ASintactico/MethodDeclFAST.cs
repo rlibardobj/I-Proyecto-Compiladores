@@ -15,9 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclFAST : DeclarationAST
 	{
-		FormParsAST parametros;
-		TypeAST tipo;
-		IDAST ident;
+		public FormParsAST parametros;
+		public TypeAST tipo;
+		public IDAST ident;
+		
 		public MethodDeclFAST(FormParsAST par,TypeAST tip, IDAST id)
 		{
 			parametros=par;

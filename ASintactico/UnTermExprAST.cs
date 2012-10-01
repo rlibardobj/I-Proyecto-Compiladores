@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class UnTermExprAST:ExprAST
 	{
-		TermAST term;
+		public TermAST term;
+		
 		public UnTermExprAST(TermAST ter)
 		{
 			term = ter;

@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class ExprAddonAST:DesigAddonAST
 	{
-		ExprAST expresion;
+		public ExprAST expresion;
+		
 		public ExprAddonAST(ExprAST expr)
 		{
 			expresion=expr;

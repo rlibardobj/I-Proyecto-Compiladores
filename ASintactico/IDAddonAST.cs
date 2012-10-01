@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class IDAddonAST:DesigAddonAST
 	{
-		IDAST ident;
+		public IDAST ident;
+		
 		public IDAddonAST(IDAST id)
 		{
 			ident=id;

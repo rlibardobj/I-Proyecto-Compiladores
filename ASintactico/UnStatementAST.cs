@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class UnStatementAST : StatementsAST
 	{
-		StatementAST statement;
+		public StatementAST statement;
+		
 		public UnStatementAST(StatementAST sta)
 		{
 			statement=sta;

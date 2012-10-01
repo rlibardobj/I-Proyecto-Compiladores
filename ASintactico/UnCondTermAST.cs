@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class UnCondTermAST:ConditionsAST
 	{
-		CondTermAST condterm;
+		public CondTermAST condterm;
+		
 		public UnCondTermAST(CondTermAST cond)
 		{
 			condterm=cond;

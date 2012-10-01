@@ -15,14 +15,15 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramMAST : ProgramAST
 	{
-		DeclarationsAST metodos;
+		public DeclarationsAST metodos;
+		
 		public ProgramMAST(DeclarationsAST meths)
 		{
 			metodos=meths;
 		}
 		
 		public override object visit(Visitor v,object arg){
-			return v.VisitProgramM(this,arg);
+			return v.VisitProgramMAST(this,arg);
 
 		}
 	}

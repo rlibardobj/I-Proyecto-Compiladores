@@ -16,8 +16,9 @@ namespace ASintactico
 	public class IfElseStatAST : StatementAST
 	{
 		
-		StatementAST ifstatement,elsestatement;
-		ConditionsAST condicion;
+		public StatementAST ifstatement,elsestatement;
+		public ConditionsAST condicion;
+		
 		public IfElseStatAST(StatementAST ifs, StatementAST elses, ConditionsAST cond)
 		{
 			condicion=cond;

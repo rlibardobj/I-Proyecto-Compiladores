@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class VarDeclUnIDAST : DeclarationAST
 	{
-		TypeAST tipo;
-		TerminalesAST identificador;
+		public TypeAST tipo;
+		public TerminalesAST identificador;
+		
 		public VarDeclUnIDAST(TerminalesAST id, TypeAST tip)
 		{
 			identificador=id;
