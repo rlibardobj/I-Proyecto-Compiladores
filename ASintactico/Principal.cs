@@ -18,6 +18,7 @@ namespace ASintactico
 	/// </summary>
 	public partial class Principal : Form
 	{
+		string path;
 		public Principal()
 		{
 			//
@@ -28,6 +29,28 @@ namespace ASintactico
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+		}
+		
+		void Button3Click(object sender, EventArgs e)
+		{
+			string texto;
+			if (tabControl1.SelectedTab!=null){
+			string tab=tabControl1.SelectedTab.Text;
+			for (int i = 0; i < tabControl1.TabPages.Count; i++)
+			{
+				if (tabControl1.TabPages[i].Text==tab)
+    			{
+    				RichTextBox rtb = (RichTextBox)tabControl1.TabPages[i].Controls["rtb"];
+    				path=tabControl1.TabPages[i].Name.ToString();
+        			tabControl1.TabPages.RemoveAt(i);
+        			texto=rtb.Text;
+        			System.IO.File.WriteAllText(@path,texto);
+        			break;
+    			}
+			}
+			}
+			else
+				richTextBox1.Text="No hay archivos abiertos";
 		}
 	}
 }

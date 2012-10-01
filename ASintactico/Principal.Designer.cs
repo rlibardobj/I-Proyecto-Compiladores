@@ -95,6 +95,7 @@ namespace ASintactico
 			this.button3.TabIndex = 4;
 			this.button3.Text = "Cerrar y Guardar Archivo Actual";
 			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.Button3Click);
 			// 
 			// openFileDialog1
 			// 
@@ -144,9 +145,13 @@ namespace ASintactico
 					pagina.Padding=new System.Windows.Forms.Padding(3);;
 					RichTextBox texto=new RichTextBox();
 					texto.Size=new System.Drawing.Size(410, 394);
+					texto.Name="rtb";
 					texto.Text=archivo.ReadToEnd();
 					pagina.Controls.Add(texto);
+					pagina.Name=(openFileDialog1.FileName);
 					tabControl1.Controls.Add(pagina);
+					richTextBox1.Text=tabControl1.SelectedTab.Text;
+					archivo.Close();
 				}
 			}
 			catch (Exception exc){
