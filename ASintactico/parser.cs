@@ -29,7 +29,6 @@ public class parser
         {
         	if (currentToken.sym == expectedKind){
                 currentToken = scanner.nextToken();
-            	errores=errores+currentToken.sym;
         	}
             else{
             	errores=errores+("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym +". Linea: "+currentToken.line.ToString()+". Columna: "+currentToken.column.ToString()+ "\n");
@@ -62,8 +61,7 @@ public class parser
     }
 
     public ProgramAST parseProgram()
-    { 
-    	errores=errores+"parseProgram";
+    {
     	DeclarationsAST declaraciones=null,metodos=null;
     	IDAST id;
     	 accept(sym.CLASS);
@@ -507,7 +505,6 @@ public class parser
     
     public BlockAST parseBlock()
     {
-    	errores=errores+"parseBlock";
     	StatementsAST statements=null;
         accept(sym.LLAVEi); //Revizar cond while
         if ((currentToken.sym == sym.ID) | (currentToken.sym == sym.IF) | (currentToken.sym == sym.FOR) | (currentToken.sym == sym.WHILE) | (currentToken.sym == sym.BREAK) | (currentToken.sym == sym.RETURN) | (currentToken.sym == sym.READ) | (currentToken.sym == sym.WRITE) | (currentToken.sym == sym.CORCHi) | (currentToken.sym == sym.PyCOMA))
