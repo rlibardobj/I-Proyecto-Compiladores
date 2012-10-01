@@ -121,22 +121,22 @@ public class parser
     		if (currentToken.sym==sym.CONST){
     			decl2=parseConstDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,temp);
+    			resultado=new MulDeclAST(temp,resultado);
     		}
     		else if (currentToken.sym==sym.ID){
     			decl2=parseVarDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,temp);
+    			resultado=new MulDeclAST(temp,resultado);
     		}
     		else if (currentToken.sym==sym.CLASS){
     			decl2=parseClassDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,temp);
+    			resultado=new MulDeclAST(temp,resultado);
     		}
     		else if ((currentToken.sym==sym.ID)||(currentToken.sym==sym.VOID)){
     			decl2=parseMethodDecl();
     			temp=new UnDeclAST(decl2);
-    			resultado=new MulDeclAST(resultado,temp);
+    			resultado=new MulDeclAST(temp,resultado);
     		}
     	}
     	return resultado;
@@ -251,18 +251,18 @@ public class parser
             bloque=parseBlock();
             if (parametros!=null){
             	if (declaraciones!=null){
-            		return new MethodDeclFMAST(parametros,declaraciones,tipo,ident);
+            		return new MethodDeclFMAST(parametros,declaraciones,tipo,ident,bloque);
             	}
             	else{
-            		return new MethodDeclFAST(parametros,tipo,ident);
+            		return new MethodDeclFAST(parametros,tipo,ident,bloque);
             	}
             }
             else{
             	if (declaraciones!=null){
-            		return new MethodDeclMAST(declaraciones,tipo,ident);
+            		return new MethodDeclMAST(declaraciones,tipo,ident,bloque);
             	}
             	else{
-            		return new MethodDeclBasicAST(tipo,ident);
+            		return new MethodDeclBasicAST(tipo,ident,bloque);
             	}
             } 
 }

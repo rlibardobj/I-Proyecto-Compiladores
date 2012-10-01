@@ -33,8 +33,8 @@ namespace ASintactico
         {
           for(int num=n; num != 0; num--)
           {  Console.Write("+++");
-             Console.Write(">");
           }
+          Console.Write(">");
         }
 		
 		
@@ -71,22 +71,8 @@ namespace ASintactico
 	  	int numaux = ((int)arg);
         printtab(numaux);
         Console.WriteLine(v.GetType());
-                
-        if (v.declaraciones != null)
         v.declaraciones.visit(this,numaux+1);
-        else{
-           printtab(numaux+1);
-           Console.WriteLine("NULL");
-   	    }
-        if(v.metodos != null){
-        printtab(numaux+1);
         v.metodos.visit(this,numaux+1);  
-        }
-        else{
-        printtab(numaux+1);
-        Console.WriteLine("NULL");
-        } 
-          
 	  	return null;
 	  }
 	  
@@ -113,13 +99,7 @@ namespace ASintactico
 	  	int numaux = ((int)arg);
         printtab(numaux);
         Console.WriteLine(v.GetType());
-                
-        if (v.declaracion != null)
         v.declaracion.visit(this,numaux+1);
-        else{
-           printtab(numaux+1);
-           Console.WriteLine("NULL");
-   	    }
 	  	return null;
 	  }
 	  
@@ -128,21 +108,8 @@ namespace ASintactico
 	  	int numaux = ((int)arg);
         printtab(numaux);
         Console.WriteLine(v.GetType());
-                
-        if (v.declaracion != null)
         v.declaracion.visit(this,numaux+1);
-        else{
-           printtab(numaux+1);
-           Console.WriteLine("NULL");
-   	    }
-        if(v.declaraciones != null){
-        printtab(numaux+1);
         v.declaraciones.visit(this,numaux+1);  
-        }
-        else{
-        printtab(numaux+1);
-        Console.WriteLine("NULL");
-        } 
 	  	return null;
 	  }
 	  
@@ -154,13 +121,7 @@ namespace ASintactico
 	  	int numaux = ((int)arg);
         printtab(numaux);
         Console.WriteLine(v.GetType()+" " + v.value);
-                
-        if (v.tipo != null)
-        v.tipo.visit(this,numaux+1);
-        else{
-           printtab(numaux+1);
-           Console.WriteLine("NULL");
-   	    }         
+        v.tipo.visit(this,numaux+1);       
 	  	return null;
 	  }
 	  
@@ -177,7 +138,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.ident != null){
-        printtab(numaux+1);
         v.ident.visit(this,numaux+1);  
         }
         else{
@@ -230,21 +190,8 @@ namespace ASintactico
 	  	int numaux = ((int)arg);
         printtab(numaux);
         Console.WriteLine(v.GetType());
-                
-        if (v.identificador != null)
         v.identificador.visit(this,numaux+1);
-        else{
-           printtab(numaux+1);
-           Console.WriteLine("NULL");
-   	    }
-        if(v.tipo != null){
-        printtab(numaux+1);
         v.tipo.visit(this,numaux+1);  
-        }
-        else{
-        printtab(numaux+1);
-        Console.WriteLine("NULL");
-        } 
 	  	return null;
 	  }
 	  
@@ -331,7 +278,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.ident != null){
-        printtab(numaux+1);
         v.ident.visit(this,numaux+1);  
         }
         else{
@@ -339,13 +285,13 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.tipo != null){
-        printtab(numaux+1);
         v.tipo.visit(this,numaux+1);  
         }
         else{
         printtab(numaux+1);
         Console.WriteLine("NULL");
         }
+        v.bloque.visit(this,numaux+1);
 	  	return null;
 	  }
 	  
@@ -379,15 +325,8 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.WriteLine(v.GetType());
-                
-        if (v.ident != null)
-        	Console.Write(v.ident);
-        else{
-           printtab(numaux+1);
-           Console.WriteLine("NULL");
-   	    }
-        
+        Console.Write(v.GetType());
+        Console.WriteLine(v.ident);
 	  	return null;
 	  }
 	  

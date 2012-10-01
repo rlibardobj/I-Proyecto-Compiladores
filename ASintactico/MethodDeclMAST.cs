@@ -15,12 +15,14 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclMAST : DeclarationAST
 	{
+		public BlockAST bloque;
 		public TypeAST tipo;
 		public IDAST ident;
 		public DeclarationsAST declaraciones;
 		
-		public MethodDeclMAST(DeclarationsAST decls, TypeAST tip, IDAST id)
+		public MethodDeclMAST(DeclarationsAST decls, TypeAST tip, IDAST id,BlockAST blo)
 		{
+			bloque=blo;
 			declaraciones=decls;
 			ident=id;
 			tipo=tip;

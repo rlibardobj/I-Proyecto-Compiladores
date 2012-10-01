@@ -21,9 +21,10 @@ namespace ASintactico
     	parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
     	ProgramAST arbol;
     	arbol=parsing.parseProgram();
-    	Console.Write("IMPRESIÓN DEL ÁRBOL:");
+    	Console.WriteLine("IMPRESIÓN DEL ÁRBOL:");
         PrettyPrintAST instancia = new PrettyPrintAST();
         instancia.imprimir(arbol);
+        Console.WriteLine();
         Console.Write("FIN DE IMPRESIÓN");
     	Console.ReadLine();
     	

@@ -19,9 +19,11 @@ namespace ASintactico
 		public IDAST ident;
 		public FormParsAST parametros;
 		public DeclarationsAST declaraciones;
+		public BlockAST bloque;
 		
-		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls, TypeAST tip, IDAST id)
+		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls, TypeAST tip, IDAST id,BlockAST blo)
 		{
+			bloque=blo;
 			parametros=par;
 			declaraciones=decls;
 			ident=id;
