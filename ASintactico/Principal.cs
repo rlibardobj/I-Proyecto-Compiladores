@@ -52,5 +52,21 @@ namespace ASintactico
 			else
 				richTextBox1.Text="No hay archivos abiertos";
 		}
+		
+		void Button1Click(object sender, EventArgs e)
+		{
+			string patharch=tabControl1.SelectedTab.Name;
+			StreamReader archivo=new StreamReader(patharch);
+			parser parse = new parser(new Scanner(archivo));
+			parse.parse();
+			archivo.Close();
+			MessageBox.Show("Proceso de Compilación Finalizado.");
+			richTextBox1.Text=parse.errores;
+		}
+		
+		void Button4Click(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }

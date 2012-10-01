@@ -1,11 +1,12 @@
 ﻿/**
  * Scanner para la gram�tica de prueba del curso de Compiladores e Int�rpretes.
  */
+using System;
 using System.Text;
 
 namespace ASintactico{
-
 public class Scanner {
+	public string errores;
 	private const int YY_BUFFER_SIZE = 512;
 	private const int YY_F = -1;
 	private const int YY_NO_STATE = -1;
@@ -19,10 +20,10 @@ public class Scanner {
   private int comment_count = 0;
   StringBuilder cadena = new StringBuilder();
   public Token symbol(int type) {
-    return new Token(type, yyline, yychar);
+    return new Token(type, yychar, yyline);
   }
   public Token symbol(int type, string value) {
-    return new Token(type, yyline, yychar, value);
+    return new Token(type, yychar, yyline, value);
   }
 	private System.IO.TextReader yy_reader;
 	private int yy_buffer_index;
@@ -59,7 +60,7 @@ public class Scanner {
 	private const int YYINITIAL = 0;
 	private static readonly int[] yy_state_dtrans =new int[] {
 		0,
-		48
+		33
 	};
 	private void yybegin (int state) {
 		yy_lexical_state = state;
@@ -249,50 +250,50 @@ public class Scanner {
 		/* 33 */ YY_NO_ANCHOR,
 		/* 34 */ YY_NO_ANCHOR,
 		/* 35 */ YY_NO_ANCHOR,
-		/* 36 */ YY_NO_ANCHOR,
+		/* 36 */ YY_NOT_ACCEPT,
 		/* 37 */ YY_NO_ANCHOR,
 		/* 38 */ YY_NO_ANCHOR,
 		/* 39 */ YY_NO_ANCHOR,
 		/* 40 */ YY_NO_ANCHOR,
-		/* 41 */ YY_NO_ANCHOR,
+		/* 41 */ YY_NOT_ACCEPT,
 		/* 42 */ YY_NO_ANCHOR,
 		/* 43 */ YY_NO_ANCHOR,
 		/* 44 */ YY_NO_ANCHOR,
 		/* 45 */ YY_NO_ANCHOR,
-		/* 46 */ YY_NO_ANCHOR,
+		/* 46 */ YY_NOT_ACCEPT,
 		/* 47 */ YY_NO_ANCHOR,
 		/* 48 */ YY_NO_ANCHOR,
 		/* 49 */ YY_NO_ANCHOR,
-		/* 50 */ YY_NO_ANCHOR,
-		/* 51 */ YY_NOT_ACCEPT,
+		/* 50 */ YY_NOT_ACCEPT,
+		/* 51 */ YY_NO_ANCHOR,
 		/* 52 */ YY_NO_ANCHOR,
-		/* 53 */ YY_NO_ANCHOR,
+		/* 53 */ YY_NOT_ACCEPT,
 		/* 54 */ YY_NO_ANCHOR,
 		/* 55 */ YY_NO_ANCHOR,
-		/* 56 */ YY_NO_ANCHOR,
-		/* 57 */ YY_NOT_ACCEPT,
+		/* 56 */ YY_NOT_ACCEPT,
+		/* 57 */ YY_NO_ANCHOR,
 		/* 58 */ YY_NO_ANCHOR,
-		/* 59 */ YY_NO_ANCHOR,
+		/* 59 */ YY_NOT_ACCEPT,
 		/* 60 */ YY_NO_ANCHOR,
 		/* 61 */ YY_NO_ANCHOR,
 		/* 62 */ YY_NOT_ACCEPT,
 		/* 63 */ YY_NO_ANCHOR,
 		/* 64 */ YY_NO_ANCHOR,
-		/* 65 */ YY_NO_ANCHOR,
-		/* 66 */ YY_NOT_ACCEPT,
+		/* 65 */ YY_NOT_ACCEPT,
+		/* 66 */ YY_NO_ANCHOR,
 		/* 67 */ YY_NO_ANCHOR,
 		/* 68 */ YY_NO_ANCHOR,
-		/* 69 */ YY_NOT_ACCEPT,
+		/* 69 */ YY_NO_ANCHOR,
 		/* 70 */ YY_NO_ANCHOR,
 		/* 71 */ YY_NO_ANCHOR,
-		/* 72 */ YY_NOT_ACCEPT,
+		/* 72 */ YY_NO_ANCHOR,
 		/* 73 */ YY_NO_ANCHOR,
 		/* 74 */ YY_NO_ANCHOR,
-		/* 75 */ YY_NOT_ACCEPT,
+		/* 75 */ YY_NO_ANCHOR,
 		/* 76 */ YY_NO_ANCHOR,
-		/* 77 */ YY_NOT_ACCEPT,
+		/* 77 */ YY_NO_ANCHOR,
 		/* 78 */ YY_NO_ANCHOR,
-		/* 79 */ YY_NOT_ACCEPT,
+		/* 79 */ YY_NO_ANCHOR,
 		/* 80 */ YY_NO_ANCHOR,
 		/* 81 */ YY_NO_ANCHOR,
 		/* 82 */ YY_NO_ANCHOR,
@@ -317,47 +318,39 @@ public class Scanner {
 		/* 101 */ YY_NO_ANCHOR,
 		/* 102 */ YY_NO_ANCHOR,
 		/* 103 */ YY_NO_ANCHOR,
-		/* 104 */ YY_NO_ANCHOR,
-		/* 105 */ YY_NO_ANCHOR,
-		/* 106 */ YY_NO_ANCHOR,
-		/* 107 */ YY_NO_ANCHOR
+		/* 104 */ YY_NO_ANCHOR
 	};
 	private int[] yy_cmap = unpackFromString(1,65538,
-"47:8,46:2,39,47,46,40,47:18,46,24,25:3,26,27,23,28,29,30,31,32,33,22,34,21," +
-"20:9,25,35,36,37,38,25:2,19:26,44,47,45,47,19,47,4,1,6,15,3,13,19,18,12,19," +
-"5,7,19,10,9,19:2,2,8,11,16,17,14,19:3,42,41,43,47:65410,0:2")[0];
+"5:8,1:2,3,5,1,2,5:18,1,30,31:4,32,29,31:2,6,33,31,34,28,4,27,26:9,31:2,35,3" +
+"6,37,31:2,25:26,5:4,25,5,10,7,12,21,9,19,25,24,18,25,11,13,25,16,15,25:2,8," +
+"14,17,22,23,20,25:3,5,38,5:65411,0:2")[0];
 
-	private int[] yy_rmap = unpackFromString(1,108,
-"0,1,2,3,1,4,1:4,5,1,6,7,1,8,9,10,1,11,1:4,12,1:9,12:2,13,1,14,12:9,15,1:2,1" +
-"3,16,1,17,1,18,19,20,1,21,22,14,23,24,25,26,27,28,29,30,31,32,33,34,35,36,3" +
-"7,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,12,59,60,6" +
-"1,62,63,12,64,65")[0];
+	private int[] yy_rmap = unpackFromString(1,105,
+"0,1:2,2,3,1,4:2,5,1:8,6,4:2,7,1,4:11,8,1:2,6,1:2,9,10,7,11,12,13,14,15,16,1" +
+"7,18,19,20,21,22,23,24,25,5,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41" +
+",42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,4,64,65," +
+"66,67,68,69,70,71")[0];
 
-	private int[][] yy_nxt = unpackFromString(66,48,
-"1,2,95,96,105:2,106,105:3,84,105,52,85,107,105:2,97,105:2,3,53,4,5,54,59,6," +
-"64,7,8,9,10,11,12,13,14,15,16,17,18,19,68,20,21,22,23,18,59,-1:49,105,98,10" +
-"5:17,99:2,-1:46,3:2,51,-1:26,57:40,-1:38,27,-1:49,28,-1:44,29,-1:3,62,-1:50" +
-",30,-1:47,31,-1:47,32,-1:49,55,-1:9,105:19,99:2,-1:46,36:2,-1:27,62:29,66,6" +
-"2:3,69,62:4,-1,38,62:7,1,56:29,71,56:3,74,56:4,55,60,56:7,-1,105:12,24,105:" +
-"6,99:2,-1:63,25,-1:11,56:29,77,56:3,79,56:4,-1,56:8,-1:23,37,-1:25,105:13,3" +
-"4,105:5,99:2,-1:27,56:29,77,56:3,79,56:4,55,56:8,-1,56:29,61,56:3,79,56:4,-" +
-"1,56:8,-1,105,35,105:17,99:2,-1:53,26,-1:21,56:29,77,56:3,65,56:4,-1,56:8,-" +
-"1,62:29,72,62:3,-1,62:4,-1,62:8,-1,105:14,39,105:4,99:2,-1:67,33,-1:7,62:29" +
-",-1,62:3,75,62:4,-1,62:8,-1,105:2,40,105:16,99:2,-1:27,56:29,61,56:3,49,56:" +
-"4,-1,56:8,-1,62:29,72,62:3,69,62:4,-1,38,62:7,-1,105:14,41,105:4,99:2,-1:27" +
-",56:29,50,56:3,65,56:4,-1,56:8,-1,62:29,66,62:3,75,62:4,-1,38,62:7,-1,105:4" +
-",42,105:14,99:2,-1:27,56:29,61,56:3,-1,56:4,-1,56:8,-1,105:7,43,105:11,99:2" +
-",-1:27,56:29,-1,56:3,65,56:4,-1,56:8,-1,105:10,44,105:8,99:2,-1:27,105:2,45" +
-",105:16,99:2,-1:27,105:2,46,105:16,99:2,-1:27,105:9,47,105:9,99:2,-1:27,105" +
-":2,58,105:16,99:2,-1:27,105:8,63,105:10,99:2,-1:27,105:3,67,105:6,104,105:8" +
-",99:2,-1:27,105:7,70,105:11,99:2,-1:27,105:11,73,105:7,99:2,-1:27,105:3,76," +
-"105:15,99:2,-1:27,105:7,78,105:11,99:2,-1:27,105:7,80,105:11,99:2,-1:27,105" +
-":10,81,105:8,99:2,-1:27,105:6,82,105:12,99:2,-1:27,105,83,105:17,99:2,-1:27" +
-",105:2,86,105:16,99:2,-1:27,105:6,87,105:12,99:2,-1:27,105:8,88,105:10,99:2" +
-",-1:27,105:2,89,105:16,99:2,-1:27,105:3,90,105:15,99:2,-1:27,105:9,91,105:9" +
-",99:2,-1:27,105:11,92,105:7,99:2,-1:27,105:11,93,105:7,99:2,-1:27,105:15,94" +
-",105:3,99:2,-1:27,105:6,100,105,101,105:10,99:2,-1:27,105,102,105:15,103,10" +
-"5,99:2,-1:26");
+	private int[][] yy_nxt = unpackFromString(72,39,
+"1,2,3,2,4,38:2,43,81,83,96:2,98,96:3,47,85,51,54,100,96:2,87,96:2,57,38:2,6" +
+"0,63,38,66,68,70,72,74,76,77,-1:42,37,-1:39,36,-1,5,-1:39,6:21,-1:37,8:2,41" +
+",-1:11,36,17,-1,50,36,53,36:32,-1:26,20:2,-1:11,1,40,42,37,78,40,79,40:32,-" +
+"1:7,6:13,18,6:7,-1:12,40:2,-1,62,40,65,40:32,-1,40:2,37,62,40,65,40:32,-1:7" +
+",6,95,6:19,-1:18,6,19,6:19,-1:12,40:2,-1,45,40,65,40:32,-1:29,21,-1:16,6:2," +
+"39,6:18,-1:18,6:14,22,6:6,-1:12,40:2,-1,62,40,49,40:32,-1,36:2,-1,56,36,-1," +
+"36:32,-1:7,6:12,7,6:8,-1:18,6:2,23,6:18,-1:12,36:2,-1:2,36,59,36:32,-1:7,6:" +
+"3,101,6:4,44,6:12,-1:18,6:2,24,6:18,-1:12,36,17,-1,56,36,53,36:32,-1:7,6:14" +
+",25,6:6,-1:12,36,17,-1,50,36,59,36:32,-1:2,46:3,-1,46:32,-1:8,6:4,26,6:16,-" +
+"1:12,40:2,-1,45,40,-1,40:32,-1:36,9,-1:9,6:7,27,6:13,-1:12,40:2,-1:2,40,49," +
+"40:32,-1:32,10,-1:13,6:10,28,6:10,-1:44,11,-1:12,6:2,29,6:18,-1:45,12,-1:11" +
+",6:2,30,6:18,-1:47,13,-1:9,6:2,31,6:18,-1:47,14,-1:9,6:9,32,6:11,-1:47,15,-" +
+"1:40,16,-1,40:2,-1,45,40,34,40:32,-1,40:2,-1,35,40,49,40:32,-1:7,6:3,48,6:6" +
+",104,6:10,-1:18,6:2,80,6:18,-1:18,6:7,52,6:13,-1:18,6:6,82,6:14,-1:18,6:15," +
+"55,6:5,-1:18,6,84,6:19,-1:18,6:11,58,6:9,-1:18,6:8,86,6:12,-1:18,6:3,61,6:1" +
+"7,-1:18,6:7,64,6:13,-1:18,6:7,67,6:13,-1:18,6:7,69,6:13,-1:18,6:10,71,6:10," +
+"-1:18,6:6,73,6:14,-1:18,6,75,6:19,-1:18,6:2,88,6:18,-1:18,6:3,89,6:17,-1:18" +
+",6:6,97,6,99,6:12,-1:18,6:9,90,6:11,-1:18,6,102,6:15,103,6:3,-1:18,6:6,91,6" +
+":14,-1:18,6:11,92,6:9,-1:18,6:11,93,6:9,-1:18,6:15,94,6:5,-1:11");
 
 	public Token nextToken ()
  {
@@ -382,7 +375,7 @@ public class Scanner {
 			yy_next_state = yy_nxt[yy_rmap[yy_state]][yy_cmap[yy_lookahead]];
 			if (YY_EOF == yy_lookahead && true == yy_initial) {
 
-				return symbol(sym.EOF);
+	return symbol(sym.EOF);
 			}
 			if (YY_F != yy_next_state) {
 				yy_state = yy_next_state;
@@ -409,195 +402,139 @@ public class Scanner {
 					case -2:
 						break;
 					case 2:
-						{ return symbol(sym.ID,yytext()); }
+						break;
 					case -3:
 						break;
 					case 3:
-						{ return symbol(sym.NUM,yytext()); }
+						break;
 					case -4:
 						break;
 					case 4:
-						{ return symbol(sym.PUNTO); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -5:
 						break;
 					case 5:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ yybegin(COMMENT); comment_count = comment_count + 1;break; }
 					case -6:
 						break;
 					case 6:
-						{ return symbol(sym.MOD); }
+						{ return symbol(sym.ID,yytext()); }
 					case -7:
 						break;
 					case 7:
-						{ return symbol(sym.PARENi); }
+						{ return symbol(sym.IF); }
 					case -8:
 						break;
 					case 8:
-						{ return symbol(sym.PARENd); }
+						{ return symbol(sym.NUM,yytext()); }
 					case -9:
 						break;
 					case 9:
-						{ return symbol(sym.MULT); }
+						{ return symbol(sym.DIST); }
 					case -10:
 						break;
 					case 10:
-						{ return symbol(sym.SUM); }
+						{ return symbol(sym.Y); }
 					case -11:
 						break;
 					case 11:
-						{ return symbol(sym.COMA); }
+						{ return symbol(sym.AUM); }
 					case -12:
 						break;
 					case 12:
-						{ return symbol(sym.SUB); }
+						{ return symbol(sym.DEC); }
 					case -13:
 						break;
 					case 13:
-						{ return symbol(sym.DIV); }
+						{ return symbol(sym.MENORi); }
 					case -14:
 						break;
 					case 14:
-						{ return symbol(sym.PyCOMA); }
+						{ return symbol(sym.IGUAL); }
 					case -15:
 						break;
 					case 15:
-						{ return symbol(sym.MENOR); }
+						{ return symbol(sym.MAYORi); }
 					case -16:
 						break;
 					case 16:
-						{ return symbol(sym.ASIGN); }
+						{ return symbol(sym.O); }
 					case -17:
 						break;
 					case 17:
-						{ return symbol(sym.MAYOR); }
+						break;
 					case -18:
 						break;
 					case 18:
-						break;
+						{ return symbol(sym.NEW); }
 					case -19:
 						break;
 					case 19:
-						break;
+						{ return symbol(sym.FOR); }
 					case -20:
 						break;
 					case 20:
-						{ return symbol(sym.LLAVEi); }
+						{ return symbol(sym.NUM,yytext()); }
 					case -21:
 						break;
 					case 21:
-						{ return symbol(sym.LLAVEd); }
+						{ return symbol(sym.CHAR,yytext()); }
 					case -22:
 						break;
 					case 22:
-						{ return symbol(sym.CORCHi); }
+						{ return symbol(sym.READ); }
 					case -23:
 						break;
 					case 23:
-						{ return symbol(sym.CORCHd); }
+						{ return symbol(sym.ELSE); }
 					case -24:
 						break;
 					case 24:
-						{ return symbol(sym.IF); }
+						{ return symbol(sym.TRUE); }
 					case -25:
 						break;
 					case 25:
-						{ return symbol(sym.DIST); }
+						{ return symbol(sym.VOID); }
 					case -26:
 						break;
 					case 26:
-						{ return symbol(sym.Y); }
+						{ return symbol(sym.BREAK); }
 					case -27:
 						break;
 					case 27:
-						{ return symbol(sym.AUM); }
+						{ return symbol(sym.CLASS); }
 					case -28:
 						break;
 					case 28:
-						{ return symbol(sym.DEC); }
+						{ return symbol(sym.CONST); }
 					case -29:
 						break;
 					case 29:
-						{ yybegin(COMMENT); comment_count = comment_count + 1;break; }
+						{ return symbol(sym.FALSE); }
 					case -30:
 						break;
 					case 30:
-						{ return symbol(sym.MENORi); }
+						{ return symbol(sym.WRITE); }
 					case -31:
 						break;
 					case 31:
-						{ return symbol(sym.IGUAL); }
+						{ return symbol(sym.WHILE); }
 					case -32:
 						break;
 					case 32:
-						{ return symbol(sym.MAYORi); }
+						{ return symbol(sym.RETURN); }
 					case -33:
 						break;
 					case 33:
-						{ return symbol(sym.O); }
+						break;
 					case -34:
 						break;
 					case 34:
-						{ return symbol(sym.NEW); }
+						{ comment_count = comment_count + 1;break; }
 					case -35:
 						break;
 					case 35:
-						{ return symbol(sym.FOR); }
-					case -36:
-						break;
-					case 36:
-						{ return symbol(sym.NUM,yytext()); }
-					case -37:
-						break;
-					case 37:
-						{ return symbol(sym.CHAR,yytext()); }
-					case -38:
-						break;
-					case 38:
-						break;
-					case -39:
-						break;
-					case 39:
-						{ return symbol(sym.READ); }
-					case -40:
-						break;
-					case 40:
-						{ return symbol(sym.ELSE); }
-					case -41:
-						break;
-					case 41:
-						{ return symbol(sym.VOID); }
-					case -42:
-						break;
-					case 42:
-						{ return symbol(sym.BREAK); }
-					case -43:
-						break;
-					case 43:
-						{ return symbol(sym.CLASS); }
-					case -44:
-						break;
-					case 44:
-						{ return symbol(sym.CONST); }
-					case -45:
-						break;
-					case 45:
-						{ return symbol(sym.WRITE); }
-					case -46:
-						break;
-					case 46:
-						{ return symbol(sym.WHILE); }
-					case -47:
-						break;
-					case 47:
-						{ return symbol(sym.RETURN); }
-					case -48:
-						break;
-					case 48:
-						break;
-					case -49:
-						break;
-					case 49:
 						{ 
 	comment_count = comment_count - 1; 
 	if (comment_count == 0) {
@@ -608,96 +545,163 @@ public class Scanner {
 	}
 	break;
 }
-					case -50:
+					case -36:
 						break;
-					case 50:
-						{ comment_count = comment_count + 1;break; }
-					case -51:
+					case 37:
+						break;
+					case -37:
+						break;
+					case 38:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -38:
+						break;
+					case 39:
+						{ return symbol(sym.ID,yytext()); }
+					case -39:
+						break;
+					case 40:
+						break;
+					case -40:
+						break;
+					case 42:
+						break;
+					case -41:
+						break;
+					case 43:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -42:
+						break;
+					case 44:
+						{ return symbol(sym.ID,yytext()); }
+					case -43:
+						break;
+					case 45:
+						break;
+					case -44:
+						break;
+					case 47:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -45:
+						break;
+					case 48:
+						{ return symbol(sym.ID,yytext()); }
+					case -46:
+						break;
+					case 49:
+						break;
+					case -47:
+						break;
+					case 51:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -48:
 						break;
 					case 52:
 						{ return symbol(sym.ID,yytext()); }
-					case -52:
-						break;
-					case 53:
-						{ return symbol(sym.NUM,yytext()); }
-					case -53:
+					case -49:
 						break;
 					case 54:
 						{ throw (new System.Exception("Caracter no permitido <"+
                                                     yytext()+">")); }
-					case -54:
+					case -50:
 						break;
 					case 55:
+						{ return symbol(sym.ID,yytext()); }
+					case -51:
 						break;
-					case -55:
-						break;
-					case 56:
-						break;
-					case -56:
+					case 57:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -52:
 						break;
 					case 58:
 						{ return symbol(sym.ID,yytext()); }
+					case -53:
+						break;
+					case 60:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -54:
+						break;
+					case 61:
+						{ return symbol(sym.ID,yytext()); }
+					case -55:
+						break;
+					case 63:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -56:
+						break;
+					case 64:
+						{ return symbol(sym.ID,yytext()); }
 					case -57:
 						break;
-					case 59:
+					case 66:
 						{ throw (new System.Exception("Caracter no permitido <"+
                                                     yytext()+">")); }
 					case -58:
 						break;
-					case 60:
-						break;
-					case -59:
-						break;
-					case 61:
-						break;
-					case -60:
-						break;
-					case 63:
-						{ return symbol(sym.ID,yytext()); }
-					case -61:
-						break;
-					case 64:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
-					case -62:
-						break;
-					case 65:
-						break;
-					case -63:
-						break;
 					case 67:
 						{ return symbol(sym.ID,yytext()); }
-					case -64:
+					case -59:
 						break;
 					case 68:
 						{ throw (new System.Exception("Caracter no permitido <"+
                                                     yytext()+">")); }
-					case -65:
+					case -60:
+						break;
+					case 69:
+						{ return symbol(sym.ID,yytext()); }
+					case -61:
 						break;
 					case 70:
-						{ return symbol(sym.ID,yytext()); }
-					case -66:
-						break;
-					case 71:
 						{ throw (new System.Exception("Caracter no permitido <"+
                                                     yytext()+">")); }
-					case -67:
+					case -62:
+						break;
+					case 71:
+						{ return symbol(sym.ID,yytext()); }
+					case -63:
+						break;
+					case 72:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -64:
 						break;
 					case 73:
 						{ return symbol(sym.ID,yytext()); }
-					case -68:
+					case -65:
 						break;
 					case 74:
 						{ throw (new System.Exception("Caracter no permitido <"+
                                                     yytext()+">")); }
-					case -69:
+					case -66:
+						break;
+					case 75:
+						{ return symbol(sym.ID,yytext()); }
+					case -67:
 						break;
 					case 76:
-						{ return symbol(sym.ID,yytext()); }
-					case -70:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -68:
+						break;
+					case 77:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -69:
 						break;
 					case 78:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
+					case -70:
+						break;
+					case 79:
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -71:
 						break;
 					case 80:
@@ -705,7 +709,8 @@ public class Scanner {
 					case -72:
 						break;
 					case 81:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -73:
 						break;
 					case 82:
@@ -713,7 +718,8 @@ public class Scanner {
 					case -74:
 						break;
 					case 83:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -75:
 						break;
 					case 84:
@@ -721,7 +727,8 @@ public class Scanner {
 					case -76:
 						break;
 					case 85:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -77:
 						break;
 					case 86:
@@ -729,7 +736,8 @@ public class Scanner {
 					case -78:
 						break;
 					case 87:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -79:
 						break;
 					case 88:
@@ -765,7 +773,8 @@ public class Scanner {
 					case -87:
 						break;
 					case 96:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -88:
 						break;
 					case 97:
@@ -773,7 +782,8 @@ public class Scanner {
 					case -89:
 						break;
 					case 98:
-						{ return symbol(sym.ID,yytext()); }
+						{ throw (new System.Exception("Caracter no permitido <"+
+                                                    yytext()+">")); }
 					case -90:
 						break;
 					case 99:
@@ -781,7 +791,8 @@ public class Scanner {
 					case -91:
 						break;
 					case 100:
-						{ return symbol(sym.ID,yytext()); }
+						{ errores=errores+"Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -92:
 						break;
 					case 101:
@@ -799,18 +810,6 @@ public class Scanner {
 					case 104:
 						{ return symbol(sym.ID,yytext()); }
 					case -96:
-						break;
-					case 105:
-						{ return symbol(sym.ID,yytext()); }
-					case -97:
-						break;
-					case 106:
-						{ return symbol(sym.ID,yytext()); }
-					case -98:
-						break;
-					case 107:
-						{ return symbol(sym.ID,yytext()); }
-					case -99:
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

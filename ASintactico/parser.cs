@@ -11,10 +11,10 @@ using System;
 namespace ASintactico{
 public class parser
 {
-
+	AST raiz;
     private Token currentToken;
     private Scanner scanner;
-    public Errores error;
+    public string errores;
 
     //Constructor 
 	public parser (Scanner s)
@@ -27,12 +27,13 @@ public class parser
     {
         try
         {
-            if (currentToken.sym == expectedKind)
+        	if (currentToken.sym == expectedKind){
                 currentToken = scanner.nextToken();
+            	errores=errores+currentToken.sym;
+        	}
             else{
-            	Console.WriteLine("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym);
+            	errores=errores+("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym +". Linea: "+currentToken.line.ToString()+". Columna: "+currentToken.column.ToString()+ "\n");
             }
-                //printf("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym);
         }
         catch (Exception e)
         { }
@@ -44,6 +45,7 @@ public class parser
         try
         {
             currentToken = scanner.nextToken();
+            errores=errores+currentToken.sym;
         }
         catch (Exception e)
         { }
@@ -53,22 +55,24 @@ public class parser
     public void parse()
     {
         acceptit(); //obtiene el primer token
-        parseProgram();
+        raiz=parseProgram();
         if (currentToken.sym != sym.EOF){
-        	
+        	errores=errores+"Basura al final del archivo";
         }
-           //printf("ERROR: Basura al final del archivo");
     }
 
     public ProgramAST parseProgram()
     { 
-    	Console.WriteLine("parseProgram");
-    	acceptit();
+    	errores=errores+"parseProgram";
     	DeclarationsAST declaraciones=null,metodos=null;
-      //palabra class
+    	IDAST id;
+    	errores=errores+currentToken.value;
+    	errores=errores+currentToken.sym;
          accept(sym.CLASS);
-         IDAST id=new IDAST(currentToken.value);
+         errores=errores+"prueba";
+         id=new IDAST(currentToken.value);
          accept(sym.ID);
+         errores=errores+"error";
          if ((currentToken.sym == sym.CONST) | (currentToken.sym == sym.ID) |
              (currentToken.sym == sym.CLASS))
          { 
@@ -505,7 +509,7 @@ public class parser
     
     public BlockAST parseBlock()
     {
-    	Console.WriteLine("parseBlock");
+    	errores=errores+"parseBlock";
     	StatementsAST statements=null;
         accept(sym.LLAVEi); //Revizar cond while
         if ((currentToken.sym == sym.ID) | (currentToken.sym == sym.IF) | (currentToken.sym == sym.FOR) | (currentToken.sym == sym.WHILE) | (currentToken.sym == sym.BREAK) | (currentToken.sym == sym.RETURN) | (currentToken.sym == sym.READ) | (currentToken.sym == sym.WRITE) | (currentToken.sym == sym.CORCHi) | (currentToken.sym == sym.PyCOMA))
