@@ -15,10 +15,12 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramDMAST : ProgramAST
 	{ 
+		IDAST ident;
 		DeclarationsAST declaraciones;
 		DeclarationsAST metodos;
-		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths)
+		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths,IDAST id)
 		{
+			ident=id;
 			declaraciones=decls;
 			metodos=meths;
 		}

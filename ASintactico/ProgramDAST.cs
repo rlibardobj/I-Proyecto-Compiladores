@@ -16,8 +16,10 @@ namespace ASintactico
 	public class ProgramDAST : ProgramAST
 	{
 		public DeclarationsAST declaraciones;
-		public ProgramDAST(DeclarationsAST decls)
+		IDAST ident;
+		public ProgramDAST(DeclarationsAST decls,IDAST id)
 		{
+			ident=id;
 			declaraciones=decls;
 		}
 		

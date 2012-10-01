@@ -20,7 +20,7 @@ namespace ASintactico
 		}
 		
 		
-		public void imprimir(AST raiz)
+		/*public void imprimir(AST raiz)
         {
           raiz.visit(this,new Integer(0));
         }
