@@ -17,6 +17,7 @@ namespace ASintactico
 	/// </summary>
 	internal sealed class Prueba
 	{
+		[STAThread]
     	public static void Main(string[] argv)
     	{
     		//StreamReader archivo=new StreamReader("prueba.txt");

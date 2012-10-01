@@ -43,8 +43,7 @@ namespace ASintactico
     				RichTextBox rtb = (RichTextBox)tabControl1.TabPages[i].Controls["rtb"];
     				path=tabControl1.TabPages[i].Name.ToString();
         			tabControl1.TabPages.RemoveAt(i);
-        			texto=rtb.Rtf;
-        			System.IO.File.WriteAllText(@path,texto);
+        			rtb.SaveFile(path,RichTextBoxStreamType.PlainText);
         			break;
     			}
 			}
@@ -62,12 +61,7 @@ namespace ASintactico
 			parse.parse();
 			archivo.Close();
 			MessageBox.Show("Proceso de Compilación Finalizado.");
-			richTextBox1.Text=parse.errores;
-		}
-		
-		void Button4Click(object sender, EventArgs e)
-		{
-			
+			richTextBox1.Text=sc.errores+parse.errores;
 		}
 	}
 }

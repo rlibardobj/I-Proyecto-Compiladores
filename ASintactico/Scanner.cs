@@ -1,11 +1,14 @@
 ﻿/**
  * Scanner para la gram�tica de prueba del curso de Compiladores e Int�rpretes.
  */
+using System;
 using System.Text;
+
 namespace ASintactico{
 
 
 public class Scanner {
+		public string errores;
 	private const int YY_BUFFER_SIZE = 512;
 	private const int YY_F = -1;
 	private const int YY_NO_STATE = -1;
@@ -432,8 +435,8 @@ public class Scanner {
 					case -5:
 						break;
 					case 5:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -6:
 						break;
 					case 6:
@@ -623,7 +626,7 @@ public class Scanner {
     		yybegin(YYINITIAL);
 	}
 	else if (comment_count < 0) {
-		throw (new System.Exception("Comentario anidado mal cerrado"));
+		 errores=errores+"Error Léxico. Comentario anidado mal cerrado.\n";
 	}
 	break;
 }
@@ -642,8 +645,8 @@ public class Scanner {
 					case -55:
 						break;
 					case 56:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -56:
 						break;
 					case 57:
@@ -659,8 +662,9 @@ public class Scanner {
 					case -59:
 						break;
 					case 61:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter no permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
+
 					case -60:
 						break;
 					case 62:
@@ -676,8 +680,8 @@ public class Scanner {
 					case -63:
 						break;
 					case 66:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -64:
 						break;
 					case 67:
@@ -689,8 +693,8 @@ public class Scanner {
 					case -66:
 						break;
 					case 70:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -67:
 						break;
 					case 72:
@@ -698,8 +702,8 @@ public class Scanner {
 					case -68:
 						break;
 					case 73:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -69:
 						break;
 					case 75:
@@ -707,8 +711,8 @@ public class Scanner {
 					case -70:
 						break;
 					case 76:
-						{ throw (new System.Exception("Caracter no permitido <"+
-                                                    yytext()+">")); }
+						{ errores=errores+"Error Léxico. Caracter No permitido: "+yytext()+". Linea: "+Convert.ToString(yyline)+".Columna: "+ Convert.ToString(yychar)+"\n";
+						break;}
 					case -71:
 						break;
 					case 78:
