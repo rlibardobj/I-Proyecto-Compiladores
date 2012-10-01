@@ -68,7 +68,8 @@ public class parser
     	IDAST id;
     	errores=errores+currentToken.value;
     	errores=errores+currentToken.sym;
-         accept(sym.CLASS);
+    	
+         acceptit();
          errores=errores+"prueba";
          id=new IDAST(currentToken.value);
          accept(sym.ID);
