@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclBasicAST : DeclarationAST
 	{
-		TypeAST tipo;
-		IDAST ident;
+		public TypeAST tipo;
+		public IDAST ident;
+		
 		public MethodDeclBasicAST(TypeAST tip, IDAST id)
 		{
 			ident=id;

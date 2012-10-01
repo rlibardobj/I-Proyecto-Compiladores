@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class DesigComplexAST:DesignatorAST
 	{
-		IDAST ident;
-		DesigAddonsAST addon;
+		public IDAST ident;
+		public DesigAddonsAST addon;
+		
 		public DesigComplexAST(DesigAddonsAST addo, IDAST id)
 		{
 			ident=id;

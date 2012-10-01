@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class CharConstFactorAST:FactorAST
 	{
-		TerminalesAST charconst;
+		public TerminalesAST charconst;
+		
 		public CharConstFactorAST(TerminalesAST charc)
 		{
 			charconst=charc;

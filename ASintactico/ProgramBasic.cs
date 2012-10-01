@@ -22,7 +22,7 @@ namespace ASintactico
 		}
 		
 		public override object visit(Visitor v,object arg){
-				return v.VisitProgramBasic(this,arg);
+				return v.VisitProgramBasicAST(this,arg);
 		}
 	} 
 }

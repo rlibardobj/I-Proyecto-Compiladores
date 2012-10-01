@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class ConstDeclAST : DeclarationAST
 	{
-		string value;
-		TypeAST tipo;
+		public string value;
+		public TypeAST tipo;
+		
 		public ConstDeclAST(TypeAST tip, string valor)
 		{
 			value=valor;

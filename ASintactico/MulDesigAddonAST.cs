@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class MulDesigAddonAST:DesigAddonsAST
 	{
-		DesigAddonsAST addon,addons;
+		public DesigAddonsAST addon,addons;
+		
 		public MulDesigAddonAST(DesigAddonsAST addo, DesigAddonsAST addos)
 		{
 			addon=addo;

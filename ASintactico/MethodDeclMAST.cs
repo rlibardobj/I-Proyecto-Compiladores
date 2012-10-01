@@ -15,9 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class MethodDeclMAST : DeclarationAST
 	{
-		TypeAST tipo;
-		IDAST ident;
-		DeclarationsAST declaraciones;
+		public TypeAST tipo;
+		public IDAST ident;
+		public DeclarationsAST declaraciones;
+		
 		public MethodDeclMAST(DeclarationsAST decls, TypeAST tip, IDAST id)
 		{
 			declaraciones=decls;

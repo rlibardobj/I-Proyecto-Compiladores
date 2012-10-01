@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class ForBasicStatAST : StatementAST
 	{
-		ExprAST expresion;
-		StatementAST statement;
+		public ExprAST expresion;
+		public StatementAST statement;
 		public ForBasicStatAST(ExprAST expr, StatementAST sta)
 		{
 			expresion=expr;

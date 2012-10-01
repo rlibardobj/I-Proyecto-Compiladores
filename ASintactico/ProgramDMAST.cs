@@ -15,10 +15,17 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramDMAST : ProgramAST
 	{ 
+<<<<<<< HEAD
 		IDAST ident;
 		DeclarationsAST declaraciones;
 		DeclarationsAST metodos;
 		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths,IDAST id)
+=======
+		public DeclarationsAST declaraciones;
+		public DeclarationsAST metodos;
+		
+		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths)
+>>>>>>> origin/master
 		{
 			ident=id;
 			declaraciones=decls;
@@ -26,7 +33,7 @@ namespace ASintactico
 		}
 		
 		public override object visit(Visitor v,object arg){
-			return v.VisitProgramDM(this,arg);
+			return v.VisitProgramDMAST(this,arg);
 
 		}
 	}

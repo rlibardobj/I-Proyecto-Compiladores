@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class IfStatAST : StatementAST
 	{
-		StatementAST statement;
-		ConditionsAST condicion;
+		public StatementAST statement;
+		public ConditionsAST condicion;
+		
 		public IfStatAST(ConditionsAST cond, StatementAST sta)
 		{
 			statement=sta;

@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class MULOPAST : TerminalesAST
 	{
-		string value;
+		public string value;
+		
 		public MULOPAST(string valor)
 		{
 			value=valor;

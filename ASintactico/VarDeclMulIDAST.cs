@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class VarDeclMulIDAST : DeclarationAST
 	{
-		DeclarationAST identificador;
-		DeclarationAST identificadores;
+		public DeclarationAST identificador;
+		public DeclarationAST identificadores;
+		
 		public VarDeclMulIDAST(DeclarationAST ids,DeclarationAST id)
 		{
 			identificador=id;

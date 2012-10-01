@@ -16,15 +16,20 @@ namespace ASintactico
 	public class ProgramDAST : ProgramAST
 	{
 		public DeclarationsAST declaraciones;
+<<<<<<< HEAD
 		IDAST ident;
 		public ProgramDAST(DeclarationsAST decls,IDAST id)
+=======
+		
+		public ProgramDAST(DeclarationsAST decls)
+>>>>>>> origin/master
 		{
 			ident=id;
 			declaraciones=decls;
 		}
 		
 		public override object visit(Visitor v,object arg){
-			return v.VisitProgramD(this,arg);
+			return v.VisitProgramDAST(this,arg);
 		}
 	}
 }

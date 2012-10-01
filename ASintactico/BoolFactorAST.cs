@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class BoolFactorAST:FactorAST
 	{
-		BOOLAST boolf;
+		public BOOLAST boolf;
+		
 		public BoolFactorAST(BOOLAST bol)
 		{
 			boolf=bol;

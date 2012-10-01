@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class ClassDeclBasicAST : DeclarationAST
 	{
-		TerminalesAST ident;
+		public TerminalesAST ident;
+		
 		public ClassDeclBasicAST(TerminalesAST id)
 		{
 			ident=id;

@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class MulFactorAST:TermAST
 	{
-		TermAST fac,facs;
+		public TermAST fac,facs;
+		
 		public MulFactorAST(TermAST fa, TermAST fas)
 		{
 			fac=fa;

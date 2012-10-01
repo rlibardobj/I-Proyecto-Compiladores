@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class UnFactorAST:TermAST
 	{
-		FactorAST factor;
+		public FactorAST factor;
+		
 		public UnFactorAST(FactorAST fac)
 		{
 			factor=fac;

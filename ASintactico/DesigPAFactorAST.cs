@@ -15,8 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class DesigPAFactorAST:FactorAST
 	{
-		DesignatorAST desig;
-		ActParsAST pars;
+		public DesignatorAST desig;
+		public ActParsAST pars;
+		
 		public DesigPAFactorAST(DesignatorAST des, ActParsAST par)
 		{
 			pars=par;

@@ -15,7 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class ExprFactorAST:FactorAST
 	{
-		ExprAST expresion;
+		public ExprAST expresion;
+		
 		public ExprFactorAST(ExprAST expr)
 		{
 			expresion=expr;
