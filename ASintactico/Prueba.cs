@@ -22,6 +22,10 @@ namespace ASintactico
     	ProgramAST arbol;
     	arbol=parsing.parseProgram();
     	Console.ReadLine();
+    	Console.Write("IMPRESIÓN DEL ÁRBOL:");
+        PrettyPrintAST instancia = new PrettyPrintAST();
+        instancia.imprimir(arbol);
+        Console.Write("FIN DE IMPRESIÓN");
 	}
 }
 }
