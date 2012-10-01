@@ -32,8 +32,8 @@ namespace ASintactico
 		public void printtab(int n)
         {
           for(int num=n; num != 0; num--)
-          {  Console.WriteLine("+++");
-             Console.WriteLine(">");
+          { // Console.WriteLine("+++");
+             //Console.WriteLine(">");
           }
         }
 		
