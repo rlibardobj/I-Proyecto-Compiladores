@@ -15,10 +15,17 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramDAST : ProgramAST
 	{
+<<<<<<< HEAD
 		public DeclarationsAST declaraciones;
 		
 		public ProgramDAST(DeclarationsAST decls)
+=======
+		public DeclarationsAST declaraciones;
+		public IDAST ident;
+		public ProgramDAST(DeclarationsAST decls,IDAST id)
+>>>>>>> Commit.
 		{
+			ident=id;
 			declaraciones=decls;
 		}
 		

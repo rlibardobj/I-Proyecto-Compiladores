@@ -30,7 +30,7 @@ public class parser
             if (currentToken.sym == expectedKind)
                 currentToken = scanner.nextToken();
             else{
-            	
+            	Console.WriteLine("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym);
             }
                 //printf("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym);
         }
@@ -62,31 +62,43 @@ public class parser
 
     public ProgramAST parseProgram()
     { 
-    	DeclarationsAST declaraciones;
+    	Console.WriteLine("parseProgram");
+    	acceptit();
+    	DeclarationsAST declaraciones=null,metodos=null;
       //palabra class
-      if(currentToken.sym == sym.CLASS)
-      {
-          acceptit();
-          accept(sym.ID);
-          if ((currentToken.sym == sym.CONST) | (currentToken.sym == sym.ID) |
-              (currentToken.sym == sym.CLASS))
-          { 
-          	declaraciones=parseDecls();
-          }
+         accept(sym.CLASS);
+         IDAST id=new IDAST(currentToken.value);
+         accept(sym.ID);
+         if ((currentToken.sym == sym.CONST) | (currentToken.sym == sym.ID) |
+             (currentToken.sym == sym.CLASS))
+         { 
+          declaraciones=parseDecls();
+         }
           //Corchete
-          accept(sym.CORCHi);
-          /*while((currentToken.sym == sym.VOID) | (currentToken.sym == sym.ID))// | (currentToken.sym == sym.LLAVEd))
-          { 
-            parseMethodDecl(); //Método Decl
-          }*/
-          accept(sym.CORCHd);
-             
-      }
-      declaraciones=parseDecls();
-      return new ProgramDAST(declaraciones);
+         accept(sym.LLAVEi);
+         while((currentToken.sym == sym.VOID) | (currentToken.sym == sym.ID))// | (currentToken.sym == sym.LLAVEd))
+         { 
+            metodos=parseDecls(); //Método Decl
+         }
+         accept(sym.LLAVEd); 
+         if (declaraciones!=null){
+         	if (metodos!=null){
+         		return new ProgramDMAST(declaraciones,metodos,id);
+         	}
+         	else
+         		return new ProgramDAST(declaraciones,id);
+         }
+         else{
+         	if (metodos!=null){
+         		return new ProgramMAST(metodos,id);
+         	}
+         	else
+         		return new ProgramBasic(id);
+         }
     }
 
     public DeclarationsAST parseDecls(){
+    	Console.WriteLine("parseDecls");
     	DeclarationsAST resultado=null,temp;
     	DeclarationAST decl1,decl2;
     	if (currentToken.sym==sym.CONST){
@@ -99,6 +111,10 @@ public class parser
     	}
     	else if (currentToken.sym==sym.CLASS){
     		decl1=parseClassDecl();
+    		resultado=new UnDeclAST(decl1);
+    	}
+    	else if ((currentToken.sym==sym.ID)||(currentToken.sym==sym.VOID)){
+    		decl1=parseMethodDecl();
     		resultado=new UnDeclAST(decl1);
     	}
     	while ((currentToken.sym==sym.CONST)|(currentToken.sym==sym.ID)|(currentToken.sym==sym.CLASS)){
@@ -117,23 +133,33 @@ public class parser
     			temp=new UnDeclAST(decl2);
     			resultado=new MulDeclAST(resultado,temp);
     		}
+    		else if ((currentToken.sym==sym.ID)||(currentToken.sym==sym.VOID)){
+    			decl2=parseMethodDecl();
+    			temp=new UnDeclAST(decl2);
+    			resultado=new MulDeclAST(resultado,temp);
+    		}
     	}
     	return resultado;
     }
 
     public DeclarationAST parseConstDecl()
     {
+    	Console.WriteLine("parseConstDecl");
     	TypeAST tipo;
         accept(sym.CONST);
         tipo=parseType();
         accept(sym.ID);
         accept(sym.ASIGN);
         if (currentToken.sym == sym.NUM)
-        { 
+        {
+        	acceptit();
+        	accept(sym.PyCOMA);
         	return new ConstDeclAST(tipo,currentToken.value);
         }
         else if(currentToken.sym == sym.CHAR)
         {
+        	acceptit();
+        	accept(sym.PyCOMA);
         	return new ConstDeclAST(tipo,currentToken.value);
         }
         return null;
@@ -142,6 +168,7 @@ public class parser
 
     public DeclarationAST parseVarDecl()
     {
+    	Console.WriteLine("parseVarDecl");
     	DeclarationAST resultado=null, temp=null;
     	TypeAST tipo;
        	tipo= parseType();
@@ -164,6 +191,7 @@ public class parser
 
     public DeclarationAST parseClassDecl()
     {
+    	Console.WriteLine("parseClassDecl");
     	TerminalesAST ident=null;
     	DeclarationsAST declaraciones=null,temp=null;
         accept(sym.CLASS);
@@ -171,7 +199,7 @@ public class parser
         	ident=new IDAST(currentToken.value);
        	}
         acceptit();
-        accept(sym.CORCHi);
+        accept(sym.LLAVEi);
         if (currentToken.sym==sym.ID){
         	declaraciones=new UnDeclAST(parseVarDecl());
        	}
@@ -179,7 +207,7 @@ public class parser
         {
         	declaraciones=new MulDeclAST (new UnDeclAST(parseVarDecl()),declaraciones);
         }
-        accept(sym.CORCHd);
+        accept(sym.LLAVEd);
         if (declaraciones==null){
         	return new ClassDeclBasicAST(ident);
         }
@@ -189,6 +217,7 @@ public class parser
 
     public DeclarationAST parseMethodDecl()
     {
+    	Console.WriteLine("parseMethodDecl");
     	BlockAST bloque=null;
     	FormParsAST parametros=null;
     	DeclarationsAST declaraciones=null;
@@ -240,7 +269,8 @@ public class parser
 
     public FormParsAST parseFormPars()
     {
-    	FormParsAST parametros=null, temp;
+    	Console.WriteLine("parseFormPars");
+    	FormParsAST parametros=null;
     	TypeAST tipo;
     	IDAST ident=null;
         tipo=parseType();
@@ -264,13 +294,13 @@ public class parser
 
     public TypeAST parseType()
     {
+    	Console.WriteLine("parseType");
     	IDAST ident=null;
-    	if (currentToken.sym==sym.ID){
-    		ident=new IDAST(currentToken.value);
-    	}    	
-    	if (currentToken.sym == sym.LLAVEi){
+    	ident=new IDAST(currentToken.value);
+    	accept(sym.ID);
+    	if (currentToken.sym == sym.CORCHi){
             acceptit();
-            accept(sym.LLAVEd);
+            accept(sym.CORCHd);
             return new TypeCAST(ident);
     	}
     	else{
@@ -279,6 +309,7 @@ public class parser
     }
     
     public StatementsAST parseStatements(){
+    	Console.WriteLine("parseStatements");
     	StatementsAST stats=null,temp;
     	StatementAST sta;
     	if ((currentToken.sym==sym.IF)||(currentToken.sym==sym.FOR)||(currentToken.sym==sym.WHILE)||(currentToken.sym==sym.BREAK)
@@ -298,6 +329,7 @@ public class parser
     
     public StatementAST parseStatement()
     { 
+    	Console.WriteLine("parseStatement");
       if(currentToken.sym == sym.ID) //Revisar
       {
       	DesignatorAST desig=parseDesignator();
@@ -305,6 +337,7 @@ public class parser
           {
           	acceptit();
             ExprAST expresion=parseExpr();
+            accept (sym.PyCOMA);
             return new DesigEStatAST(desig,expresion);
           }
           else if(currentToken.sym == sym.PARENi)
@@ -317,6 +350,7 @@ public class parser
                		pars=parseActPars();
               }
               accept(sym.PARENd);
+              accept(sym.PyCOMA);
               if (pars==null){
               	return new DesigPStatAST(desig);
               }
@@ -326,13 +360,16 @@ public class parser
           }
           else if(currentToken.sym == sym.AUM)
           {
+          	acceptit();
+          	accept(sym.PyCOMA);
           	return new DesigplusStatAST(desig);
           }
           else if(currentToken.sym == sym.DEC)
           {
+          	acceptit();
+          	accept(sym.PyCOMA);
           	return new DesigminusStatAST(desig);
           }
-          accept(sym.PyCOMA);
       }
       else if(currentToken.sym == sym.IF)
       {
@@ -452,10 +489,9 @@ public class parser
           else
           	return new WriteStatAST(expresion);
       }
-      else if(currentToken.sym == sym.CORCHi)
+      else if(currentToken.sym == sym.LLAVEi)
       {
       	BlockAST bloque;
-          acceptit();
           bloque=parseBlock();
           return new BlockStatAST(bloque);
       }
@@ -469,13 +505,14 @@ public class parser
     
     public BlockAST parseBlock()
     {
+    	Console.WriteLine("parseBlock");
     	StatementsAST statements=null;
-        accept(sym.CORCHi); //Revizar cond while
+        accept(sym.LLAVEi); //Revizar cond while
         if ((currentToken.sym == sym.ID) | (currentToken.sym == sym.IF) | (currentToken.sym == sym.FOR) | (currentToken.sym == sym.WHILE) | (currentToken.sym == sym.BREAK) | (currentToken.sym == sym.RETURN) | (currentToken.sym == sym.READ) | (currentToken.sym == sym.WRITE) | (currentToken.sym == sym.CORCHi) | (currentToken.sym == sym.PyCOMA))
         {
             statements=parseStatements();
         }
-        accept(sym.CORCHd);
+        accept(sym.LLAVEd);
         if (statements==null){
         	return new BlockBasicAST();
         }
@@ -486,6 +523,7 @@ public class parser
 
     public ActParsAST parseActPars()
     {
+    	Console.WriteLine("parseActPars");
     	ActParsAST expres=null;
     	expres=new UnExprAST(parseExpr());
         while (currentToken.sym == sym.COMA)
@@ -498,6 +536,7 @@ public class parser
 
     public ConditionsAST parseConditions()
     {
+    	Console.WriteLine("parseConditions");
     	ConditionsAST cond=null;
     	cond=new UnCondTermAST(parseCondTerm());
         while (currentToken.sym == sym.O)
@@ -510,6 +549,7 @@ public class parser
 
     public CondTermAST parseCondTerm()
     {
+    	Console.WriteLine("parseCondTerm");
     	CondTermAST cond=null;
     	cond=new UnCondFactAST(parseCondFact());
         while (currentToken.sym == sym.Y)
@@ -522,6 +562,7 @@ public class parser
 
     public ConditionAST parseCondFact()
     {
+    	Console.WriteLine("parseCondFact");
     	ExprAST expr,expr1;
         expr=parseExpr();
         RELOPAST relop=parseRelop();
@@ -531,6 +572,7 @@ public class parser
 
     public ExprAST parseExpr()
     {
+    	Console.WriteLine("parseExpr");
     	ExprAST resultado=null, temp;
     	TermAST termino;
         if (currentToken.sym == sym.SUB)//Revisar
@@ -563,6 +605,7 @@ public class parser
 
     public TermAST parseTerm()
     {
+    	Console.WriteLine("parseTerm");
     	TermAST resultado=null,temp;
     	FactorAST factor;
         factor=parseFactor();
@@ -579,10 +622,10 @@ public class parser
 
     public FactorAST parseFactor()
     {
+    	Console.WriteLine("parseFactor");
         if(currentToken.sym == sym.ID)
         {
         	DesignatorAST desig=parseDesignator();
-            acceptit();
             if (currentToken.sym == sym.PARENi)
             {
             	ActParsAST pars=null;
@@ -632,11 +675,11 @@ public class parser
             acceptit();
             id=new IDAST(currentToken.value);
             accept(sym.ID);
-            if (currentToken.sym == sym.LLAVEi)
+            if (currentToken.sym == sym.CORCHi)
             {
                 acceptit();
                 expresion=parseExpr();
-                accept(sym.LLAVEd);
+                accept(sym.CORCHd);
             }
             if(expresion!=null){
             	return new NewEFactorAST(expresion,id);
@@ -657,26 +700,28 @@ public class parser
 
     public DesignatorAST parseDesignator()
     {
+    	Console.WriteLine("parseDesignator");
     	DesigAddonsAST addons=null;
     	IDAST id=new IDAST(currentToken.value),ids;
         accept(sym.ID);
-        while (currentToken.sym == sym.PUNTO)
+        while ((currentToken.sym == sym.PUNTO)||(currentToken.sym==sym.CORCHi))
         { 
-           acceptit();
-           if (currentToken.sym == sym.ID)
-           {
-           	ids=new IDAST(currentToken.value);
-           	acceptit();
-           	addons=new MulDesigAddonAST(new UnDesigAddonAST(new IDAddonAST(ids)),addons);
-           }
-           else if (currentToken.sym == sym.LLAVEi)
+           if (currentToken.sym == sym.CORCHi)
            {
            	ExprAST expr;
-               acceptit();
-               expr=parseExpr();
-               accept(sym.LLAVEd);
-               addons=new MulDesigAddonAST(new UnDesigAddonAST(new ExprAddonAST(expr)),addons);
+            acceptit();
+            expr=parseExpr();
+            accept(sym.CORCHd);
+            addons=new MulDesigAddonAST(new UnDesigAddonAST(new ExprAddonAST(expr)),addons);
            }
+           else if (currentToken.sym == sym.PUNTO)
+           {
+           	acceptit();
+            ids=new IDAST(currentToken.value);
+           	accept(sym.ID);
+           	addons=new MulDesigAddonAST(new UnDesigAddonAST(new IDAddonAST(ids)),addons);
+           }
+           
         }
         if (addons!=null){
         	return new DesigComplexAST(addons,id);
@@ -688,6 +733,7 @@ public class parser
 
     public ADDOPAST parseAddop()
     {
+    	Console.WriteLine("parseADDOP");
     	 if (currentToken.sym == sym.SUM) {
     		acceptit();
     		return new ADDOPAST(currentToken.value);
@@ -702,6 +748,7 @@ public class parser
 
     public RELOPAST parseRelop()
     {
+    	Console.WriteLine("parseRELOP");
     	 if (currentToken.sym == sym.IGUAL) { 
     		acceptit();
     		return new RELOPAST(currentToken.value);
@@ -748,6 +795,7 @@ public class parser
 
     public MULOPAST parseMulop()
     {
+    	Console.WriteLine("parseMULOP");
     	 if (currentToken.sym == sym.MULT) { 
     		acceptit();
     		return new MULOPAST(currentToken.value);

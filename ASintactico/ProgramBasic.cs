@@ -15,8 +15,10 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramBasic : ProgramAST
 	{
-		public ProgramBasic()
+		IDAST ident;
+		public ProgramBasic(IDAST id)
 		{
+			ident=id;
 		}
 		
 		public override object visit(Visitor v,object arg){
