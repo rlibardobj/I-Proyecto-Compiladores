@@ -43,7 +43,7 @@ namespace ASintactico
     				RichTextBox rtb = (RichTextBox)tabControl1.TabPages[i].Controls["rtb"];
     				path=tabControl1.TabPages[i].Name.ToString();
         			tabControl1.TabPages.RemoveAt(i);
-        			texto=rtb.Text;
+        			texto=rtb.Rtf;
         			System.IO.File.WriteAllText(@path,texto);
         			break;
     			}

@@ -44,7 +44,6 @@ public class parser
         try
         {
             currentToken = scanner.nextToken();
-            errores=errores+currentToken.sym;
         }
         catch (Exception e)
         { }
@@ -65,10 +64,8 @@ public class parser
     	DeclarationsAST declaraciones=null,metodos=null;
     	IDAST id;
     	 accept(sym.CLASS);
-         errores=errores+"prueba";
          id=new IDAST(currentToken.value);
          accept(sym.ID);
-         errores=errores+"error";
          if ((currentToken.sym == sym.CONST) | (currentToken.sym == sym.ID) |
              (currentToken.sym == sym.CLASS))
          { 
