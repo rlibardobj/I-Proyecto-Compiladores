@@ -21,6 +21,67 @@ public class parser
 	{
         scanner = s;
 	}
+	
+	
+	public String obtenerNombreSYM(int num){
+		String esperado;
+		switch (num)
+                     {
+                      case 0: esperado ="ERROR"; break;
+                      case 1: esperado ="TINT"; break;
+                      case 2: esperado ="TCHAR"; break;
+                      case 3: esperado ="TBOOL"; break;
+                      case 4: esperado ="TFLOAT"; break;
+                      case 5: esperado ="BREAK"; break;
+                      case 6: esperado ="CLASS"; break;
+                      case 7: esperado ="CONST"; break;
+                      case 8: esperado ="ELSE"; break;
+                      case 9: esperado ="IF"; break;
+                      case 10: esperado ="NEW"; break;
+                      case 11: esperado ="READ"; break;
+                      case 12: esperado ="RETURN"; break;
+                      case 13: esperado ="VOID"; break;
+                      case 14: esperado ="WHILE"; break;
+                      case 15: esperado ="WRITE"; break;
+                      case 16: esperado ="ID"; break;
+                      case 17: esperado ="NUM"; break;
+                      case 18: esperado ="CHAR"; break;
+                      case 19: esperado ="ASIGN"; break;
+                      case 20: esperado ="IGUAL"; break;
+                      case 21: esperado ="DIST"; break;
+                      case 22: esperado ="MAYOR"; break;
+                      case 23: esperado ="MENOR"; break;
+                      case 24: esperado ="MAYORi"; break;
+                      case 25: esperado ="MENORi"; break;
+                      case 26: esperado ="Y"; break;
+                      case 27: esperado ="O"; break;
+                      case 28: esperado ="MULT"; break;
+                      case 29: esperado ="SUM"; break;
+                      case 30: esperado ="SUB"; break;
+                      case 31: esperado ="DIV"; break;
+                      case 32: esperado ="AUM"; break;
+                      case 33: esperado ="DEC"; break;
+                      case 34: esperado ="LLAVEi"; break;
+                      case 35: esperado ="LLAVEd"; break;
+                      case 36: esperado ="CORCHi"; break;
+                      case 37: esperado ="CORCHd"; break;
+                      case 38: esperado ="PARENi"; break;
+                      case 39: esperado ="PARENd"; break;
+                      case 40: esperado ="PyCOMA"; break;
+                      case 41: esperado ="COMA"; break;
+                      case 42: esperado ="PUNTO"; break;
+                      case 43: esperado ="EOF"; break;
+                      case 44: esperado ="FOR"; break;
+                      case 45: esperado ="MOD"; break;
+                      case 46: esperado ="TRUE"; break;
+                      case 47: esperado ="FALSE"; break;
+                      default: esperado = (Convert.ToString(num)); break;
+                 }
+		return esperado;
+	}
+	
+	
+	
 
    //Acepta el token
     private void accept(int expectedKind)
@@ -31,7 +92,11 @@ public class parser
                 currentToken = scanner.nextToken();
         	}
             else{
-            	errores=errores+("Error Sintáctico.Se esperaba " + expectedKind + " pero en su lugar viene: " + currentToken.sym +". Linea: "+currentToken.line.ToString()+". Columna: "+currentToken.column.ToString()+ "\n");
+        		String esperado = obtenerNombreSYM(expectedKind);
+        		String viene = obtenerNombreSYM(currentToken.sym);
+        		
+        		
+            	errores=errores+("Error Sintáctico.Se esperaba " + esperado + " pero en su lugar viene: " + viene +". Linea: "+currentToken.line.ToString()+". Columna: "+currentToken.column.ToString()+ "\n");
             }
         }
         catch (Exception e)
