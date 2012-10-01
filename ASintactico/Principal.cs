@@ -60,6 +60,7 @@ namespace ASintactico
 			Scanner sc=new Scanner(archivo);
 			parser parse = new parser(sc);
 			parse.parse();
+			archivo.Close();
 			MessageBox.Show("Proceso de Compilación Finalizado.");
 			richTextBox1.Text=parse.errores;
 		}

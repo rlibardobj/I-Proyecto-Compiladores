@@ -66,10 +66,7 @@ public class parser
     	errores=errores+"parseProgram";
     	DeclarationsAST declaraciones=null,metodos=null;
     	IDAST id;
-    	errores=errores+currentToken.value;
-    	errores=errores+currentToken.sym;
-    	
-         acceptit();
+    	 accept(sym.CLASS);
          errores=errores+"prueba";
          id=new IDAST(currentToken.value);
          accept(sym.ID);

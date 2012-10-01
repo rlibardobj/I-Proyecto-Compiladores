@@ -15,7 +15,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of Prueba.
 	/// </summary>
-	public class Prueba
+	internal sealed class Prueba
 	{
     	public static void Main(string[] argv)
     	{
