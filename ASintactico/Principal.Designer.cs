@@ -139,7 +139,7 @@ namespace ASintactico
 				DialogResult resultado=openFileDialog1.ShowDialog();
 				if(resultado==DialogResult.OK){
 					StreamReader archivo=new StreamReader(openFileDialog1.FileName);
-					TabPage pagina=new TabPage(openFileDialog1.FileName);
+					TabPage pagina=new TabPage(openFileDialog1.SafeFileName);
 					pagina.Size=new System.Drawing.Size(410, 394);
 					pagina.Padding=new System.Windows.Forms.Padding(3);;
 					RichTextBox texto=new RichTextBox();
