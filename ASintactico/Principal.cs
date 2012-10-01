@@ -57,9 +57,9 @@ namespace ASintactico
 		{
 			string patharch=tabControl1.SelectedTab.Name;
 			StreamReader archivo=new StreamReader(patharch);
-			parser parse = new parser(new Scanner(archivo));
+			Scanner sc=new Scanner(archivo);
+			parser parse = new parser(sc);
 			parse.parse();
-			archivo.Close();
 			MessageBox.Show("Proceso de Compilación Finalizado.");
 			richTextBox1.Text=parse.errores;
 		}
