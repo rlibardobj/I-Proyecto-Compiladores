@@ -57,6 +57,7 @@ namespace ASintactico
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(435, 55);
 			this.button1.TabIndex = 1;
+			this.button1.Enabled=false;
 			this.button1.Text = "Compilar Archivo Actual";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.Button1Click);
@@ -119,9 +120,9 @@ namespace ASintactico
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(139, 57);
 			this.button4.TabIndex = 5;
+			this.button4.Enabled=false;
 			this.button4.Text = "Mostrar Árbol";
 			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.Button4Click);
 			// 
 			// Principal
 			// 
@@ -166,6 +167,7 @@ namespace ASintactico
 					tabControl1.Controls.Add(pagina);
 					richTextBox1.Text=tabControl1.SelectedTab.Text;
 					archivo.Close();
+					button1.Enabled=true;
 				}
 			}
 			catch (Exception exc){

@@ -44,6 +44,8 @@ namespace ASintactico
     				path=tabControl1.TabPages[i].Name.ToString();
         			tabControl1.TabPages.RemoveAt(i);
         			rtb.SaveFile(path,RichTextBoxStreamType.PlainText);
+        			if (tabControl1.SelectedTab==null)
+        				button4.Enabled=false;
         			break;
     			}
 			}
@@ -62,6 +64,7 @@ namespace ASintactico
 			archivo.Close();
 			MessageBox.Show("Proceso de Compilación Finalizado.");
 			richTextBox1.Text=sc.errores+parse.errores;
+			button4.Enabled=true;
 		}
 	}
 }
