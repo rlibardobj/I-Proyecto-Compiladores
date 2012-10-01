@@ -14,30 +14,16 @@ namespace ASintactico
 	/// Description of ProgramMAST.
 	/// </summary>
 	public class ProgramMAST : ProgramAST
-<<<<<<< HEAD
-	{
-		public DeclarationsAST metodos;
-		
-		public ProgramMAST(DeclarationsAST meths)
-=======
 	{
 		public IDAST ident;
 		public DeclarationsAST metodos;
 		public ProgramMAST(DeclarationsAST meths,IDAST id)
->>>>>>> Commit.
 		{
 			ident=id;
 			metodos=meths;
 		}
-		
-<<<<<<< HEAD
 		public override object visit(Visitor v,object arg){
 			return v.VisitProgramMAST(this,arg);
-
-=======
-		public override object visit(Visitor v,object arg){
-			return v.VisitProgramMAST(this,arg);
->>>>>>> Commit.
 		}
 	}
 }

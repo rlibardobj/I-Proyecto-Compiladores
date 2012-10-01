@@ -14,19 +14,11 @@ namespace ASintactico
 	/// Description of ProgramDMAST.
 	/// </summary>
 	public class ProgramDMAST : ProgramAST
-<<<<<<< HEAD
-	{ 
-		public DeclarationsAST declaraciones;
-		public DeclarationsAST metodos;
-		
-		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths)
-=======
 	{ 
 		public IDAST ident;
 		public DeclarationsAST declaraciones;
 		public DeclarationsAST metodos;
 		public ProgramDMAST(DeclarationsAST decls,DeclarationsAST meths,IDAST id)
->>>>>>> Commit.
 		{
 			ident=id;
 			declaraciones=decls;
