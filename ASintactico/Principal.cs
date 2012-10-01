@@ -18,6 +18,8 @@ namespace ASintactico
 	/// </summary>
 	public partial class Principal : Form
 	{
+		parser parse;
+		Scanner sc;
 		string path;
 		public Principal()
 		{
@@ -48,6 +50,7 @@ namespace ASintactico
         				button4.Enabled=false;
         			break;
     			}
+				TextBox t=new TextBox();
 			}
 			}
 			else
@@ -58,13 +61,20 @@ namespace ASintactico
 		{
 			string patharch=tabControl1.SelectedTab.Name;
 			StreamReader archivo=new StreamReader(patharch);
-			Scanner sc=new Scanner(archivo);
-			parser parse = new parser(sc);
+			sc=new Scanner(archivo);
+			parse = new parser(sc);
 			parse.parse();
 			archivo.Close();
 			MessageBox.Show("Proceso de Compilación Finalizado.");
 			richTextBox1.Text=sc.errores+parse.errores;
 			button4.Enabled=true;
+		}
+		
+		void Button4Click(object sender, EventArgs e)
+		{
+			PrettyPrintAST printer=new PrettyPrintAST();
+			printer.imprimir(parse.raiz);
+			MessageBox.Show(printer.resultado,"Arbol AST",MessageBoxButtons.OK);
 		}
 	}
 }

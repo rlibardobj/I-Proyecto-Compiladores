@@ -11,7 +11,7 @@ using System;
 namespace ASintactico{
 public class parser
 {
-	AST raiz;
+	public AST raiz;
     private Token currentToken;
     private Scanner scanner;
     public string errores;

@@ -16,7 +16,7 @@ namespace ASintactico
 	/// </summary>
 	public class PrettyPrintAST : Visitor
 	{
-		String resultado;
+		public String resultado;
 		public PrettyPrintAST()
 		{
 			
