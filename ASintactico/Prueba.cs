@@ -8,6 +8,7 @@
  */
 using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ASintactico
 {
@@ -18,7 +19,9 @@ namespace ASintactico
 	{
     	public static void Main(string[] argv)
     	{
-    	parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
+    		//StreamReader archivo=new StreamReader("prueba.txt");
+    		//Console.WriteLine(archivo.ReadToEnd());
+    	/*parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
     	ProgramAST arbol;
     	arbol=parsing.parseProgram();
     	Console.WriteLine("IMPRESIÓN DEL ÁRBOL:");
@@ -26,7 +29,10 @@ namespace ASintactico
         instancia.imprimir(arbol);
         Console.WriteLine();
         Console.Write("FIN DE IMPRESIÓN");
-    	Console.ReadLine();
+    	Console.ReadLine();*/
+    	Application.EnableVisualStyles();
+		Application.SetCompatibleTextRenderingDefault(false);
+    	Application.Run(new Principal());
     	
 	}
 }
