@@ -175,7 +175,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.identificadores != null){
-        printtab(numaux+1);
         v.identificadores.visit(this,numaux+1);  
         }
         else{
@@ -208,7 +207,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.parametros != null){
-        printtab(numaux+1);
         v.parametros.visit(this,numaux+1);  
         }
         else{
@@ -216,7 +214,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         }
        if(v.tipo != null){
-        printtab(numaux+1);
         v.tipo.visit(this,numaux+1);  
         }
         else{
@@ -239,7 +236,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.ident != null){
-        printtab(numaux+1);
         v.ident.visit(this,numaux+1);  
         }
         else{
@@ -247,7 +243,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.parametros != null){
-        printtab(numaux+1);
         v.parametros.visit(this,numaux+1);  
         }
         else{
@@ -255,7 +250,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         }
         if(v.tipo != null){
-        printtab(numaux+1);
         v.tipo.visit(this,numaux+1);  
         }
         else{
@@ -308,7 +302,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.tipo != null){
-        printtab(numaux+1);
         v.tipo.visit(this,numaux+1);  
         }
         else{
@@ -325,7 +318,7 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.Write(v.GetType());
+        Console.Write(v.GetType()+". Valor: ");
         Console.WriteLine(v.ident);
 	  	return null;
 	  }
@@ -334,10 +327,10 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.WriteLine(v.GetType());
+        Console.Write(v.GetType()+". Valor: ");
                 
         if (v.value != null)
-        	Console.Write(v.value);
+        	Console.WriteLine(v.value);
         else{
            printtab(numaux+1);
            Console.WriteLine("NULL");       
@@ -349,10 +342,10 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.WriteLine(v.GetType());
+        Console.Write(v.GetType()+". Valor: ");
                 
         if (v.num != null)
-        	Console.Write(v.num);
+        	Console.WriteLine(v.num);
         else{
            printtab(numaux+1);
            Console.WriteLine("NULL");
@@ -364,10 +357,10 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.WriteLine(v.GetType());
+        Console.Write(v.GetType()+". Valor: ");
                 
         if (v.value != null)
-        	Console.Write(v.value);
+        	Console.WriteLine(v.value);
         else{
            printtab(numaux+1);
            Console.WriteLine("NULL");
@@ -379,10 +372,10 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.WriteLine(v.GetType());
+        Console.Write(v.GetType()+". Valor: ");
                 
         if (v.car != null)
-        	Console.Write(v.car);
+        	Console.WriteLine(v.car);
         else{
            printtab(numaux+1);
            Console.WriteLine("NULL");
@@ -394,10 +387,10 @@ namespace ASintactico
 	  {
 	  	int numaux = ((int)arg);
         printtab(numaux);
-        Console.WriteLine(v.GetType());
+        Console.Write(v.GetType()+". Valor: ");
                 
         if (v.value != null)
-        	Console.Write(v.value);
+        	Console.WriteLine(v.value);
         else{
            printtab(numaux+1);
            Console.WriteLine("NULL");
@@ -421,7 +414,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.tipo != null){
-        printtab(numaux+1);
         v.tipo.visit(this,numaux+1);  
         }
         else{
@@ -444,7 +436,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.parametros != null){
-        printtab(numaux+1);
         v.parametros.visit(this,numaux+1);  
         }
         else{
@@ -542,7 +533,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.statements != null){
-        printtab(numaux+1);
         v.statements.visit(this,numaux+1);  
         }
         else{
@@ -620,7 +610,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.expresion != null){
-        printtab(numaux+1);
         v.expresion.visit(this,numaux+1);  
         }
         else{
@@ -658,7 +647,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.expresion != null){
-        printtab(numaux+1);
         v.expresion.visit(this,numaux+1);  
         }
         else{
@@ -681,7 +669,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.elsestatement != null){
-        printtab(numaux+1);
         v.elsestatement.visit(this,numaux+1);  
         }
         else{
@@ -689,7 +676,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.condicion != null){
-        printtab(numaux+1);
         v.condicion.visit(this,numaux+1);  
         }
         else{
@@ -712,7 +698,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.statement != null){
-        printtab(numaux+1);
         v.statement.visit(this,numaux+1);  
         }
         else{
@@ -765,7 +750,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.numero != null){
-        printtab(numaux+1);
         v.numero.visit(this,numaux+1);  
         }
         else{
@@ -788,7 +772,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.statement != null){
-        printtab(numaux+1);
         v.statement.visit(this,numaux+1);  
         }
         else{
@@ -811,7 +794,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.expresion1 != null){
-        printtab(numaux+1);
         v.expresion1.visit(this,numaux+1);  
         }
         else{
@@ -819,7 +801,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.statement != null){
-        printtab(numaux+1);
         v.statement.visit(this,numaux+1);  
         }
         else{
@@ -842,7 +823,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.expresion1 != null){
-        printtab(numaux+1);
         v.expresion1.visit(this,numaux+1);  
         }
         else{
@@ -850,7 +830,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.expresion2 != null){
-        printtab(numaux+1);
         v.expresion2.visit(this,numaux+1);  
         }
         else{
@@ -858,7 +837,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.statement != null){
-        printtab(numaux+1);
         v.statement.visit(this,numaux+1);  
         }
         else{
@@ -881,7 +859,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.statement != null){
-        printtab(numaux+1);
         v.statement.visit(this,numaux+1);  
         }
         else{
@@ -959,7 +936,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.condfacts != null){
-        printtab(numaux+1);
         v.condfacts.visit(this,numaux+1);  
         }
         else{
@@ -985,7 +961,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.expr1 != null){
-        printtab(numaux+1);
         v.expr1.visit(this,numaux+1);  
         }
         else{
@@ -993,7 +968,6 @@ namespace ASintactico
         Console.WriteLine("NULL");
         } 
         if(v.relop != null){
-        printtab(numaux+1);
         v.relop.visit(this,numaux+1);  
         }
         else{
@@ -1034,7 +1008,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.condterms != null){
-        printtab(numaux+1);
         v.condterms.visit(this,numaux+1);  
         }
         else{
@@ -1074,7 +1047,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.expresiones != null){
-        printtab(numaux+1);
         v.expresiones.visit(this,numaux+1);  
         }
         else{
@@ -1100,7 +1072,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.terms != null){
-        printtab(numaux+1);
         v.terms.visit(this,numaux+1);  
         }
         else{
@@ -1123,7 +1094,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.terms != null){
-        printtab(numaux+1);
         v.terms.visit(this,numaux+1);  
         }
         else{
@@ -1160,10 +1130,6 @@ namespace ASintactico
            printtab(numaux+1);
            Console.WriteLine("NULL");
    	    }
-        if(v != null){
-        printtab(numaux+1);
-        v.visit(this,numaux+1);  
-        }
 	  	return null;
 	  }
 	  
@@ -1198,7 +1164,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.facs != null){
-        printtab(numaux+1);
         v.facs.visit(this,numaux+1);  
         }
 	  	return null;
@@ -1265,7 +1230,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.pars != null){
-        printtab(numaux+1);
         v.pars.visit(this,numaux+1);  
         }
         else{
@@ -1318,7 +1282,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.ident != null){
-        printtab(numaux+1);
         v.ident.visit(this,numaux+1);  
         }
         else{
@@ -1374,7 +1337,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.ident != null){
-        printtab(numaux+1);
         v.ident.visit(this,numaux+1);  
         }
         else{
@@ -1415,7 +1377,6 @@ namespace ASintactico
            Console.WriteLine("NULL");
    	    }
         if(v.addons != null){
-        printtab(numaux+1);
         v.addons.visit(this,numaux+1);  
         }
         else{
