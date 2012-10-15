@@ -22,7 +22,7 @@ namespace AContextual
 		int nivel;
 		public tablaSimbolos()
 		{
-			tabla=new LinkedList<nodotabla>;
+			tabla=new LinkedList<nodoTabla>();
 			nivel=0;
 		}
 	}
