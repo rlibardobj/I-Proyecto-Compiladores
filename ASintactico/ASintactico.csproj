@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ActParsAST.cs" />
     <Compile Include="ADDOPAST.cs" />
+    <Compile Include="AContextual.cs" />
     <Compile Include="AST.cs" />
     <Compile Include="BOOLAST.cs" />
     <Compile Include="BoolFactorAST.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="MulTermMExprAST.cs" />
     <Compile Include="NewBasicFactorAST.cs" />
     <Compile Include="NewEFactorAST.cs" />
+    <Compile Include="nodoTabla.cs" />
     <Compile Include="NUMAST.cs" />
     <Compile Include="NumFactorAST.cs" />
     <Compile Include="Desig++StatAST.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="PyCOMAAST.cs" />
     <Compile Include="RELOPAST.cs" />
     <Compile Include="PrettyPrintAST.cs" />
+    <Compile Include="tablaSimbolos.cs" />
     <Compile Include="UnDesigAddonAST.cs" />
     <Compile Include="VarDeclMulIDAST.cs" />
     <Compile Include="MulStatementAST.cs" />
