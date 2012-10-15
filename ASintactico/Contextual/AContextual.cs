@@ -23,7 +23,7 @@ namespace AContextual
 		}
 		
 		public object visit(Visitor v, object n){
-			
+			return null;
 		}
 	}
 }
