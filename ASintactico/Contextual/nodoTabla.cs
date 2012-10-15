@@ -16,9 +16,9 @@ namespace AContextual
 	/// </summary>
 	public class nodoTabla
 	{
-		AST declaración;
-		string nombre;
-		int nivel;
+		public AST declaración;
+		public string nombre;
+		public int nivel;
 		public nodoTabla(string nom, AST decl, int level)
 		{
 			nombre=nom;
