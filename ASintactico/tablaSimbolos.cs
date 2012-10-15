@@ -8,15 +8,17 @@
  */
 using System;
 using System.Collections.Generic;
+using ASintactico;
+using AContextual;
 
-namespace ASintactico
+namespace AContextual
 {
 	/// <summary>
 	/// Description of tablaSimbolos.
 	/// </summary>
 	public class tablaSimbolos
 	{
-		LinkedList<nodotabla> tabla;
+		LinkedList<nodoTabla> tabla;
 		int nivel;
 		public tablaSimbolos()
 		{

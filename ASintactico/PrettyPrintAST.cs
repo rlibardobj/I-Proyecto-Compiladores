@@ -159,7 +159,7 @@ namespace ASintactico
         else{
            printtab(numaux+1);
            resultado = resultado +"\n"+("NULL");
-   	    }        
+   	    }
 	  	return null;
 	  }
 	  
