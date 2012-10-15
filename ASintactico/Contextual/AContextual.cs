@@ -16,8 +16,14 @@ namespace AContextual
 	/// </summary>
 	public class AContextual
 	{
+		public tablaSimbolos tabla;
 		public AContextual()
 		{
+			tabla=new tablaSimbolos();
+		}
+		
+		public object visit(Visitor v, object n){
+			
 		}
 	}
 }
