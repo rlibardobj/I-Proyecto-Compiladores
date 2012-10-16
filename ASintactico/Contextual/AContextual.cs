@@ -22,8 +22,24 @@ namespace AContextual
 			tabla=new tablaSimbolos();
 		}
 		
-		public object visit(Visitor v, object n){
-			return null;
-		}
-	}
+		public object VisitProgramBasicAST(ProgramBasic v,object arg)
+	  	{ 
+	  		return null;
+	  	}
+	  
+	 	public object VisitProgramDAST(ProgramDAST v,object arg)
+	  	{
+        	return null;
+	  	}
+	  
+	 	public object VisitProgramDMAST(ProgramDMAST v,object arg)
+	 	{
+	 		return null;
+	 	}
+	 	 
+	 	public object VisitProgramMAST(ProgramMAST v,object arg)
+	 	{
+	 		return null;
+	 	}
+	}	
 }
