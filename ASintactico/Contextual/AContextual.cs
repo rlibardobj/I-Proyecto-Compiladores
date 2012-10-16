@@ -41,5 +41,13 @@ namespace AContextual
 	 	{
 	 		return null;
 	 	}
+	 	
+	 	public object VisitUnDeclAST(UnDeclAST v,object arg)
+	 	{
+	  	}
+	  
+	 	public object VisitMulDeclAST(MulDeclAST v,object arg)
+	 	{
+	 	}
 	}	
 }
