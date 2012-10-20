@@ -474,6 +474,7 @@ public class parser
                   expr2=parseExpr();
               }
           }
+         accept(sym.PARENd);
           sta=parseStatement();
           if (expr2!=null){
           	return new ForEEStatAST(expr,expr1,expr2,sta);
