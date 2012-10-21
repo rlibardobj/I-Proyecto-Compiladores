@@ -18,6 +18,7 @@ namespace ASintactico
 		public BlockAST bloque;
 		public TypeAST tipo;
 		public IDAST ident;
+		public string adornotipo;
 		
 		public MethodDeclBasicAST(TypeAST tip, IDAST id,BlockAST blo)
 		{

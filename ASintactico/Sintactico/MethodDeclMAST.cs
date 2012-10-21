@@ -19,6 +19,7 @@ namespace ASintactico
 		public TypeAST tipo;
 		public IDAST ident;
 		public DeclarationsAST declaraciones;
+		public string adornotipo;
 		
 		public MethodDeclMAST(DeclarationsAST decls, TypeAST tip, IDAST id,BlockAST blo)
 		{

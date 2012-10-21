@@ -19,6 +19,7 @@ namespace ASintactico
 		public FormParsAST parametros;
 		public TypeAST tipo;
 		public IDAST ident;
+		public string adornotipo;
 		
 		public MethodDeclFAST(FormParsAST par,TypeAST tip, IDAST id,BlockAST blo)
 		{

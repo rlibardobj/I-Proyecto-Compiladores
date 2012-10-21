@@ -20,6 +20,7 @@ namespace ASintactico
 		public FormParsAST parametros;
 		public DeclarationsAST declaraciones;
 		public BlockAST bloque;
+		public string adornotipo;
 		
 		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls, TypeAST tip, IDAST id,BlockAST blo)
 		{

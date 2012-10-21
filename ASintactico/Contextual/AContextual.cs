@@ -20,7 +20,7 @@ namespace AContextual
 		public string errores_contextuales;
 		public AContextual()
 		{
-			variables=new tablaSimbolos();
+			identificadores=new tablaSimbolos();
 			tipos=new tablaSimbolos();
 		}
 		
@@ -103,17 +103,26 @@ namespace AContextual
 	  
 	  	public object VisitMethodDeclBasicAST(MethodDeclBasicAST v,object arg)
 	  	{ 
-	  		
-	  		v.tipo.visit(this,(int) arg);
-	  		if ((identificadores.retrieve(v.ident.ident==null)&&(tipos.retrieve(v.ident.ident)==null)){
-	  		    	identificadores.enter(v.ident.ident,null);
+	  		string tipo=(string)v.tipo.visit(this,(int) arg);
+	  		v.adornotipo=tipo;
+	  		if ((identificadores.retrieve(v.ident.ident)==null)&&(tipos.retrieve(v.ident.ident)==null)){
+	  		    	identificadores.enter(v.ident.ident,v);
 	  		}
 	  		else{
 	  			errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
 	  		}
+	  		v.bloque.visit(this,(int)arg);
 	  		return null;
 	  	}
 	  	
-	  	
+	  	public object VisitTypeCAST(TypeCAST v,object arg)
+	  	{
+	  		return v.ident;
+	  	}
+	  
+	 	public object VisitTypeBasicAST(TypeBasicAST v,object arg)
+	 	{      
+	  		return v.ident;
+	  	}
 	}	
 }
