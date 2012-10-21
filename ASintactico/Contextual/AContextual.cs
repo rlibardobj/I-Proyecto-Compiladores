@@ -103,8 +103,7 @@ namespace AContextual
 	  
 	  	public object VisitMethodDeclBasicAST(MethodDeclBasicAST v,object arg)
 	  	{ 
-	  		string tipo=(string)v.tipo.visit(this,(int) arg);
-	  		v.adornotipo=tipo;
+	  		v.adornotipo=(string)v.tipo.visit(this,(int) arg);
 	  		if ((identificadores.retrieve(v.ident.ident)==null)&&(tipos.retrieve(v.ident.ident)==null)){
 	  		    	identificadores.enter(v.ident.ident,v);
 	  		}
@@ -123,6 +122,17 @@ namespace AContextual
 	 	public object VisitTypeBasicAST(TypeBasicAST v,object arg)
 	 	{      
 	  		return v.ident;
+	  	}
+	 	
+	 	public object VisitBlockSAST(BlockSAST v,object arg)
+	 	{
+	 		v.statement.visit(this,(int)arg);
+	  		return null;
+	  	}
+	  
+	  	public object VisitBlockBasicAST(BlockBasicAST v,object arg)
+	  	{
+	  		return null;
 	  	}
 	}	
 }
