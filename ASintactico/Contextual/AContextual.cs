@@ -16,7 +16,8 @@ namespace AContextual
 	/// </summary>
 	public class AContextual
 	{
-		public tablaSimbolos variables,tipos;
+		public tablaSimbolos identificadores,tipos;
+		public string errores_contextuales;
 		public AContextual()
 		{
 			variables=new tablaSimbolos();
@@ -102,7 +103,17 @@ namespace AContextual
 	  
 	  	public object VisitMethodDeclBasicAST(MethodDeclBasicAST v,object arg)
 	  	{ 
+	  		
+	  		v.tipo.visit(this,(int) arg);
+	  		if ((identificadores.retrieve(v.ident.ident==null)&&(tipos.retrieve(v.ident.ident)==null)){
+	  		    	identificadores.enter(v.ident.ident,null);
+	  		}
+	  		else{
+	  			errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+	  		}
 	  		return null;
 	  	}
+	  	
+	  	
 	}	
 }

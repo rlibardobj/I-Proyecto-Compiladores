@@ -79,7 +79,7 @@ namespace AContextual
             {
             	return temp.First.Value;
             }
-            else {return null;}    
+            else {return null;}
          }
   
          public void open_scope()
