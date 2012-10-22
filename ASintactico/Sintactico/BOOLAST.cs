@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class BOOLAST:TerminalesAST
 	{
-		string value;
-		public BOOLAST(string valor)
+		Token value;
+		public BOOLAST(Token valor)
 		{
 			value=valor;
 		}

@@ -15,9 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class CHARAST : TerminalesAST
 	{
-		public string car;
+		public Token car;
 		
-		public CHARAST(string c)
+		public CHARAST(Token c)
 		{
 			car=c;
 		}

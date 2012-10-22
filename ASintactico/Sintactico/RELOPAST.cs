@@ -15,9 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class RELOPAST : TerminalesAST
 	{
-		public string value;
+		public Token value;
 		
-		public RELOPAST(string valor)
+		public RELOPAST(Token valor)
 		{
 			value=valor;
 		}

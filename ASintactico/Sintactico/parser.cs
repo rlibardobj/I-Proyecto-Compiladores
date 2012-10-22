@@ -129,7 +129,7 @@ public class parser
     	DeclarationsAST declaraciones=null,metodos=null;
     	IDAST id;
     	 accept(sym.CLASS);
-         id=new IDAST(currentToken.value);
+         id=new IDAST(currentToken);
          accept(sym.ID);
          if ((currentToken.sym == sym.CONST) | (currentToken.sym == sym.ID) |
              (currentToken.sym == sym.CLASS))
@@ -235,14 +235,14 @@ public class parser
     	TypeAST tipo;
        	tipo= parseType();
        	if (currentToken.sym==sym.ID){
-       		resultado=new VarDeclUnIDAST(new IDAST(currentToken.value),tipo);
+       		resultado=new VarDeclUnIDAST(new IDAST(currentToken),tipo);
        	}
        	acceptit();
         while (currentToken.sym == sym.COMA)
         {
             acceptit(); //acepta coma
             if (currentToken.sym==sym.ID){
-            	temp=new VarDeclUnIDAST(new IDAST(currentToken.value),tipo);
+            	temp=new VarDeclUnIDAST(new IDAST(currentToken),tipo);
             }
             resultado=new VarDeclMulIDAST(resultado,temp);
             acceptit();//acepta ident        
@@ -258,7 +258,7 @@ public class parser
     	DeclarationsAST declaraciones=null,temp=null;
         accept(sym.CLASS);
         if (currentToken.sym==sym.ID){
-        	ident=new IDAST(currentToken.value);
+        	ident=new IDAST(currentToken);
        	}
         acceptit();
         accept(sym.LLAVEi);
@@ -290,11 +290,11 @@ public class parser
         	tipo=parseType();
         }
         else if(currentToken.sym==sym.VOID){
-        	tipo=new TypeBasicAST(new IDAST("void"));
+        	tipo=new TypeBasicAST(new IDAST(currentToken));
         	acceptit();
         }
             if (currentToken.sym==sym.ID){
-            	ident=new IDAST(currentToken.value);
+            	ident=new IDAST(currentToken);
        		}
             acceptit();
             accept(sym.PARENi);
@@ -337,7 +337,7 @@ public class parser
     	IDAST ident=null;
         tipo=parseType();
         if (currentToken.sym==sym.ID){
-        	ident=new IDAST(currentToken.value);
+        	ident=new IDAST(currentToken);
         	accept(sym.ID);
         	parametros=new UnFormParsAST(ident,tipo);
         }
@@ -346,7 +346,7 @@ public class parser
             acceptit();
             tipo=parseType();
             if (currentToken.sym==sym.ID){
-            	ident=new IDAST(currentToken.value);
+            	ident=new IDAST(currentToken);
         		accept(sym.ID);
             }
             parametros=new MulFormParsAST(new UnFormParsAST(ident,tipo),parametros);
@@ -358,7 +358,7 @@ public class parser
     {
     	Console.WriteLine("parseType");
     	IDAST ident=null;
-    	ident=new IDAST(currentToken.value);
+    	ident=new IDAST(currentToken);
     	accept(sym.ID);
     	if (currentToken.sym == sym.CORCHi){
             acceptit();
@@ -540,7 +540,7 @@ public class parser
           {
               acceptit();
               if (currentToken.sym==sym.NUM){
-              	numero=new NUMAST(currentToken.value);
+              	numero=new NUMAST(currentToken);
               }
               accept(sym.NUM);
           }
@@ -561,7 +561,7 @@ public class parser
       else if(currentToken.sym == sym.PyCOMA) 
       {
           acceptit();
-          return new PyComaStatAST(new PyCOMAAST(currentToken.value));
+          return new PyComaStatAST(new PyCOMAAST(currentToken));
       }
     return null;
     }
@@ -708,25 +708,25 @@ public class parser
         }
         else if(currentToken.sym == sym.NUM)
         { 
-        	NUMAST num = new NUMAST(currentToken.value);
+        	NUMAST num = new NUMAST(currentToken);
         	acceptit();
         	return new NumFactorAST(num);
         }
         else if(currentToken.sym == sym.CHAR)
         { 
-        	CHARAST car = new CHARAST(currentToken.value);
+        	CHARAST car = new CHARAST(currentToken);
         	acceptit();
         	return new CharConstFactorAST(car);
         }
         else if(currentToken.sym == sym.FALSE)//Revizar
         { 
-        	BOOLAST bol = new BOOLAST(currentToken.value);
+        	BOOLAST bol = new BOOLAST(currentToken);
         	acceptit();
         	return new BoolFactorAST(bol);
         }
         else if(currentToken.sym == sym.TRUE)//Revizar
         { 
-        	BOOLAST bol = new BOOLAST(currentToken.value);
+        	BOOLAST bol = new BOOLAST(currentToken);
         	acceptit();
         	return new BoolFactorAST(bol);
         }
@@ -735,7 +735,7 @@ public class parser
         	ExprAST expresion=null;
         	IDAST id;
             acceptit();
-            id=new IDAST(currentToken.value);
+            id=new IDAST(currentToken);
             accept(sym.ID);
             if (currentToken.sym == sym.CORCHi)
             {
@@ -764,7 +764,7 @@ public class parser
     {
     	Console.WriteLine("parseDesignator");
     	DesigAddonsAST addons=null;
-    	IDAST id=new IDAST(currentToken.value),ids;
+    	IDAST id=new IDAST(currentToken),ids;
         accept(sym.ID);
         while ((currentToken.sym == sym.PUNTO)||(currentToken.sym==sym.CORCHi))
         { 
@@ -779,7 +779,7 @@ public class parser
            else if (currentToken.sym == sym.PUNTO)
            {
            	acceptit();
-            ids=new IDAST(currentToken.value);
+            ids=new IDAST(currentToken);
            	accept(sym.ID);
            	addons=new MulDesigAddonAST(new UnDesigAddonAST(new IDAddonAST(ids)),addons);
            }
@@ -798,11 +798,11 @@ public class parser
     	Console.WriteLine("parseADDOP");
     	 if (currentToken.sym == sym.SUM) {
     		acceptit();
-    		return new ADDOPAST(currentToken.value);
+    		return new ADDOPAST(currentToken);
     	}
          else if (currentToken.sym == sym.SUB) { 
     		acceptit();
-    		return new ADDOPAST(currentToken.value);
+    		return new ADDOPAST(currentToken);
     	}
          return null;
 
@@ -813,43 +813,43 @@ public class parser
     	Console.WriteLine("parseRELOP");
     	 if (currentToken.sym == sym.IGUAL) { 
     		acceptit();
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.DIST) { 
     		acceptit();
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MAYOR) { 
     		acceptit();
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MAYORi) { 
     		acceptit(); 
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MENOR) { 
     		acceptit(); 
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MENORi) { 
     		acceptit(); 
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MAYOR) { 
     		acceptit(); 
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MAYORi) { 
     		acceptit(); 
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MENOR) { 
     		acceptit(); 
-    		return new RELOPAST(currentToken.value);
+    		return new RELOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MENORi) { 
     		acceptit();
-			return new RELOPAST(currentToken.value);    		
+			return new RELOPAST(currentToken);    		
     	}
         return null;
 
@@ -860,15 +860,15 @@ public class parser
     	Console.WriteLine("parseMULOP");
     	 if (currentToken.sym == sym.MULT) { 
     		acceptit();
-    		return new MULOPAST(currentToken.value);
+    		return new MULOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.DIV) {
     		acceptit(); 
-    		return new MULOPAST(currentToken.value);
+    		return new MULOPAST(currentToken);
     	}
         else if (currentToken.sym == sym.MOD) {
     		acceptit(); 
-    		return new MULOPAST(currentToken.value);
+    		return new MULOPAST(currentToken);
     	} 
     	return null;
 

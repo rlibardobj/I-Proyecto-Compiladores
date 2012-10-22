@@ -15,8 +15,8 @@ namespace ASintactico
 	/// </summary>
 	public class PyCOMAAST : TerminalesAST
 	{
-		string value;
-		public PyCOMAAST(string valor)
+		Token value;
+		public PyCOMAAST(Token valor)
 		{
 			value=valor;
 		}

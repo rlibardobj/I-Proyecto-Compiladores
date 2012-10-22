@@ -15,9 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class IDAST : TerminalesAST
 	{
-		public string ident;
+		public Token ident;
 		
-		public IDAST(string id)
+		public IDAST(Token id)
 		{
 			ident=id;
 		}

@@ -19,5 +19,7 @@ namespace ASintactico
 		{
 		}
 	    public abstract object visit(Visitor v, object arg);
+	   
 	}
+	
 }

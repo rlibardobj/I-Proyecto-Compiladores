@@ -15,9 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class ADDOPAST : TerminalesAST
 	{
-		public string value;
+		public Token value;
 		
-		public ADDOPAST(string valor)
+		public ADDOPAST(Token valor)
 		{
 			value=valor;
 		}

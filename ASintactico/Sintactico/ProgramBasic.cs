@@ -15,7 +15,7 @@ namespace ASintactico
 	/// </summary>
 	public class ProgramBasic : ProgramAST
 	{
-		IDAST ident;
+		public IDAST ident;
 		public ProgramBasic(IDAST id)
 		{
 			ident=id;

@@ -55,7 +55,6 @@
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Sintactico\ActParsAST.cs" />
-    <Compile Include="Sintactico\ADDOP.cs" />
     <Compile Include="Sintactico\ADDOPAST.cs" />
     <Compile Include="Sintactico\AST.cs" />
     <Compile Include="Sintactico\BlockAST.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="Sintactico\BOOLAST.cs" />
     <Compile Include="Sintactico\BoolFactorAST.cs" />
     <Compile Include="Sintactico\BreakStatAST.cs" />
-    <Compile Include="Sintactico\CHAR.cs" />
     <Compile Include="Sintactico\CHARAST.cs" />
     <Compile Include="Sintactico\CharConstFactorAST.cs" />
     <Compile Include="Sintactico\Class1.cs" />
