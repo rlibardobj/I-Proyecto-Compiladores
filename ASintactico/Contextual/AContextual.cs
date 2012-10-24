@@ -29,25 +29,68 @@ namespace AContextual
 		
 		public object VisitProgramBasicAST(ProgramBasic v,object arg)
 		{
-			return null;
+			
+			
+			if (identificadores.retrieve(v.ident.ident==null)
+			    {
+			    	identificadores.enter(v.ident.ident,null);
+			    }
+			    else{
+			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			    }
+
+			    return null;
 		}
 		
 		public object VisitProgramDAST(ProgramDAST v,object arg)
 		{
-			v.declaraciones.visit(this,(int)arg);
-			return null;
-		}
+			if (identificadores.retrieve(v.ident.ident==null)
+			    {
+			    	identificadores.enter(v.ident.ident,null);
+			    	if(v.declaraciones != null)
+			    	{
+			    		v.declaraciones.visit(this,(int)arg);
+			    	}
+			    }
+			    else{
+			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			    }
+			    return null;
+			}
 		
 		public object VisitProgramDMAST(ProgramDMAST v,object arg)
 		{
-			v.declaraciones.visit(this,(int)arg);
-			v.metodos.visit(this,(int)arg);
-			return null;
-		}
+			if (identificadores.retrieve(v.ident.ident==null)
+			    {
+			    	identificadores.enter(v.ident.ident,null);
+			    	if(v.metodos != null)
+			    	{
+			    		v.metodos.visit(this,(int)arg);
+			    	}
+			    	if(v.declaraciones != null)
+			    	{
+			    		v.declaraciones.visit(this,(int)arg);
+			    	}
+			    }
+			    else{
+			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			    }			   
+			    return null;			    
+			}
 		
 		public object VisitProgramMAST(ProgramMAST v,object arg)
 		{
-			v.metodos.visit(this,(int)arg);
+			if (identificadores.retrieve(v.ident.ident==null)
+			    {
+			    	identificadores.enter(v.ident.ident,null);
+			    	if(v.metodos != null)
+			    	{
+			    		v.metodos.visit(this,(int)arg);
+			    	}
+			    }
+			    else{
+			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			    }			
 			return null;
 		}
 		
