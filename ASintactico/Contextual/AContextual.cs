@@ -30,9 +30,9 @@ namespace AContextual
 		
 		public object VisitProgramBasicAST(ProgramBasic v,object arg)
 		{		
-			if (identificadores.retrieve(v.ident.ident==null)
+			if (identificadores.retrieve(v.ident.ident.value)==null)
 			    {
-			    	identificadores.enter(v.ident.ident,null);
+			    	identificadores.enter(v.ident.ident.value,null);
 			    }
 			    else{
 			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
@@ -43,9 +43,9 @@ namespace AContextual
 		
 		public object VisitProgramDAST(ProgramDAST v,object arg)
 		{
-			if (identificadores.retrieve(v.ident.ident==null)
+			if (identificadores.retrieve(v.ident.ident.value)==null)
 			    {
-			    	identificadores.enter(v.ident.ident,null);
+			    	identificadores.enter(v.ident.ident.value,null);
 			    	if(v.declaraciones != null)
 			    	{
 			    		v.declaraciones.visit(this,(int)arg);
@@ -59,9 +59,9 @@ namespace AContextual
 		
 		public object VisitProgramDMAST(ProgramDMAST v,object arg)
 		{
-			if (identificadores.retrieve(v.ident.ident==null)
+			if (identificadores.retrieve(v.ident.ident.value)==null)
 			    {
-			    	identificadores.enter(v.ident.ident,null);
+			    	identificadores.enter(v.ident.ident.value,null);
 			    	if(v.metodos != null)
 			    	{
 			    		v.metodos.visit(this,(int)arg);
@@ -79,9 +79,9 @@ namespace AContextual
 		
 		public object VisitProgramMAST(ProgramMAST v,object arg)
 		{
-			if (identificadores.retrieve(v.ident.ident==null)
+			if (identificadores.retrieve(v.ident.ident.value)==null)
 			    {
-			    	identificadores.enter(v.ident.ident,null);
+			    	identificadores.enter(v.ident.ident.value,null);
 			    	if(v.metodos != null)
 			    	{
 			    		v.metodos.visit(this,(int)arg);
@@ -130,7 +130,7 @@ namespace AContextual
 				else
 					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
 			}
-			else if(tipo=="float")){
+			else if(tipo=="float"){
 				if(v.value.sym==sym.NUM){
 					identificadores.enter(v.value.value,v);
 				}
@@ -217,6 +217,7 @@ namespace AContextual
 		
 		public object VisitExprFactorAST(ExprFactorAST v,object arg)
 		{
+			v.expresion.visit(this,(int)arg);
 			return null;
 		}
 		
@@ -232,7 +233,12 @@ namespace AContextual
 		
 		public object VisitBoolFactorAST(BoolFactorAST v,object arg)
 		{
-			return null;
+			return v.boolf.visit(this,(int)arg);
+		}
+		
+		public object VisitBoolAST(BOOLAST v, object arg)
+		{
+			return v.value.value;
 		}
 		
 		//----------------------------------------------------------------------------------------
@@ -245,7 +251,17 @@ namespace AContextual
 		
 		public object VisitDesigBasicAST(DesigBasicAST v,object arg)
 		{
-			return null;
+			nodoTabla temp = tipos.retrieve(v.ident.ident.value);
+			
+			if(temp!=null)
+			{
+				return temp.declaración;
+			}
+			else
+			{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident+"\" no existe.\n";
+				return null;
+			}
 		}
 		
 		//----------------------------------------------------------------------------------------
@@ -288,6 +304,8 @@ namespace AContextual
 		//CondFact
 		public object VisitConditionAST(ConditionAST v,object arg)
 		{
+			//Token temp = v.expr.visit();
+			// Token temp2 = v.expr1.visit();
 			return null;
 		}
 		

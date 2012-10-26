@@ -15,9 +15,9 @@ namespace ASintactico
 	/// </summary>
 	public class DesigBasicAST:DesignatorAST
 	{
-		public TerminalesAST ident;
+		public IDAST ident;
 		
-		public DesigBasicAST(TerminalesAST id)
+		public DesigBasicAST(IDAST id)
 		{
 			ident=id;
 		}
