@@ -15,10 +15,11 @@ namespace ASintactico
 	/// </summary>
 	public class ConstDeclAST : DeclarationAST
 	{
-		public string value;
+		public Token value;
 		public TypeAST tipo;
+		public string adornotipo;
 		
-		public ConstDeclAST(TypeAST tip, string valor)
+		public ConstDeclAST(TypeAST tip, Token valor)
 		{
 			value=valor;
 			tipo=tip;

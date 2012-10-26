@@ -216,13 +216,13 @@ public class parser
         {
         	acceptit();
         	accept(sym.PyCOMA);
-        	return new ConstDeclAST(tipo,currentToken.value);
+        	return new ConstDeclAST(tipo,currentToken);
         }
         else if(currentToken.sym == sym.CHAR)
         {
         	acceptit();
         	accept(sym.PyCOMA);
-        	return new ConstDeclAST(tipo,currentToken.value);
+        	return new ConstDeclAST(tipo,currentToken);
         }
         return null;
         //adderror    

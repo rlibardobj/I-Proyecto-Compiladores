@@ -16,21 +16,20 @@ namespace AContextual
 	/// </summary>
 	public class AContextual : Visitor
 	{
-		public tablaSimbolos identificadores,tipos;
+		public tablaSimbolos identificadores,tipos,arreglos;
 		public string errores_contextuales;
 		public AContextual()
 		{
 			identificadores=new tablaSimbolos();
 			tipos=new tablaSimbolos();
+			arreglos=new tablaSimbolos();
 		}
 		
 		
 		//ProgramAST
 		
 		public object VisitProgramBasicAST(ProgramBasic v,object arg)
-		{
-			
-			
+		{		
 			if (identificadores.retrieve(v.ident.ident==null)
 			    {
 			    	identificadores.enter(v.ident.ident,null);
@@ -115,6 +114,32 @@ namespace AContextual
 		
 		public object VisitConstDeclAST(ConstDeclAST v,object arg)
 		{
+			string tipo=(string)v.tipo.visit(this,(int)arg);
+			v.adornotipo=tipo;
+			if (tipo=="char"){
+				if(v.value.sym==sym.CHAR){
+					identificadores.enter(v.value.value,v);
+				}
+				else
+					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
+			}
+			else if(tipo=="int"){
+				if(v.value.sym==sym.NUM){
+					identificadores.enter(v.value.value,v);
+				}
+				else
+					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
+			}
+			else if(tipo=="float")){
+				if(v.value.sym==sym.NUM){
+					identificadores.enter(v.value.value,v);
+				}
+				else
+					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
+			}
+			else{
+				errores_contextuales+="Error Contextual: El tipo de la declaración no es válido.\n";
+			}
 			return null;
 		}
 		
