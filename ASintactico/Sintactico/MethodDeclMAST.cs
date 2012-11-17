@@ -17,11 +17,11 @@ namespace ASintactico
 	{
 		public BlockAST bloque;
 		public TypeAST tipo;
-		public IDAST ident;
+		public Token ident;
 		public DeclarationsAST declaraciones;
 		public string adornotipo;
 		
-		public MethodDeclMAST(DeclarationsAST decls, TypeAST tip, IDAST id,BlockAST blo)
+		public MethodDeclMAST(DeclarationsAST decls, TypeAST tip, Token id,BlockAST blo)
 		{
 			bloque=blo;
 			declaraciones=decls;

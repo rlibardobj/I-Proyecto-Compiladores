@@ -17,10 +17,10 @@ namespace ASintactico
 	{
 		public BlockAST bloque;
 		public TypeAST tipo;
-		public IDAST ident;
+		public Token ident;
 		public string adornotipo;
 		
-		public MethodDeclBasicAST(TypeAST tip, IDAST id,BlockAST blo)
+		public MethodDeclBasicAST(TypeAST tip, Token id,BlockAST blo)
 		{
 			bloque=blo;
 			ident=id;

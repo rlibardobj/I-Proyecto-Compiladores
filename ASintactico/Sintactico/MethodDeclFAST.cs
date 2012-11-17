@@ -18,10 +18,10 @@ namespace ASintactico
 		public BlockAST bloque;
 		public FormParsAST parametros;
 		public TypeAST tipo;
-		public IDAST ident;
+		public Token ident;
 		public string adornotipo;
 		
-		public MethodDeclFAST(FormParsAST par,TypeAST tip, IDAST id,BlockAST blo)
+		public MethodDeclFAST(FormParsAST par,TypeAST tip, Token id,BlockAST blo)
 		{
 			bloque=blo;
 			parametros=par;

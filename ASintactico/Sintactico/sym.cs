@@ -63,6 +63,7 @@ namespace ASintactico
 		public static int MOD = 45;
 		public static int TRUE = 46;
 		public static int FALSE = 47;
+		public static int FLOAT = 48;
 
 		public sym()
 		{

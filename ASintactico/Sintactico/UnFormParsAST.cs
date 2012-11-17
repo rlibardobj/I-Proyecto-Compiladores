@@ -16,9 +16,9 @@ namespace ASintactico
 	public class UnFormParsAST : FormParsAST
 	{
 		public TypeAST tipo;
-		public TerminalesAST ident;
+		public IDAST ident;
 		
-		public UnFormParsAST(TerminalesAST id,TypeAST tip)
+		public UnFormParsAST(IDAST id,TypeAST tip)
 		{
 			tipo=tip;
 			ident=id;

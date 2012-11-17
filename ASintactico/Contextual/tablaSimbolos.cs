@@ -30,13 +30,13 @@ namespace AContextual
 		
 		
 		//retorna false si ya existe
-		public bool enter(String nombre, AST pdec)
+		public bool enter(String nombre,string var, AST pdec)
 		{
 			LinkedList<nodoTabla> temp;
 			temp = tabla;
 			int nivel_actual = nivel;
 			bool existe = false;
-			nodoTabla nn = new nodoTabla(nombre,pdec,nivel);
+			nodoTabla nn = new nodoTabla(nombre,var,pdec,nivel);
 			
 			while(nivel_actual == temp.First.Value.nivel)
 			{
@@ -82,6 +82,75 @@ namespace AContextual
 			else {return null;}
 		}
 		
+		public nodoTabla retrieve(String nombre,string var)
+		{
+			LinkedList<nodoTabla> temp;
+			temp = tabla;
+			int nivel_actual = nivel;
+			bool existe = false;
+			
+			while(temp.First != null)
+			{
+				if((temp.First.Value.nombre == nombre)&&(temp.First.Value.variable == var))
+				{
+					existe=true;
+					break;
+				}
+				temp.RemoveFirst();
+			}
+			if(existe)
+			{
+				return temp.First.Value;
+			}
+			else {return null;}
+		}
+		
+		public nodoTabla retrieven(String nombre)
+		{
+			LinkedList<nodoTabla> temp;
+			temp = tabla;
+			int nivel_actual = nivel;
+			bool existe = false;
+			
+			while(temp.First != null)
+			{
+				if(temp.First.Value.nombre == nombre)
+				{
+					existe=true;
+					break;
+				}
+				temp.RemoveFirst();
+			}
+			if(existe)
+			{
+				return temp.First.Value;
+			}
+			else {return null;}
+		}
+		
+		public nodoTabla retrieven(String nombre,string var)
+		{
+			LinkedList<nodoTabla> temp;
+			temp = tabla;
+			int nivel_actual = nivel;
+			bool existe = false;
+			
+			while(temp.First != null)
+			{
+				if((temp.First.Value.nombre == nombre)&&(temp.First.Value.variable == var))
+				{
+					existe=true;
+					break;
+				}
+				temp.RemoveFirst();
+			}
+			if(existe)
+			{
+				return temp.First.Value;
+			}
+			else {return null;}
+		}
+		
 		public void open_scope()
 		{
 			nivel = nivel++;
@@ -97,6 +166,10 @@ namespace AContextual
 				tabla.RemoveFirst();
 			}
 			nivel = nivel--;
+		}
+		
+		public string primero(){
+			return tabla.First.Value.nombre;
 		}
 		
 	}

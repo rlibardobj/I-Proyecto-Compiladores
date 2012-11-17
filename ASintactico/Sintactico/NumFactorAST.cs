@@ -13,7 +13,7 @@ namespace ASintactico
 	/// <summary>
 	/// Description of NumFactorAST.
 	/// </summary>
-	public class NumFactorAST:FactorAST
+	public class NumFactorAST : FactorAST
 	{
 		public NUMAST num;
 		

@@ -17,10 +17,17 @@ namespace AContextual
 	public class nodoTabla
 	{
 		public AST declaración;
-		public string nombre;
+		public string nombre,variable;
 		public int nivel;
 		public nodoTabla(string nom, AST decl, int level)
 		{
+			nombre=nom;
+			nivel=level;
+			declaración=decl;
+		}
+		public nodoTabla(string nom,string var, AST decl, int level)
+		{
+			variable=var;
 			nombre=nom;
 			nivel=level;
 			declaración=decl;

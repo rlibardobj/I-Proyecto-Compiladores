@@ -16,9 +16,9 @@ namespace ASintactico
 	public class ClassDeclVAST : DeclarationAST
 	{
 		public DeclarationsAST declaraciones;
-		public TerminalesAST ident;
+		public IDAST ident;
 		
-		public ClassDeclVAST(DeclarationsAST decls,TerminalesAST id)
+		public ClassDeclVAST(DeclarationsAST decls,IDAST id)
 		{
 			declaraciones=decls;
 			ident=id;

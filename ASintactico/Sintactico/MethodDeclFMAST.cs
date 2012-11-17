@@ -16,13 +16,13 @@ namespace ASintactico
 	public class MethodDeclFMAST : DeclarationAST
 	{
 		public TypeAST tipo;
-		public IDAST ident;
+		public Token ident;
 		public FormParsAST parametros;
 		public DeclarationsAST declaraciones;
 		public BlockAST bloque;
 		public string adornotipo;
 		
-		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls, TypeAST tip, IDAST id,BlockAST blo)
+		public MethodDeclFMAST(FormParsAST par, DeclarationsAST decls, TypeAST tip, Token id,BlockAST blo)
 		{
 			bloque=blo;
 			parametros=par;

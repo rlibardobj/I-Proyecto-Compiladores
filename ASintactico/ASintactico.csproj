@@ -4,7 +4,7 @@
     <ProjectGuid>{FC6BB7DA-0E7C-407E-9BEA-AB969413A64A}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>ASintactico</RootNamespace>
     <AssemblyName>ASintactico</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -50,6 +50,7 @@
     <Compile Include="Contextual\nodoTabla.cs" />
     <Compile Include="Contextual\tablaSimbolos.cs" />
     <Compile Include="Contextual\AContextual.cs" />
+    <Compile Include="generacionCodigo\generadorCodigo.cs" />
     <Compile Include="Principal.cs" />
     <Compile Include="Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contextual" />
+    <Folder Include="generacionCodigo" />
     <Folder Include="Sintactico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />

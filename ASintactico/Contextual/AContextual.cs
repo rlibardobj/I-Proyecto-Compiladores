@@ -16,80 +16,92 @@ namespace AContextual
 	/// </summary>
 	public class AContextual : Visitor
 	{
-		public tablaSimbolos identificadores,tipos,arreglos;
+		public tablaSimbolos identificadores,tipos,arreglos,parametros;
 		public string errores_contextuales;
 		public AContextual()
 		{
 			identificadores=new tablaSimbolos();
 			tipos=new tablaSimbolos();
 			arreglos=new tablaSimbolos();
+			parametros=new tablaSimbolos();
 		}
 		
 		
 		//ProgramAST
 		
 		public object VisitProgramBasicAST(ProgramBasic v,object arg)
-		{		
+		{
 			if (identificadores.retrieve(v.ident.ident.value)==null)
-			    {
-			    	identificadores.enter(v.ident.ident.value,null);
-			    }
-			    else{
-			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
-			    }
-
-			    return null;
+			{
+				identificadores.open_scope();
+				tipos.open_scope();
+				arreglos.open_scope();
+				identificadores.enter(v.ident.ident.value,"",null);
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			}
+			return null;
 		}
 		
 		public object VisitProgramDAST(ProgramDAST v,object arg)
 		{
 			if (identificadores.retrieve(v.ident.ident.value)==null)
-			    {
-			    	identificadores.enter(v.ident.ident.value,null);
-			    	if(v.declaraciones != null)
-			    	{
-			    		v.declaraciones.visit(this,(int)arg);
-			    	}
-			    }
-			    else{
-			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
-			    }
-			    return null;
+			{
+				identificadores.open_scope();
+				tipos.open_scope();
+				arreglos.open_scope();
+				identificadores.enter(v.ident.ident.value,"",null);
+				if(v.declaraciones != null)
+				{
+					v.declaraciones.visit(this,"programa");
+				}
 			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			}
+			return null;
+		}
 		
 		public object VisitProgramDMAST(ProgramDMAST v,object arg)
 		{
 			if (identificadores.retrieve(v.ident.ident.value)==null)
-			    {
-			    	identificadores.enter(v.ident.ident.value,null);
-			    	if(v.metodos != null)
-			    	{
-			    		v.metodos.visit(this,(int)arg);
-			    	}
-			    	if(v.declaraciones != null)
-			    	{
-			    		v.declaraciones.visit(this,(int)arg);
-			    	}
-			    }
-			    else{
-			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
-			    }			   
-			    return null;			    
+			{
+				identificadores.open_scope();
+				tipos.open_scope();
+				arreglos.open_scope();
+				identificadores.enter(v.ident.ident.value,"",null);
+				if(v.metodos != null)
+				{
+					v.metodos.visit(this,(int)arg);
+				}
+				if(v.declaraciones != null)
+				{
+					v.declaraciones.visit(this,(int)arg);
+				}
 			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			}
+			return null;
+		}
 		
 		public object VisitProgramMAST(ProgramMAST v,object arg)
 		{
 			if (identificadores.retrieve(v.ident.ident.value)==null)
-			    {
-			    	identificadores.enter(v.ident.ident.value,null);
-			    	if(v.metodos != null)
-			    	{
-			    		v.metodos.visit(this,(int)arg);
-			    	}
-			    }
-			    else{
-			    	errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
-			    }			
+			{
+				identificadores.open_scope();
+				tipos.open_scope();
+				arreglos.open_scope();
+				identificadores.enter(v.ident.ident.value,"",null);
+				if(v.metodos != null)
+				{
+					v.metodos.visit(this,(int)arg);
+				}
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident+"\" ya ha sido utilizado.\n";
+			}
 			return null;
 		}
 		
@@ -98,14 +110,25 @@ namespace AContextual
 		
 		public object VisitUnDeclAST(UnDeclAST v,object arg)
 		{
-			v.declaracion.visit(this,(int)arg);
+			if(((string)arg).Equals("clase")){
+				v.declaracion.visit(this,"clase");
+			}
+			else{
+				v.declaracion.visit(this,"programa");
+			}
 			return null;
 		}
 		
 		public object VisitMulDeclAST(MulDeclAST v,object arg)
 		{
-			v.declaracion.visit(this,(int)arg);
-			v.declaraciones.visit(this,(int)arg);
+			if(((string)arg).Equals("clase")){
+				v.declaracion.visit(this,"clase");
+				v.declaraciones.visit(this,"clase");
+			}
+			else{
+				v.declaracion.visit(this,"programa");
+				v.declaraciones.visit(this,"programa");
+			}
 			return null;
 		}
 		
@@ -118,21 +141,21 @@ namespace AContextual
 			v.adornotipo=tipo;
 			if (tipo=="char"){
 				if(v.value.sym==sym.CHAR){
-					identificadores.enter(v.value.value,v);
+					identificadores.enter(v.value.value,"",v);
 				}
 				else
 					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
 			}
 			else if(tipo=="int"){
 				if(v.value.sym==sym.NUM){
-					identificadores.enter(v.value.value,v);
+					identificadores.enter(v.value.value,"",v);
 				}
 				else
 					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
 			}
 			else if(tipo=="float"){
 				if(v.value.sym==sym.NUM){
-					identificadores.enter(v.value.value,v);
+					identificadores.enter(v.value.value,"",v);
 				}
 				else
 					errores_contextuales+="Error Contextual: El valor de asignación no corresponde al tipo de la variable.\n";
@@ -145,41 +168,114 @@ namespace AContextual
 		
 		public object VisitClassDeclVAST(ClassDeclVAST v,object arg)
 		{
+			if ((identificadores.retrieve(v.ident.ident.value)==null)&&(tipos.retrieve(v.ident.ident.value)==null)
+			    &&(arreglos.retrieve(v.ident.ident.value)==null)){
+				identificadores.enter(v.ident.ident.value,"",v);
+				v.declaraciones.visit(this,"clase");
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident.value+"\" ya ha sido utilizado.\n";
+			}
 			return null;
 		}
 		
 		public object VisitClassDeclBasicAST(ClassDeclBasicAST v,object arg)
 		{
+			if ((identificadores.retrieve(v.ident.ident.value)==null)&&(tipos.retrieve(v.ident.ident.value)==null)
+			    &&(arreglos.retrieve(v.ident.ident.value)==null)){
+				identificadores.enter(v.ident.ident.value,"",v);
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident.ident.value+"\" ya ha sido utilizado.\n";
+			}
 			return null;
 		}
 		
 		public object VisitDeclMulIDAST(VarDeclMulIDAST v,object arg)
 		{
+			v.identificador.visit(this,arg);
+			v.identificadores.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitDeclUnIDAST(VarDeclUnIDAST v,object arg)
 		{
+			string decision=(string)arg,tipo=(string)v.tipo.visit(this,arg);
+			v.adornotipo=tipo;
+			if (decision.Equals("clase")){
+				if(identificadores.retrieve(v.identificador.value)==null){
+					tipos.enter(v.identificador.value,identificadores.primero(),v);
+				}
+			}
+			else{
+				if(identificadores.retrieve(v.identificador.value)==null){
+					identificadores.enter(v.identificador.value,"",v);
+				}
+			}
 			return null;
 		}
 		
 		public object VisitMethodDeclFAST(MethodDeclFAST v,object arg)
 		{
+			v.adornotipo=(string)v.tipo.visit(this,(int) arg);
+			if ((identificadores.retrieve(v.ident.value)==null)&&(arreglos.retrieve(v.ident.value)==null)){
+				identificadores.enter(v.ident.value,"",v);
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident+"\" ya ha sido utilizado.\n";
+			}
+			identificadores.open_scope();
+			v.parametros.visit(this,v.ident.value);
+			v.bloque.visit(this,v.adornotipo);
+			identificadores.close_scope();
 			return null;
 		}
 		
 		public object VisitMethodDeclFMAST(MethodDeclFMAST v,object arg)
 		{
+			v.adornotipo=(string)v.tipo.visit(this,(int) arg);
+			if ((identificadores.retrieve(v.ident.value)==null)&&(arreglos.retrieve(v.ident.value)==null)){
+				identificadores.enter(v.ident.value,"",v);
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident+"\" ya ha sido utilizado.\n";
+			}
+			identificadores.open_scope();
+			v.parametros.visit(this,v.ident.value);
+			v.declaraciones.visit(this,"programa");
+			v.bloque.visit(this,v.adornotipo);
+			identificadores.close_scope();
 			return null;
 		}
 		
 		public object VisitMethodDeclMAST(MethodDeclMAST v,object arg)
 		{
+			v.adornotipo=(string)v.tipo.visit(this,(int) arg);
+			if ((identificadores.retrieve(v.ident.value)==null)&&(arreglos.retrieve(v.ident.value)==null)){
+				identificadores.enter(v.ident.value,"",v);
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident+"\" ya ha sido utilizado.\n";
+			}
+			identificadores.open_scope();
+			v.declaraciones.visit(this,"programa");
+			v.bloque.visit(this,v.adornotipo);
+			identificadores.close_scope();
 			return null;
 		}
 		
 		public object VisitMethodDeclBasicAST(MethodDeclBasicAST v,object arg)
 		{
+			v.adornotipo=(string)v.tipo.visit(this,(int) arg);
+			if ((identificadores.retrieve(v.ident.value)==null)&&(arreglos.retrieve(v.ident.value)==null)){
+				identificadores.enter(v.ident.value,"",v);
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident+"\" ya ha sido utilizado.\n";
+			}
+			identificadores.open_scope();
+			v.bloque.visit(this,v.adornotipo);
+			identificadores.close_scope();
 			return null;
 		}
 		
@@ -212,12 +308,17 @@ namespace AContextual
 		
 		public object VisitDesigBasicFactorAST(DesigBasicFactorAST v,object arg)
 		{
-			return null;
+			return v.desig.visit(this,arg);
 		}
 		
 		public object VisitExprFactorAST(ExprFactorAST v,object arg)
 		{
-			v.expresion.visit(this,(int)arg);
+			if(((bool)v.expresion.visit(this,arg))){
+				return v.expresion.visit(this,arg);
+			}
+			else {
+				errores_contextuales+="Error Contextual: La expresión no es de tipo INT.\n";
+			}
 			return null;
 		}
 		
@@ -228,12 +329,18 @@ namespace AContextual
 		
 		public object VisitNewBasicFactorAST(NewBasicFactorAST v,object arg)
 		{
+			if (tipos.retrieve(v.ident.ident.value)!=null){
+				return v.ident.ident.value;
+			}
+			else{
+				errores_contextuales+="Error Contextual: Tipo no encontrado.\n";
+			}
 			return null;
 		}
 		
 		public object VisitBoolFactorAST(BoolFactorAST v,object arg)
 		{
-			return v.boolf.visit(this,(int)arg);
+			return v.boolf.value;
 		}
 		
 		public object VisitBoolAST(BOOLAST v, object arg)
@@ -246,7 +353,14 @@ namespace AContextual
 		//Designator
 		public object VisitDesigComplexAST(DesigComplexAST v,object arg)
 		{
-			return null;
+			nodoTabla arreglo=arreglos.retrieve(v.ident.ident.value);
+			if (arreglo!=null){
+				return arreglo.declaración.visit(this,arg);
+			}
+			else if(tipos.retrieve(v.ident.ident.value)!=null){
+				return v.addon.visit(this,v.ident.ident.value);
+			}
+			return v.addon.visit(this,arg);
 		}
 		
 		public object VisitDesigBasicAST(DesigBasicAST v,object arg)
@@ -286,16 +400,25 @@ namespace AContextual
 		
 		public object VisitIDAddon(IDAddonAST v,object arg)
 		{
+			nodoTabla declaracion=tipos.retrieve(v.ident.ident.value,(string)arg);
+			if(declaracion!=null){
+				return declaracion.declaración;
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador \""+v.ident+"\" no existe.\n";
+			}
 			return null;
 		}
 		
 		public object VisitUnCondFactAST(UnCondFactAST v,object arg)
 		{
-			return null;
+			return v.condfact.visit(this,arg);
 		}
 		
 		public object VisitMulCondFactAST(MulCondFactAST v,object arg)
 		{
+			v.condfact.visit(this,arg);
+			v.condfacts.visit(this,arg);
 			return null;
 		}
 		
@@ -304,21 +427,28 @@ namespace AContextual
 		//CondFact
 		public object VisitConditionAST(ConditionAST v,object arg)
 		{
-			//Token temp = v.expr.visit();
-			// Token temp2 = v.expr1.visit();
+			string temp = (string)v.expr.visit(this,arg);
+			string temp2 = (string)v.expr1.visit(this,arg);
+			if(((temp=="int")||(temp=="float"))&&((temp2=="int")||(temp2=="float"))){
+				if (temp!=temp2)
+					errores_contextuales+="Error Contextual: Tipos Incompatibles.\n";
+			}
 			return null;
 		}
+
 		
 		//----------------------------------------------------------------------------------------
 		
 		//Conditions
 		public object VisitUnCondTermAST(UnCondTermAST v,object arg)
 		{
-			return null;
+			return v.condterm.visit(this,arg);
 		}
 		
 		public object VisitMulCondTermAST(MulCondTermAST v,object arg)
 		{
+			v.condterm.visit(this,arg);
+			v.condterms.visit(this,arg);
 			return null;
 		}
 		
@@ -339,22 +469,37 @@ namespace AContextual
 		//Expr
 		public object VisitMulTermMExprAST(MulTermMExprAST v,object arg)
 		{
+			string t1=(string)v.term.visit(this,arg),t2=(string)v.terms.visit(this,arg);
+			if ((t1==t2)&&((t1=="int")||(t1=="float"))){
+				return t1;
+			}
+			else{
+				errores_contextuales+="Error Contextual: Tipos Incompatibles.\n";
+			}
 			return null;
 		}
 		
 		public object VisitMulTermExprAST(MulTermExprAST v,object arg)
 		{
+			string t1=(string)v.term.visit(this,arg),t2=(string)v.terms.visit(this,arg);
+			if ((t1==t2)&&((t1=="int")||(t1=="float"))){
+				return t1;
+			}
+			else{
+				errores_contextuales+="Error Contextual: Tipos Incompatibles.\n";
+			}
 			return null;
 		}
 		
 		public object VisitUnTermExprAST(UnTermExprAST v,object arg)
 		{
-			return null;
+			
+			return v.term.visit(this,arg);
 		}
 		
 		public object VisitUnTermMExprAST(UnTermMExprAST v,object arg)
 		{
-			return null;
+			return v.term.visit(this,arg);
 		}
 		
 		//----------------------------------------------------------------------------------------
@@ -362,11 +507,18 @@ namespace AContextual
 		//Term
 		public object VisitUnFactorAST(UnFactorAST v,object arg)
 		{
-			return null;
+			return (string)v.factor.visit(this,arg);
 		}
 		
 		public object VisitMulFactorAST(MulFactorAST v,object arg)
 		{
+			string t1=(string)v.fac.visit(this,arg),t2=(string)v.facs.visit(this,arg);
+			if ((t1==t2)&&((t1=="int")||(t1=="float"))){
+				return t1;
+			}
+			else{
+				errores_contextuales+="Error Contextual: Tipos Incompatibles.\n";
+			}
 			return null;
 		}
 		
@@ -375,17 +527,26 @@ namespace AContextual
 		//Factor
 		public object VisitCharConstFactorAST(CharConstFactorAST v,object arg)
 		{
+			if(v.charconst.car.sym==sym.CHAR){
+				return "char";
+			}
 			return null;
 		}
 		
 		public object VisitNumFactorAST(NumFactorAST v,object arg)
 		{
+			if(v.num.num.sym==sym.NUM){
+				return "int";
+			}
+			else if(v.num.num.sym==sym.FLOAT){
+				return "float";
+			}
 			return null;
 		}
 		
 		public object VisitDesigPFactorAST(DesigPFactorAST v,object arg)
 		{
-			return null;
+			return v.desig.visit(this,arg);
 		}
 		
 		public object VisitDesigPAFactorAST(DesigPAFactorAST v,object arg)
@@ -408,26 +569,46 @@ namespace AContextual
 		//Statement
 		public object VisitDesigminusStatAST(DesigminusStatAST v,object arg)
 		{
+			if ((string)v.designator.visit(this,arg)=="int"){
+				
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador no es de tpo int.\n";
+			}
 			return null;
 		}
 		
 		public object VisitDesigplusStatAST(DesigplusStatAST v,object arg)
 		{
+			if ((string)v.designator.visit(this,arg)=="int"){
+				
+			}
+			else{
+				errores_contextuales+="Error Contextual: El identificador no es de tpo int.\n";
+			}
 			return null;
 		}
 		
 		public object VisitReturnEStatAST(ReturnEStatAST v,object arg)
 		{
-			return null;
+			if ((string)v.expresion.visit(this,arg)==(string) arg)
+			return true;
+			return false;
 		}
 		
 		public object VisitReturnBasicStatAST(ReturnBasicStatAST v,object arg)
 		{
-			return null;
+			if ((string)arg=="void")
+				return true;
+			return false;
 		}
 		
 		public object VisitDesigEStatAST(DesigEStatAST v,object arg)
 		{
+			if ((string)v.designator.visit(this,arg)!=(string)v.expresion.visit(this,arg)){
+				errores_contextuales+="Error Contextual: Tipos incompatibles.\n";
+				return null;
+			}
 			return null;
 		}
 		
@@ -448,6 +629,7 @@ namespace AContextual
 		
 		public object VisitIfStatAST(IfStatAST v,object arg)
 		{
+			v.condicion.visit(this,arg);
 			return null;
 		}
 		
@@ -498,6 +680,7 @@ namespace AContextual
 		
 		public object VisitBlockStatAST(BlockStatAST v,object arg)
 		{
+			v.bloque.visit(this,arg);
 			return null;
 		}
 		
@@ -536,11 +719,16 @@ namespace AContextual
 		//FormPars
 		public object VisitUnFormParsAST(UnFormParsAST v,object arg)
 		{
+			string metodo=(string)arg;
+			identificadores.enter(v.ident.ident.value,"",v);
+			parametros.enter(metodo,v.ident.ident.value,v);
 			return null;
 		}
 		
 		public object VisitMulFormParsAST(MulFormParsAST v,object arg)
 		{
+			v.parametro.visit(this,arg);
+			v.parametros.visit(this,arg);
 			return null;
 		}
 	}

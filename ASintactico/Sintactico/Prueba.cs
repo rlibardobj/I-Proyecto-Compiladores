@@ -23,7 +23,7 @@ namespace ASintactico
     		//StreamReader archivo=new StreamReader("prueba.txt");
     		//Console.WriteLine(archivo.ReadToEnd());
     		try{
-    		parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
+    		/*parser parsing = new parser(new Scanner(new StreamReader(Console.ReadLine())));
     	ProgramAST arbol;
     	arbol=parsing.parseProgram();
     	Console.WriteLine("IMPRESIÓN DEL ÁRBOL:");
@@ -31,10 +31,10 @@ namespace ASintactico
         instancia.imprimir(arbol);
         Console.WriteLine();
         Console.Write("FIN DE IMPRESIÓN");
-    	Console.ReadLine();
-    	/*Application.EnableVisualStyles();
+    	Console.ReadLine();*/
+    	Application.EnableVisualStyles();
 		Application.SetCompatibleTextRenderingDefault(false);
-    	Application.Run(new Principal());*/
+    	Application.Run(new Principal());
     	
     		}
     		catch(Exception exc){

@@ -16,9 +16,10 @@ namespace ASintactico
 	public class VarDeclUnIDAST : DeclarationAST
 	{
 		public TypeAST tipo;
-		public TerminalesAST identificador;
+		public Token identificador;
+		public string adornotipo;
 		
-		public VarDeclUnIDAST(TerminalesAST id, TypeAST tip)
+		public VarDeclUnIDAST(Token id, TypeAST tip)
 		{
 			identificador=id;
 			tipo=tip;
