@@ -148,6 +148,7 @@ namespace ASintactico.generacionCodigo
 		public object VisitConstDeclAST(ConstDeclAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
+			act.crea
 			return null;
 		}
 		
