@@ -20,6 +20,8 @@ namespace ASintactico.generacionCodigo
 	/// </summary>
 	public class generadorCodigo:Visitor
 	{
+		
+		ModuleBuilder modulo;
 		public generadorCodigo()
 		{
 		}
@@ -44,10 +46,10 @@ namespace ASintactico.generacionCodigo
 				myAsmName,
 				AssemblyBuilderAccess.RunAndSave);
 
-			ModuleBuilder myModuleBldr = myAsmBldr.DefineDynamicModule(asmFileName,
-			                                                           asmFileName);
+			modulo = myAsmBldr.DefineDynamicModule(asmFileName,
+			                                       asmFileName);
 
-			TypeBuilder act = temp(myModuleBldr);
+			TypeBuilder act = modulo.DefineType(v.ident.ident.value);
 			v.declaraciones.visit(this,act);
 
 			pointType = act.CreateType();
@@ -76,10 +78,10 @@ namespace ASintactico.generacionCodigo
 				myAsmName,
 				AssemblyBuilderAccess.RunAndSave);
 
-			ModuleBuilder myModuleBldr = myAsmBldr.DefineDynamicModule(asmFileName,
-			                                                           asmFileName);
+			modulo = myAsmBldr.DefineDynamicModule(asmFileName,
+			                                       asmFileName);
 
-			TypeBuilder act = temp(myModuleBldr);
+			TypeBuilder act = modulo.DefineType(v.ident.ident.value);
 			v.declaraciones.visit(this,act);
 			v.metodos.visit(this,act);
 			
@@ -109,10 +111,9 @@ namespace ASintactico.generacionCodigo
 				myAsmName,
 				AssemblyBuilderAccess.RunAndSave);
 
-			ModuleBuilder myModuleBldr = myAsmBldr.DefineDynamicModule(asmFileName,
-			                                                           asmFileName);
+			modulo = myAsmBldr.DefineDynamicModule(asmFileName,asmFileName);
 
-			TypeBuilder act = temp(myModuleBldr);
+			TypeBuilder act = modulo.DefineType(v.ident.ident.value);
 			v.metodos.visit(this,act);
 			
 			pointType = act.CreateType();
@@ -148,31 +149,44 @@ namespace ASintactico.generacionCodigo
 		public object VisitConstDeclAST(ConstDeclAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
-			act.crea
+			object stringtipo=v.tipo.visit(this,arg);
+			Type tipo=modulo.GetType((string)stringtipo);
+			if (tipo==null)
+				act.DefineField(v.value.value,(Type)stringtipo,FieldAttributes.Private);
+			else
+				act.DefineField(v.value.value,tipo,FieldAttributes.Private);
 			return null;
 		}
 		
 		public object VisitClassDeclVAST(ClassDeclVAST v,object arg)
 		{
-			TypeBuilder act=(TypeBuilder)arg;
+			TypeBuilder tipo=modulo.DefineType(v.ident.ident.value);
+			v.declaraciones.visit(this,tipo);
 			return null;
 		}
 		
 		public object VisitClassDeclBasicAST(ClassDeclBasicAST v,object arg)
 		{
-			TypeBuilder act=(TypeBuilder)arg;
+			TypeBuilder tipo=modulo.DefineType(v.ident.ident.value);
 			return null;
 		}
 		
 		public object VisitDeclMulIDAST(VarDeclMulIDAST v,object arg)
 		{
-			TypeBuilder act=(TypeBuilder)arg;
+			v.identificador.visit(this,arg);
+			v.identificadores.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitDeclUnIDAST(VarDeclUnIDAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
+			object stringtipo=v.tipo.visit(this,arg);
+			Type tipo=modulo.GetType((string)stringtipo);
+			if (tipo==null)
+				act.DefineField(v.identificador.value,(Type)stringtipo,FieldAttributes.Private);
+			else
+				act.DefineField(v.identificador.value,tipo,FieldAttributes.Private);
 			return null;
 		}
 		
@@ -205,12 +219,12 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitTypeCAST(TypeCAST v,object arg)
 		{
-			return null;
+			return v.ident.value;
 		}
 		
 		public object VisitTypeBasicAST(TypeBasicAST v,object arg)
 		{
-			return null;
+			return v.ident.value;
 		}
 		
 		
@@ -547,11 +561,6 @@ namespace ASintactico.generacionCodigo
 		public object VisitMulFormParsAST(MulFormParsAST v,object arg)
 		{
 			return null;
-		}
-		
-		public static TypeBuilder temp(object act)
-		{
-			return ((ModuleBuilder)act).DefineType("Program");
 		}
 
 	}
