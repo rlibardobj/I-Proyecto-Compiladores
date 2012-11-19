@@ -7,6 +7,7 @@
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace ASintactico.generacionCodigo
 	{
 		
 		ModuleBuilder modulo;
+		ArrayList tiposparametros=new ArrayList();
 		public generadorCodigo()
 		{
 		}
@@ -193,6 +195,13 @@ namespace ASintactico.generacionCodigo
 		public object VisitMethodDeclFAST(MethodDeclFAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
+			object stringtipo=v.tipo.visit(this,arg);
+			Type tipo=modulo.GetType((string)stringtipo);
+			v.parametros.visit(this,arg);
+			if (tipo==null)
+				act.DefineMethod(v.ident.value,MethodAttributes.Public,(Type)stringtipo,tiposparametros.ToArray(typeof(Type)));
+			else
+				act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,tiposparametros);
 			return null;
 		}
 		
@@ -555,11 +564,13 @@ namespace ASintactico.generacionCodigo
 		//FormPars
 		public object VisitUnFormParsAST(UnFormParsAST v,object arg)
 		{
+			tiposparametros[(int)arg]=(Type)v.tipo.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitMulFormParsAST(MulFormParsAST v,object arg)
 		{
+			v.parametro.visit(this,((int)arg)+1);
 			return null;
 		}
 
