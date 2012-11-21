@@ -16,11 +16,12 @@ namespace ASintactico
 	public class MulFactorAST:TermAST
 	{
 		public TermAST fac,facs;
-		
-		public MulFactorAST(TermAST fa, TermAST fas)
+		Token operador;
+		public MulFactorAST(TermAST fa, TermAST fas, Token operador)
 		{
 			fac=fa;
 			facs=fas;
+			this.operador=operador;
 		}
 		
 		public override object visit(Visitor v,object arg){

@@ -16,10 +16,12 @@ namespace ASintactico
 	public class MulTermMExprAST:ExprAST
 	{
 		public ExprAST term,terms;
-		public MulTermMExprAST(ExprAST ter, ExprAST ters)
+		Token operador;
+		public MulTermMExprAST(ExprAST ter, ExprAST ters, Token operador)
 		{
 			term=ter;
 			terms=ters;
+			this.operador=operador;
 		}
 		
 		public override object visit(Visitor v,object arg){

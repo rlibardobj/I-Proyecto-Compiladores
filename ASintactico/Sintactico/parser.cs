@@ -663,10 +663,11 @@ namespace ASintactico{
 				resultado=new UnTermMExprAST(termino);
 				while ((currentToken.sym == sym.SUM) | (currentToken.sym == sym.SUB))
 				{
+					Token operador=currentToken;
 					acceptit();
 					termino=parseTerm();
 					temp=new UnTermExprAST(termino);
-					resultado=new MulTermMExprAST(temp,resultado);
+					resultado=new MulTermMExprAST(temp,resultado,operador);
 				}
 				return resultado;
 			}
@@ -675,10 +676,11 @@ namespace ASintactico{
 				resultado=new UnTermExprAST(termino);
 				while ((currentToken.sym == sym.SUM) | (currentToken.sym == sym.SUB))
 				{
+					Token operador=currentToken;
 					acceptit();
 					termino=parseTerm();
 					temp=new UnTermExprAST(termino);
-					resultado=new MulTermExprAST(temp,resultado);
+					resultado=new MulTermExprAST(temp,resultado,operador);
 				}
 				return resultado;
 			}
@@ -693,10 +695,11 @@ namespace ASintactico{
 			resultado=new UnFactorAST(factor);
 			while ((currentToken.sym == sym.MULT) | (currentToken.sym == sym.DIV) | (currentToken.sym == sym.MOD))
 			{
+				Token operador=currentToken;
 				acceptit();
 				factor=parseFactor();
 				temp=new UnFactorAST(factor);
-				resultado=new MulFactorAST(temp,resultado);
+				resultado=new MulFactorAST(temp,resultado,operador);
 			}
 			return resultado;
 		}

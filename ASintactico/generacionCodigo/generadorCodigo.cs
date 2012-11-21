@@ -155,10 +155,17 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitConstDeclAST(ConstDeclAST v,object arg)
 		{
-			TypeBuilder act=(TypeBuilder)arg;
 			string stringtipo=(string)v.tipo.visit(this,arg);
-			Type tipo=this.tipo(stringtipo,act);
-			variables.Add(act.DefineField(v.value.value,tipo,FieldAttributes.Literal));
+			Type tipo=this.tipo(stringtipo,arg);
+			if (arg.GetType().Name.Equals("TypeBuilder")){
+				TypeBuilder act=(TypeBuilder)arg;
+				variables.Add(act.DefineField(v.value.value,tipo,FieldAttributes.Literal));
+			}
+			else
+			{
+				ILGenerator act=(ILGenerator)arg;
+				variablesLocales.Add(act.DeclareLocal(tipo));
+			}
 			return null;
 		}
 		
@@ -185,10 +192,18 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitDeclUnIDAST(VarDeclUnIDAST v,object arg)
 		{
-			TypeBuilder act=(TypeBuilder)arg;
 			string stringtipo=(string)v.tipo.visit(this,arg);
-			Type tipo=this.tipo(stringtipo,act);
-			variables.Add(act.DefineField(v.identificador.value,tipo,FieldAttributes.Private));
+			Type tipo=this.tipo(stringtipo,arg);
+			if (arg.GetType().Name.Equals("TypeBuilder"))
+			{
+				TypeBuilder act=(TypeBuilder)arg;
+				variables.Add(act.DefineField(v.identificador.value,tipo,FieldAttributes.Private));
+			}
+			else
+			{
+				ILGenerator act=(ILGenerator)arg;
+				variablesLocales.Add(act.DeclareLocal(tipo));
+			}
 			return null;
 		}
 		//parametros(F)
@@ -448,22 +463,30 @@ namespace ASintactico.generacionCodigo
 		//Expr
 		public object VisitMulTermMExprAST(MulTermMExprAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			v.term.visit(this,arg);
+			v.terms.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitMulTermExprAST(MulTermExprAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			v.term.visit(this,arg);
+			v.terms.visit(this,arg);
+			generador.Emit(OpCodes.Add_Ovf);
 			return null;
 		}
 		
 		public object VisitUnTermExprAST(UnTermExprAST v,object arg)
 		{
-			
+			v.term.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitUnTermMExprAST(UnTermMExprAST v,object arg)
 		{
+			v.term.visit(this,arg);
 			return null;
 		}
 		
@@ -472,11 +495,16 @@ namespace ASintactico.generacionCodigo
 		//Term
 		public object VisitUnFactorAST(UnFactorAST v,object arg)
 		{
+			v.factor.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitMulFactorAST(MulFactorAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			v.fac.visit(this,arg);
+			v.facs.visit(this,arg);
+			generador.Emit(OpCodes.Mul_Ovf);
 			return null;
 		}
 		
@@ -532,7 +560,7 @@ namespace ASintactico.generacionCodigo
 		{
 			ILGenerator generador=(ILGenerator)arg;
 			object tipoVariable=v.designator.visit(this,1);
-			if(tipoVariable.GetType().Name=="FieldBuilder")
+			if(tipoVariable.GetType().Name.Equals("FieldBuilder"))
 			{
 				generador.Emit(OpCodes.Ldc_I4_1);
 				generador.Emit(OpCodes.Ldsfld,(FieldBuilder)tipoVariable);
@@ -553,7 +581,7 @@ namespace ASintactico.generacionCodigo
 		{
 			ILGenerator generador=(ILGenerator)arg;
 			object tipoVariable=v.designator.visit(this,arg);
-			if(tipoVariable.GetType().Name=="FieldBuilder")
+			if(tipoVariable.GetType().Name.Equals("FieldBuilder"))
 			{
 				generador.Emit(OpCodes.Ldc_I4_1);
 				generador.Emit(OpCodes.Ldsfld,(FieldBuilder)tipoVariable);
@@ -765,7 +793,11 @@ namespace ASintactico.generacionCodigo
 					case "bool": {return typeof(bool);
 						break;}
 				default:
-					{return ((TypeBuilder)arg).GetNestedType(type);
+					{	foreach (TypeBuilder i in clases)
+						{
+							if (i.Name.Equals(type))
+								return i;
+						}
 						break;}
 			}
 			return null;
