@@ -191,7 +191,7 @@ namespace ASintactico.generacionCodigo
 			variables.Add(act.DefineField(v.identificador.value,tipo,FieldAttributes.Private));
 			return null;
 		}
-		//parametros(F) 
+		//parametros(F)
 		public object VisitMethodDeclFAST(MethodDeclFAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
@@ -265,7 +265,7 @@ namespace ASintactico.generacionCodigo
 		
 		
 		//BlockAST
-        //block statement
+		//block statement
 		public object VisitBlockSAST(BlockSAST v,object arg)
 		{
 			v.statement.visit(this,arg);
@@ -276,7 +276,7 @@ namespace ASintactico.generacionCodigo
 		{
 			return null;
 		}
-	    //vacio
+		//vacio
 		public object VisitDesigBasicFactorAST(DesigBasicFactorAST v,object arg)
 		{
 			return null;
@@ -289,7 +289,7 @@ namespace ASintactico.generacionCodigo
 		}
 		//New ID expresion
 		public object VisitNewEFactorAST(NewEFactorAST v,object arg)
-		{			
+		{
 			return null;
 		}
 		//new id sin expr
@@ -401,7 +401,7 @@ namespace ASintactico.generacionCodigo
 						generador.Emit(OpCodes.Ceq); //comparo y si son iguales mete 1 a la pila
 						break;}
 					case "<=":{
-						generador.Emit(OpCodes.Cgt); 
+						generador.Emit(OpCodes.Cgt);
 						generador.Emit(OpCodes.Ldc_I4_0);
 						generador.Emit(OpCodes.Ceq);
 						break;}
@@ -633,19 +633,28 @@ namespace ASintactico.generacionCodigo
 			ILGenerator generador=(ILGenerator)arg;
 			MethodInfo read = typeof(Console).GetMethod("Read",new Type[0]);
 			object variable=v.designator.visit(this,arg);
-			generador.EmitCall(OpCodes.Call,read,null);
-			generador.Emit(OpCodes.Stsfld,(FieldBuilder)variable);
+			if (variable.GetType().Name=="FieldBuilder"){
+				generador.EmitCall(OpCodes.Call,read,null);
+				generador.Emit(OpCodes.Stsfld,(FieldBuilder)variable);
+			}
+			else
+			{
+				generador.EmitCall(OpCodes.Call,read,null);
+				generador.Emit(OpCodes.Stsfld,(LocalBuilder)variable);
+			}
 			return null;
 		}
 		
 		public object VisitWriteStatAST(WriteStatAST v,object arg)
 		{
 			ILGenerator generador=(ILGenerator)arg;
-			MethodInfo write = typeof(Console).GetMethod("Write",new Type[0]);
+			v.expresion.visit(this,arg);
+			MethodInfo write = typeof(Console).GetMethod("WriteLine",new Type[0]);
+			generador.EmitCall(OpCodes.Call,write,null);
 			return null;
 		}
 		
-		public object VisitWriteNStatAST(WriteNStatAST v,object arg)
+		public object VisitWriteNStatAST(WriteNStatAST v,object arg) //Para después
 		{
 			return null;
 		}
@@ -664,67 +673,70 @@ namespace ASintactico.generacionCodigo
 			return null;
 		}
 		
-		public object VisitForEStatAST(ForEStatAST v,object arg)
+		public object VisitForEStatAST(ForEStatAST v,object arg) //Para después
 		{
 			return null;
 		}
 		
-		public object VisitForEEStatAST(ForEEStatAST v,object arg)
+		public object VisitForEEStatAST(ForEEStatAST v,object arg) //Después
 		{
 			return null;
 		}
 		
-		public object VisitForBasicStatAST(ForBasicStatAST v,object arg)
+		public object VisitForBasicStatAST(ForBasicStatAST v,object arg) //Después
 		{
 			return null;
 		}
 		
-		public object VisitPyComaStatAST(PyComaStatAST v,object arg)
+		public object VisitPyComaStatAST(PyComaStatAST v,object arg) //Después
 		{
 			return null;
 		}
 		
 		public object VisitBreakStatAST(BreakStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			generador.Emit(OpCodes.Break);
 			return null;
 		}
 		
 		public object VisitBlockStatAST(BlockStatAST v,object arg)
 		{
+			v.bloque.visit(this,arg);
 			return null;
 		}
 		
-		public object VisitIDAST(IDAST v,object arg)
+		public object VisitIDAST(IDAST v,object arg) //No es necesaria
 		{
 			return null;
 		}
 		
-		public object VisitBoolAST(BOOLAST v, object arg)
+		public object VisitBoolAST(BOOLAST v, object arg) //No es necesaria
 		{
 			return null;
 		}
 		
-		public object VisitRELOPAST(RELOPAST v,object arg)
+		public object VisitRELOPAST(RELOPAST v,object arg) //No es necesaria
 		{
 			return null;
 		}
 		
-		public object VisitNUMAST(NUMAST v,object arg)
+		public object VisitNUMAST(NUMAST v,object arg) //No es necesaria
 		{
 			return null;
 		}
 		
-		public object VisitMULOPAST(MULOPAST v,object arg)
+		public object VisitMULOPAST(MULOPAST v,object arg) //No es necesaria
 		{
 			return null;
 		}
 		
-		public object VisitCHARAST(CHARAST v,object arg)
+		public object VisitCHARAST(CHARAST v,object arg) //No es necesaria
 		{
 			return null;
 		}
 		
-		public object VisitADDOPAST(ADDOPAST v,object arg)
+		public object VisitADDOPAST(ADDOPAST v,object arg) //No es necesaria
 		{
 			return null;
 		}
@@ -752,7 +764,7 @@ namespace ASintactico.generacionCodigo
 						break;}
 					case "bool": {return typeof(bool);
 						break;}
-				default: 
+				default:
 					{return ((TypeBuilder)arg).GetNestedType(type);
 						break;}
 			}
