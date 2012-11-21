@@ -364,11 +364,14 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitUnCondFactAST(UnCondFactAST v,object arg)
 		{
+			v.condfact.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitMulCondFactAST(MulCondFactAST v,object arg)
 		{
+			v.condfact.visit(this,arg);
+			v.condfacts.visit(this,arg);
 			return null;
 		}
 		
@@ -377,6 +380,30 @@ namespace ASintactico.generacionCodigo
 		//CondFact
 		public object VisitConditionAST(ConditionAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			v.expr.visit(this,arg);
+			v.expr1.visit(this,arg);
+			switch (v.relop.value.value){
+					case "=":{
+						generador.Emit(OpCodes.Ceq);
+						break;}
+					case ">":{
+						generador.Emit(OpCodes.Cgt);
+						break;}
+					case "<":{
+						generador.Emit(OpCodes.Clt);
+						break;}
+					case ">=":{ //2>=1
+						generador.Emit(OpCodes.Clt); // 0 a la pila
+						generador.Emit(OpCodes.Ldc_I4_0); //meto 0 a la pila (0 es un falso)
+						generador.Emit(OpCodes.Ceq); //comparo y si son iguales mete 1 a la pila
+						break;}
+					case "<=":{
+						generador.Emit(OpCodes.Cgt); 
+						generador.Emit(OpCodes.Ldc_I4_0);
+						generador.Emit(OpCodes.Ceq);
+						break;}
+			}
 			return null;
 		}
 
@@ -386,11 +413,14 @@ namespace ASintactico.generacionCodigo
 		//Conditions
 		public object VisitUnCondTermAST(UnCondTermAST v,object arg)
 		{
+			v.condterm.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitMulCondTermAST(MulCondTermAST v,object arg)
 		{
+			v.condterm.visit(this,arg);
+			v.condterms.visit(this,arg);
 			return null;
 		}
 		
@@ -589,6 +619,13 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitWhileStatAST(WhileStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			Label etiquetaEntrada=generador.DefineLabel(),etiquetaSalida=generador.DefineLabel();
+			generador.MarkLabel(etiquetaEntrada);
+			v.condicion.visit(this,arg);
+			//Salto a etiquetasalida si es false, sino visito statements y despues salto otra vez a entrada
+			//codigo del while
+			generador.MarkLabel(etiquetaSalida);
 			return null;
 		}
 		
