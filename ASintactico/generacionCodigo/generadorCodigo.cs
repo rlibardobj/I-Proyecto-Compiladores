@@ -572,11 +572,16 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitReturnEStatAST(ReturnEStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			v.expresion.visit(this,arg);
+			generador.Emit(OpCodes.Ret);
 			return false;
 		}
 		
 		public object VisitReturnBasicStatAST(ReturnBasicStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			generador.Emit(OpCodes.Ret);
 			return false;
 		}
 		
@@ -603,7 +608,7 @@ namespace ASintactico.generacionCodigo
 			v.condicion.visit(this,arg);
 			generador.Emit(OpCodes.Ldc_I4_0);
 			generador.Emit(OpCodes.Beq,etiquetaElse);
-			v.statement.visit(this,arg);
+			v.ifstatement.visit(this,arg);
 			generador.Emit(OpCodes.Br,etiquetaContinuar);
 			generador.MarkLabel(etiquetaElse);
 			v.elsestatement.visit(this,arg);
@@ -625,11 +630,18 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitReadStatAST(ReadStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			MethodInfo read = typeof(Console).GetMethod("Read",new Type[0]);
+			object variable=v.designator.visit(this,arg);
+			generador.EmitCall(OpCodes.Call,read,null);
+			generador.Emit(OpCodes.Stsfld,(FieldBuilder)variable);
 			return null;
 		}
 		
 		public object VisitWriteStatAST(WriteStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			MethodInfo write = typeof(Console).GetMethod("Write",new Type[0]);
 			return null;
 		}
 		
