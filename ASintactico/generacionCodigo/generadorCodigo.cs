@@ -25,6 +25,10 @@ namespace ASintactico.generacionCodigo
 		ModuleBuilder modulo;
 		List<Type> parametros;
 		List<LocalBuilder> variablesLocales;
+		List<TypeBuilder> clases;
+		List<FieldBuilder> variables;
+		List<MethodBuilder> metodos;
+		
 		public generadorCodigo()
 		{
 		}
@@ -154,20 +158,21 @@ namespace ASintactico.generacionCodigo
 			TypeBuilder act=(TypeBuilder)arg;
 			string stringtipo=(string)v.tipo.visit(this,arg);
 			Type tipo=this.tipo(stringtipo,act);
-			act.DefineField(v.value.value,tipo,FieldAttributes.InitOnly);
+			variables.Add(act.DefineField(v.value.value,tipo,FieldAttributes.Literal));
 			return null;
 		}
 		
 		public object VisitClassDeclVAST(ClassDeclVAST v,object arg)
 		{
 			TypeBuilder tipo=((TypeBuilder)arg).DefineNestedType(v.ident.ident.value);
+			clases.Add(tipo);
 			v.declaraciones.visit(this,tipo);
 			return null;
 		}
 		
 		public object VisitClassDeclBasicAST(ClassDeclBasicAST v,object arg)
 		{
-			((TypeBuilder)arg).DefineNestedType(v.ident.ident.value);
+			clases.Add(((TypeBuilder)arg).DefineNestedType(v.ident.ident.value));
 			return null;
 		}
 		
@@ -183,7 +188,7 @@ namespace ASintactico.generacionCodigo
 			TypeBuilder act=(TypeBuilder)arg;
 			string stringtipo=(string)v.tipo.visit(this,arg);
 			Type tipo=this.tipo(stringtipo,act);
-			act.DefineField(v.identificador.value,tipo,FieldAttributes.Private);
+			variables.Add(act.DefineField(v.identificador.value,tipo,FieldAttributes.Private));
 			return null;
 		}
 		
@@ -194,6 +199,7 @@ namespace ASintactico.generacionCodigo
 			Type tipo=this.tipo(stringtipo,arg);
 			v.parametros.visit(this,arg);
 			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,parametros.ToArray());
+			metodos.Add(metodo);
 			parametros.Clear();
 			metodo.InitLocals=true;
 			ILGenerator constructorMetodo=metodo.GetILGenerator();
@@ -208,6 +214,7 @@ namespace ASintactico.generacionCodigo
 			Type tipo=this.tipo(stringtipo,arg);
 			v.parametros.visit(this,arg);
 			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,parametros.ToArray());
+			metodos.Add(metodo);
 			parametros.Clear();
 			metodo.InitLocals=true;
 			ILGenerator constructorMetodo=metodo.GetILGenerator();
@@ -222,6 +229,7 @@ namespace ASintactico.generacionCodigo
 			string stringtipo=(string)v.tipo.visit(this,arg);
 			Type tipo=this.tipo(stringtipo,arg);
 			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,null);
+			metodos.Add(metodo);
 			metodo.InitLocals=true;
 			ILGenerator constructorMetodo=metodo.GetILGenerator();
 			v.declaraciones.visit(this,constructorMetodo);
@@ -235,6 +243,7 @@ namespace ASintactico.generacionCodigo
 			string stringtipo=(string)v.tipo.visit(this,arg);
 			Type tipo=this.tipo(stringtipo,arg);
 			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,null);
+			metodos.Add(metodo);
 			metodo.InitLocals=true;
 			ILGenerator constructorMetodo=metodo.GetILGenerator();
 			v.bloque.visit(this,constructorMetodo);
@@ -259,6 +268,7 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitBlockSAST(BlockSAST v,object arg)
 		{
+			v.statement.visit(this,arg);
 			return null;
 		}
 		
@@ -307,6 +317,25 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitDesigBasicAST(DesigBasicAST v,object arg)
 		{
+			foreach (LocalBuilder temp in variablesLocales)
+			{
+				return temp;
+			}
+			foreach (FieldBuilder temp in variables)
+			{
+				if (temp.Name==v.ident.ident.value)
+					return temp;
+			}
+			foreach (MethodBuilder temp in metodos)
+			{
+				if (temp.Name==v.ident.ident.value)
+					return temp;
+			}
+			foreach (TypeBuilder temp in clases)
+			{
+				if (temp.Name==v.ident.ident.value)
+					return temp;
+			}
 			return null;
 		}
 		
@@ -421,21 +450,30 @@ namespace ASintactico.generacionCodigo
 		//Factor
 		public object VisitCharConstFactorAST(CharConstFactorAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			generador.Emit(OpCodes.Ldc_I4,v.charconst.car.value);
 			return null;
 		}
 		
 		public object VisitNumFactorAST(NumFactorAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			generador.Emit(OpCodes.Ldc_I4,int.Parse(v.num.num.value));
 			return null;
 		}
 		
 		public object VisitDesigPFactorAST(DesigPFactorAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			generador.EmitCall(OpCodes.Call,(MethodBuilder)v.desig.visit(this,arg),null);
 			return null;
 		}
 		
 		public object VisitDesigPAFactorAST(DesigPAFactorAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			v.pars.visit(this,arg);
+			generador.EmitCall(OpCodes.Call,(MethodBuilder)v.desig.visit(this,arg),null);
 			return null;
 		}
 		
@@ -454,11 +492,43 @@ namespace ASintactico.generacionCodigo
 		//Statement
 		public object VisitDesigminusStatAST(DesigminusStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			object tipoVariable=v.designator.visit(this,1);
+			if(tipoVariable.GetType().Name=="FieldBuilder")
+			{
+				generador.Emit(OpCodes.Ldc_I4_1);
+				generador.Emit(OpCodes.Ldsfld,(FieldBuilder)tipoVariable);
+				generador.Emit(OpCodes.Add);
+				generador.Emit(OpCodes.Stsfld,(FieldBuilder)tipoVariable);
+			}
+			else
+			{
+				generador.Emit(OpCodes.Ldc_I4_1);
+				generador.Emit(OpCodes.Ldsfld,(LocalBuilder)tipoVariable);
+				generador.Emit(OpCodes.Add);
+				generador.Emit(OpCodes.Stsfld,(LocalBuilder)tipoVariable);
+			}
 			return null;
 		}
 		
 		public object VisitDesigplusStatAST(DesigplusStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			object tipoVariable=v.designator.visit(this,arg);
+			if(tipoVariable.GetType().Name=="FieldBuilder")
+			{
+				generador.Emit(OpCodes.Ldc_I4_1);
+				generador.Emit(OpCodes.Ldsfld,(FieldBuilder)tipoVariable);
+				generador.Emit(OpCodes.Add);
+				generador.Emit(OpCodes.Stsfld,(FieldBuilder)tipoVariable);
+			}
+			else
+			{
+				generador.Emit(OpCodes.Ldc_I4_1);
+				generador.Emit(OpCodes.Ldsfld,(LocalBuilder)tipoVariable);
+				generador.Emit(OpCodes.Add);
+				generador.Emit(OpCodes.Stsfld,(LocalBuilder)tipoVariable);
+			}
 			return null;
 		}
 		
@@ -474,6 +544,7 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitDesigEStatAST(DesigEStatAST v,object arg)
 		{
+			
 			return null;
 		}
 		
