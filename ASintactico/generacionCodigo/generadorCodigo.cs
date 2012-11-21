@@ -370,8 +370,10 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitMulCondFactAST(MulCondFactAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
 			v.condfact.visit(this,arg);
 			v.condfacts.visit(this,arg);
+			generador.Emit(OpCodes.Or);
 			return null;
 		}
 		
@@ -419,8 +421,10 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitMulCondTermAST(MulCondTermAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
 			v.condterm.visit(this,arg);
 			v.condterms.visit(this,arg);
+			generador.Emit(OpCodes.And);
 			return null;
 		}
 		
@@ -594,11 +598,28 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitIfElseStatAST(IfElseStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			Label etiquetaElse=generador.DefineLabel(),etiquetaContinuar=generador.DefineLabel();
+			v.condicion.visit(this,arg);
+			generador.Emit(OpCodes.Ldc_I4_0);
+			generador.Emit(OpCodes.Beq,etiquetaElse);
+			v.statement.visit(this,arg);
+			generador.Emit(OpCodes.Br,etiquetaContinuar);
+			generador.MarkLabel(etiquetaElse);
+			v.elsestatement.visit(this,arg);
+			generador.MarkLabel(etiquetaContinuar);
 			return null;
 		}
 		
 		public object VisitIfStatAST(IfStatAST v,object arg)
 		{
+			ILGenerator generador=(ILGenerator)arg;
+			Label etiquetaFalso=generador.DefineLabel();
+			v.condicion.visit(this,arg);
+			generador.Emit(OpCodes.Ldc_I4_0);
+			generador.Emit(OpCodes.Beq,etiquetaFalso);
+			v.statement.visit(this,arg);
+			generador.MarkLabel(etiquetaFalso);
 			return null;
 		}
 		
@@ -623,8 +644,10 @@ namespace ASintactico.generacionCodigo
 			Label etiquetaEntrada=generador.DefineLabel(),etiquetaSalida=generador.DefineLabel();
 			generador.MarkLabel(etiquetaEntrada);
 			v.condicion.visit(this,arg);
-			//Salto a etiquetasalida si es false, sino visito statements y despues salto otra vez a entrada
-			//codigo del while
+			generador.Emit(OpCodes.Ldc_I4_0);
+			generador.Emit(OpCodes.Beq,etiquetaSalida);
+			v.statement.visit(this,arg);
+			generador.Emit(OpCodes.Br,etiquetaEntrada);
 			generador.MarkLabel(etiquetaSalida);
 			return null;
 		}
