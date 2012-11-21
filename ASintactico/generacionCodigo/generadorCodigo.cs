@@ -191,7 +191,7 @@ namespace ASintactico.generacionCodigo
 			variables.Add(act.DefineField(v.identificador.value,tipo,FieldAttributes.Private));
 			return null;
 		}
-		
+		//parametros(F) 
 		public object VisitMethodDeclFAST(MethodDeclFAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
@@ -206,7 +206,7 @@ namespace ASintactico.generacionCodigo
 			v.bloque.visit(this,constructorMetodo);
 			return null;
 		}
-		
+		//parametros(F) y declariones (M)
 		public object VisitMethodDeclFMAST(MethodDeclFMAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
@@ -222,7 +222,7 @@ namespace ASintactico.generacionCodigo
 			v.bloque.visit(this,constructorMetodo);
 			return null;
 		}
-		
+		//declariones (M)
 		public object VisitMethodDeclMAST(MethodDeclMAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
@@ -252,7 +252,7 @@ namespace ASintactico.generacionCodigo
 		
 		
 		//TypeAST
-		
+		//Type corchetes
 		public object VisitTypeCAST(TypeCAST v,object arg)
 		{
 			return v.ident.value;
@@ -265,7 +265,7 @@ namespace ASintactico.generacionCodigo
 		
 		
 		//BlockAST
-		
+        //block statement
 		public object VisitBlockSAST(BlockSAST v,object arg)
 		{
 			v.statement.visit(this,arg);
@@ -276,36 +276,34 @@ namespace ASintactico.generacionCodigo
 		{
 			return null;
 		}
-		
+	    //vacio
 		public object VisitDesigBasicFactorAST(DesigBasicFactorAST v,object arg)
 		{
 			return null;
 		}
-		
+		//Expresiones entre parentesis
 		public object VisitExprFactorAST(ExprFactorAST v,object arg)
 		{
+			v.expresion.visit(this, arg);
 			return null;
 		}
-		
+		//New ID expresion
 		public object VisitNewEFactorAST(NewEFactorAST v,object arg)
-		{
+		{			
 			return null;
 		}
-		
+		//new id sin expr
 		public object VisitNewBasicFactorAST(NewBasicFactorAST v,object arg)
 		{
 			return null;
 		}
-		
+		//Bool
 		public object VisitBoolFactorAST(BoolFactorAST v,object arg)
 		{
 			return null;
 		}
 		
-		public object VisitBoolAST(BOOLAST v, object arg)
-		{
-			return null;
-		}
+		
 		
 		//----------------------------------------------------------------------------------------
 		
@@ -625,6 +623,11 @@ namespace ASintactico.generacionCodigo
 		}
 		
 		public object VisitIDAST(IDAST v,object arg)
+		{
+			return null;
+		}
+		
+		public object VisitBoolAST(BOOLAST v, object arg)
 		{
 			return null;
 		}
