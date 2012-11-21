@@ -401,10 +401,13 @@ namespace ASintactico.generacionCodigo
 		//ActPars
 		public object VisitUnExprAST(UnExprAST v,object arg)
 		{
+			v.expresion.visit(this,arg);
 			return null;
 		}
 		public object VisitMulExprAST(MulExprAST v,object arg)
 		{
+			v.expresion.visit(this,arg);
+			v.expresiones.visit(this,arg);
 			return null;
 		}
 		
@@ -479,11 +482,14 @@ namespace ASintactico.generacionCodigo
 		
 		public object VisitUnStatementAST(UnStatementAST v,object arg)
 		{
+			v.statement.visit(this,arg);
 			return null;
 		}
 		
 		public object VisitMulStatementAST(MulStatementAST v,object arg)
 		{
+			v.statement.visit(this,arg);
+			v.statements.visit(this,arg);
 			return null;
 		}
 		
