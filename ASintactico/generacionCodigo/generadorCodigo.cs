@@ -23,7 +23,8 @@ namespace ASintactico.generacionCodigo
 	{
 		
 		ModuleBuilder modulo;
-		ArrayList tiposparametros=new ArrayList();
+		List<Type> parametros;
+		List<LocalBuilder> variablesLocales;
 		public generadorCodigo()
 		{
 		}
@@ -151,25 +152,22 @@ namespace ASintactico.generacionCodigo
 		public object VisitConstDeclAST(ConstDeclAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
-			object stringtipo=v.tipo.visit(this,arg);
-			Type tipo=modulo.GetType((string)stringtipo);
-			if (tipo==null)
-				act.DefineField(v.value.value,(Type)stringtipo,FieldAttributes.Private);
-			else
-				act.DefineField(v.value.value,tipo,FieldAttributes.Private);
+			string stringtipo=(string)v.tipo.visit(this,arg);
+			Type tipo=this.tipo(stringtipo,act);
+			act.DefineField(v.value.value,tipo,FieldAttributes.InitOnly);
 			return null;
 		}
 		
 		public object VisitClassDeclVAST(ClassDeclVAST v,object arg)
 		{
-			TypeBuilder tipo=modulo.DefineType(v.ident.ident.value);
+			TypeBuilder tipo=((TypeBuilder)arg).DefineNestedType(v.ident.ident.value);
 			v.declaraciones.visit(this,tipo);
 			return null;
 		}
 		
 		public object VisitClassDeclBasicAST(ClassDeclBasicAST v,object arg)
 		{
-			TypeBuilder tipo=modulo.DefineType(v.ident.ident.value);
+			((TypeBuilder)arg).DefineNestedType(v.ident.ident.value);
 			return null;
 		}
 		
@@ -183,43 +181,63 @@ namespace ASintactico.generacionCodigo
 		public object VisitDeclUnIDAST(VarDeclUnIDAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
-			object stringtipo=v.tipo.visit(this,arg);
-			Type tipo=modulo.GetType((string)stringtipo);
-			if (tipo==null)
-				act.DefineField(v.identificador.value,(Type)stringtipo,FieldAttributes.Private);
-			else
-				act.DefineField(v.identificador.value,tipo,FieldAttributes.Private);
+			string stringtipo=(string)v.tipo.visit(this,arg);
+			Type tipo=this.tipo(stringtipo,act);
+			act.DefineField(v.identificador.value,tipo,FieldAttributes.Private);
 			return null;
 		}
 		
 		public object VisitMethodDeclFAST(MethodDeclFAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
-			object stringtipo=v.tipo.visit(this,arg);
-			Type tipo=modulo.GetType((string)stringtipo);
+			string stringtipo=(string)v.tipo.visit(this,arg);
+			Type tipo=this.tipo(stringtipo,arg);
 			v.parametros.visit(this,arg);
-			if (tipo==null)
-				act.DefineMethod(v.ident.value,MethodAttributes.Public,(Type)stringtipo,tiposparametros.ToArray(typeof(Type)));
-			else
-				act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,tiposparametros);
+			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,parametros.ToArray());
+			parametros.Clear();
+			metodo.InitLocals=true;
+			ILGenerator constructorMetodo=metodo.GetILGenerator();
+			v.bloque.visit(this,constructorMetodo);
 			return null;
 		}
 		
 		public object VisitMethodDeclFMAST(MethodDeclFMAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
+			string stringtipo=(string)v.tipo.visit(this,arg);
+			Type tipo=this.tipo(stringtipo,arg);
+			v.parametros.visit(this,arg);
+			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,parametros.ToArray());
+			parametros.Clear();
+			metodo.InitLocals=true;
+			ILGenerator constructorMetodo=metodo.GetILGenerator();
+			v.declaraciones.visit(this,constructorMetodo);
+			v.bloque.visit(this,constructorMetodo);
 			return null;
 		}
 		
 		public object VisitMethodDeclMAST(MethodDeclMAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
+			string stringtipo=(string)v.tipo.visit(this,arg);
+			Type tipo=this.tipo(stringtipo,arg);
+			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,null);
+			metodo.InitLocals=true;
+			ILGenerator constructorMetodo=metodo.GetILGenerator();
+			v.declaraciones.visit(this,constructorMetodo);
+			v.bloque.visit(this,constructorMetodo);
 			return null;
 		}
 		
 		public object VisitMethodDeclBasicAST(MethodDeclBasicAST v,object arg)
 		{
 			TypeBuilder act=(TypeBuilder)arg;
+			string stringtipo=(string)v.tipo.visit(this,arg);
+			Type tipo=this.tipo(stringtipo,arg);
+			MethodBuilder metodo=act.DefineMethod(v.ident.value,MethodAttributes.Public,tipo,null);
+			metodo.InitLocals=true;
+			ILGenerator constructorMetodo=metodo.GetILGenerator();
+			v.bloque.visit(this,constructorMetodo);
 			return null;
 		}
 		
@@ -564,15 +582,29 @@ namespace ASintactico.generacionCodigo
 		//FormPars
 		public object VisitUnFormParsAST(UnFormParsAST v,object arg)
 		{
-			tiposparametros[(int)arg]=(Type)v.tipo.visit(this,arg);
+			parametros.Add(tipo((string)v.tipo.visit(this,arg),arg));
 			return null;
 		}
 		
 		public object VisitMulFormParsAST(MulFormParsAST v,object arg)
 		{
-			v.parametro.visit(this,((int)arg)+1);
+			v.parametro.visit(this,arg);
 			return null;
 		}
 
+		public Type tipo(string type, object arg){
+			switch(type){
+					case "int": {return typeof(int);
+						break;}
+					case "char": {return typeof(char);
+						break;}
+					case "bool": {return typeof(bool);
+						break;}
+				default: 
+					{return ((TypeBuilder)arg).GetNestedType(type);
+						break;}
+			}
+			return null;
+		}
 	}
 }
