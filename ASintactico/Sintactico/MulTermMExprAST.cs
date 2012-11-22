@@ -16,7 +16,7 @@ namespace ASintactico
 	public class MulTermMExprAST:ExprAST
 	{
 		public ExprAST term,terms;
-		Token operador;
+		public Token operador;
 		public MulTermMExprAST(ExprAST ter, ExprAST ters, Token operador)
 		{
 			term=ter;

@@ -169,11 +169,12 @@ namespace ASintactico{
 			}
 			else if ((currentToken.sym==sym.ID)||(currentToken.sym==sym.VOID)){
 				TypeAST tipo;
-				if (currentToken.sym==sym.VOID)
+				if (currentToken.sym==sym.VOID){
 					tipo=new TypeBasicAST(currentToken);
+					acceptit();
+				}
 				else
 					tipo=parseType();
-				accept(sym.ID);
 				Token id=currentToken;
 				accept(sym.ID);
 				if (currentToken.sym!=sym.PARENi)
@@ -182,7 +183,7 @@ namespace ASintactico{
 					resultado=new UnDeclAST(decl1);
 				}
 				else
-				{
+				{					
 					decl1=parseMethodDecl(tipo,id);
 					resultado=new UnDeclAST(decl1);
 				}
@@ -647,6 +648,7 @@ namespace ASintactico{
 			ExprAST expr,expr1;
 			expr=parseExpr();
 			RELOPAST relop=parseRelop();
+			acceptit();
 			expr1=parseExpr();
 			return new ConditionAST(expr,expr1,relop);
 		}
@@ -819,11 +821,9 @@ namespace ASintactico{
 		{
 			Console.WriteLine("parseADDOP");
 			if (currentToken.sym == sym.SUM) {
-				acceptit();
 				return new ADDOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.SUB) {
-				acceptit();
 				return new ADDOPAST(currentToken);
 			}
 			return null;
@@ -834,43 +834,33 @@ namespace ASintactico{
 		{
 			Console.WriteLine("parseRELOP");
 			if (currentToken.sym == sym.IGUAL) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.DIST) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MAYOR) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MAYORi) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MENOR) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MENORi) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MAYOR) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MAYORi) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MENOR) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MENORi) {
-				acceptit();
 				return new RELOPAST(currentToken);
 			}
 			return null;
@@ -881,15 +871,12 @@ namespace ASintactico{
 		{
 			Console.WriteLine("parseMULOP");
 			if (currentToken.sym == sym.MULT) {
-				acceptit();
 				return new MULOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.DIV) {
-				acceptit();
 				return new MULOPAST(currentToken);
 			}
 			else if (currentToken.sym == sym.MOD) {
-				acceptit();
 				return new MULOPAST(currentToken);
 			}
 			return null;

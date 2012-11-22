@@ -16,7 +16,7 @@ namespace ASintactico
 	public class MulFactorAST:TermAST
 	{
 		public TermAST fac,facs;
-		Token operador;
+		public Token operador;
 		public MulFactorAST(TermAST fa, TermAST fas, Token operador)
 		{
 			fac=fa;

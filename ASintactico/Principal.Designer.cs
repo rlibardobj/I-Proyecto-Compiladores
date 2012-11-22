@@ -102,7 +102,7 @@ namespace ASintactico
 			// 
 			// openFileDialog1
 			// 
-			this.openFileDialog1.FileName = "openFileDialog1";
+			this.openFileDialog1.FileName = "prueba.txt";
 			this.openFileDialog1.ShowHelp = true;
 			this.openFileDialog1.Title = "Abrir Archivo";
 			// 

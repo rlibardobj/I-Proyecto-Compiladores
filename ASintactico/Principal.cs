@@ -10,6 +10,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 
 namespace ASintactico
 {
@@ -37,21 +38,21 @@ namespace ASintactico
 		{
 			string texto;
 			if (tabControl1.SelectedTab!=null){
-			string tab=tabControl1.SelectedTab.Text;
-			for (int i = 0; i < tabControl1.TabPages.Count; i++)
-			{
-				if (tabControl1.TabPages[i].Text==tab)
-    			{
-    				RichTextBox rtb = (RichTextBox)tabControl1.TabPages[i].Controls["rtb"];
-    				path=tabControl1.TabPages[i].Name.ToString();
-        			tabControl1.TabPages.RemoveAt(i);
-        			rtb.SaveFile(path,RichTextBoxStreamType.PlainText);
-        			if (tabControl1.SelectedTab==null)
-        				button4.Enabled=false;
-        			break;
-    			}
-				TextBox t=new TextBox();
-			}
+				string tab=tabControl1.SelectedTab.Text;
+				for (int i = 0; i < tabControl1.TabPages.Count; i++)
+				{
+					if (tabControl1.TabPages[i].Text==tab)
+					{
+						RichTextBox rtb = (RichTextBox)tabControl1.TabPages[i].Controls["rtb"];
+						path=tabControl1.TabPages[i].Name.ToString();
+						tabControl1.TabPages.RemoveAt(i);
+						rtb.SaveFile(path,RichTextBoxStreamType.PlainText);
+						if (tabControl1.SelectedTab==null)
+							button4.Enabled=false;
+						break;
+					}
+					TextBox t=new TextBox();
+				}
 			}
 			else
 				richTextBox1.Text="No hay archivos abiertos";
@@ -59,15 +60,31 @@ namespace ASintactico
 		
 		void Button1Click(object sender, EventArgs e)
 		{
-			string patharch=tabControl1.SelectedTab.Name;
-			StreamReader archivo=new StreamReader(patharch);
-			sc=new Scanner(archivo);
-			parse = new parser(sc);
-			parse.parse();
-			archivo.Close();
-			MessageBox.Show("Proceso de Compilación Finalizado.");
-			richTextBox1.Text=sc.errores+parse.errores;
-			button4.Enabled=true;
+			try{
+				string patharch=tabControl1.SelectedTab.Name;
+				StreamReader archivo=new StreamReader(patharch);
+				sc=new Scanner(archivo);
+				parse = new parser(sc);
+				parse.parse();
+				archivo.Close();
+				MessageBox.Show("Proceso de Compilación Finalizado.");
+				richTextBox1.Text=sc.errores+parse.errores;
+				generacionCodigo.generadorCodigo generador=new generacionCodigo.generadorCodigo();
+				Type tipo=generador.iniciarConstruccion(parse.raiz);
+
+				object ptInstance = Activator.CreateInstance(tipo, new object[0]);
+
+				tipo.InvokeMember("main",
+				                    BindingFlags.InvokeMethod,
+				                    null,
+				                    ptInstance,
+				                    new object[0]);				
+				button4.Enabled=true;
+			}
+			catch (Exception exc)
+			{
+				MessageBox.Show(exc.ToString());
+			}
 		}
 		
 		void Button4Click(object sender, EventArgs e)
